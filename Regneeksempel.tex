@@ -1,0 +1,84 @@
+% !TeX spellcheck = da_DK
+%! TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,oneside,10pt,danish]{report}
+
+%\usepackage[danish]{babel}%https://ctan.org/pkg/babel (Multilingual support for Plain TEX or LATEX)
+\usepackage[utf8]{inputenc}%https://ctan.org/pkg/inputenc (Accept different input encodings)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{icomma}%https://ctan.org/pkg/icomma (Intelligent commas for decimal numbers)
+\usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
+\usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
+\usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+
+%%%%%%%%%%%%%%%
+\usepackage{sagetex}
+%%%%%%%%%%%%%%%
+
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{FraSkTilZ}[8]%{net navn}{Sk navn}{Sk}{eksponent}{R/X}{Un}{c}{c navn}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken.
+% Fx er SK værdien variabel nummer 3
+\StrSubstitute{#3}{,}{.}[\Sk]%
+\StrSubstitute{#4}{,}{.}[\eksponent]%
+\StrSubstitute{#5}{,}{.}[\RX]%
+\StrSubstitute{#6}{,}{.}[\Un]%
+\StrSubstitute{#7}{,}{.}[\c]%
+
+%Gang Sk med eksponent
+\FPeval\FirstResult{\Sk * 10^\eksponent}%
+
+% Del Un i anden potens med Sk
+\FPeval\Z{(\Un^2) * \c / \FirstResult}%
+
+% Resultat i radianer
+\FParccot\InverseCot{\RX}
+
+% Cos af X/R
+\FPcos\CosResult{\InverseCot}
+
+% R
+\FPeval\R{clip(\CosResult*\Z)}
+\FPeval\Rrounded{clip(round(\CosResult*\Z:2))}
+
+% Sin af X/R
+\FPsin\SinResult{\InverseCot}
+
+% X
+\FPeval\X{clip(\SinResult*\Z)}
+\FPeval\Xrounded{clip(round(\SinResult*\Z:2))}
+
+\def\enhed{}%
+
+% Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
+\FPifgt{\Un}{500}%
+\renewcommand\enhed{\ohm}%
+\else
+ Lav til milli
+\FPeval\R{clip(\R * 1000)}
+\FPeval\Rrounded{clip(round(\R:2))}
+\FPeval\X{clip(\X * 1000)}
+\FPeval\Xrounded{clip(round(\X:2))}
+\renewcommand\enhed{\milli\ohm}%
+\fi
+
+\begin{align*}
+        \overline{Z}_{#1} &= \frac{U_n^2 \cdot c_{#8}}{S_{kn,#2}} \angle \text{arccot} \left( \frac{R}{X}\right) [\Omega]\\
+        &= \frac{#6^2 \cdot #7}{#3 \cdot 10^#4} \angle \text{arccot} \left( #5 \right)\\
+        &= \Rrounded+j\Xrounded \Omega
+\end{align*}
+}
+
+\begin{document}
+
+Lad mig lave en beregning fra SK til Z. Sk er angivet til 90 MVA ved RX 0,2. 
+
+\begin{FraSkTilZ}{max}{max}{90}{6}{0,3}{10000}{1}{max}
+\end{FraSkTilZ}
+
+$$2+2=\sage{2+2}$$
+
+\end{document}
