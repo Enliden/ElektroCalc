@@ -6,5 +6,8 @@
 \usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
 \usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
 \usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+\usepackage{import}
 
-\input{Common/fra-Sk-til-Z.tex}
+%\input{Common/fra-Sk-til-Z.tex}
+\subimport{Common/}{fra-Sk-til-Z.tex}
+\subimport{Common/}{Iz-min-kabeldim.tex}
