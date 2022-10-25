@@ -1,13 +1,28 @@
 \documentclass[a4paper,oneside,10pt,danish]{report}
 \input{Main-El-latex-regner.tex}
 
-\begin{document}
 
+\begin{document}
 Her kan man teste sine formler
 
-Lad mig lave en beregning fra SK til Z. Sk er angivet til 90 MVA ved RX 0,2. 
-
-\begin{FraSkTilZ}{max}{max}{90}{6}{0,2}{10000}{1}{max}
+ 
+Fra Sk til Z
+\begin{FraSkTilZ}{min}{max}{80}{6}{0,35}{10000}{1}{max}
 \end{FraSkTilZ}
+
+Kabel dimensionering strøm
+%{Ib}{Kt}{Ks}{Ktm}{Kd}{Kn}{Un} (spænding bruges tal at bestemme om det er Kd eller Kn)
+\begin{Iz,min}{132}{1,03}{0,85}{0,85}{0,98}{1}{400}
+\end{Iz,min}
+
+%{Un}{Sn}{ek}{Pcu}{prim/sek}
+\begin{Ztrafo}{10500}{630000}{0,04}{4600}{prim,t1}
+\end{Ztrafo}
+
+%{L(km)}{r}{x}{Un}
+\begin{Zkabel}{1}{0,125}{0,087}{1000}
+\end{Zkabel}
+
+
 
 \end{document}
