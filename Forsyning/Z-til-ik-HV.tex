@@ -1,0 +1,61 @@
+%Udarbejdet af Magnus Overby
+
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{ZtilIkHV}[8]
+%{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{Un}{IkType,IkNavn,NetNavn,TrafoNavn,kabelNavn}
+{
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\Rnet]%
+\StrSubstitute{#2}{,}{.}[\Xnet]%
+\StrSubstitute{#3}{,}{.}[\Rkab]%
+\StrSubstitute{#4}{,}{.}[\Xkab]%
+\StrSubstitute{#5}{,}{.}[\Rtra]%
+\StrSubstitute{#6}{,}{.}[\Xtra]%
+\StrSubstitute{#7}{,}{.}[\Un]%
+\readlist\arg{#8}
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Her regnes den samlede impedans (kan bruges til retangulær eller polær)
+\FPeval\totR{\Rnet + \Rkab + \Rtra}
+\FPeval\totX{\Xnet + \Xkab + \Xtra}
+\FPeval\Zpower{pow(2,\totR)+pow(2,\totX)}
+\FPeval\Z{root(2,\Zpower)}
+\Z
+
+%Her bestemmes outputtet
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{1fx}}{
+Ikke implementeret (1fx)
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{2fx}}{
+Ikke implementeret (2fx)
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{3fx}}{
+\FPeval\ik{clip(round(\Un / (\sqTre * \Z):2w))}
+\begin{align*}
+	I_{\arg[2]} 	&= \frac{U_{n}}{\sqrt{3} \cdot (Z_{\arg[3]} + Z_{\arg[4]} + Z_{\arg[5]})}\\
+						&= \frac{\Un}{\sqrt{3} \cdot ((\Rnet + j\Xnet)+(\Rtra + j\Xtra)+(\Rkab + j\Xkab))}\\
+						&= \ik A
+\end{align*}
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{1fn}}{
+Ikke implementeret (1fn)
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{2fn}}{
+Ikke implementeret (2fn)
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthenelse{\equal{\arg[1]}{3fn}}{
+Ikke implementeret (3fn)
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+}
+
+
