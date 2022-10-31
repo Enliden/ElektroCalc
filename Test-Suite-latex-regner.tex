@@ -1,4 +1,5 @@
 \documentclass[a4paper,oneside,10pt,danish]{report}
+\usepackage{import}
 \input{Main-El-latex-regner.tex}
 
 
@@ -19,8 +20,8 @@ Kabel dimensionering strøm
 \begin{Ztrafo}{10500}{630000}{0,04}{4600}{prim,t1}
 \end{Ztrafo}
 
-%{L(km)}{r}{x}{Un}
-\begin{Zkabel}{1}{0,125}{0,087}{1000}
+%{L(km)}{r}{x}{Un}{kabelNavn}
+\begin{Zkabel}{1}{0,125}{0,087}{1000}{W1}
 \end{Zkabel}
 
 %\begin{Stringtest}{1fx,1f.max.T1,net.min,trafo.T1,W1,6,7,8,1fx,10,11,12,13,14}{3}
@@ -29,5 +30,14 @@ Kabel dimensionering strøm
 \begin{ZtilIkHV}{0,5}{0,2}{0,206}{0,075}{0,175}{0,88}{10000}{3fx,1f.max.T1,net.min,trafo.T1,W1}
 %{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{Un}{IkType,IkNavn,NetNavn,TrafoNavn,kabelNavn}
 \end{ZtilIkHV}
+
+\begin{Ik1MinSekTrafoHV}{0,47}{1,35}{3,3}{1,2}{1,28}{6,88}{T3,net-max,kabel-max,min}
+%{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{trafoNavn,ZnetNavn,ZkabelNavn,IkMin/max}
+\end{Ik1MinSekTrafoHV}
+
+\begin{TrafoFuldlast}{800000}{10500}{T2,prim}
+%{Sn}{U_trafo}{trafoNavn,prim/sek}
+\end{TrafoFuldlast}
+
 
 \end{document}

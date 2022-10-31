@@ -21,7 +21,7 @@
 \FPeval\totX{\Xnet + \Xkab + \Xtra}
 \FPeval\Zpower{pow(2,\totR)+pow(2,\totX)}
 \FPeval\Z{root(2,\Zpower)}
-\Z
+
 
 %Her bestemmes outputtet
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,7 +35,7 @@ Ikke implementeret (2fx)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\equal{\arg[1]}{3fx}}{
-\FPeval\ik{clip(round(\Un / (\sqTre * \Z):2w))}
+\FPeval\ik{clip(round(\Un / (\sqTre * \Z):2))}
 \begin{align*}
 	I_{\arg[2]} 	&= \frac{U_{n}}{\sqrt{3} \cdot (Z_{\arg[3]} + Z_{\arg[4]} + Z_{\arg[5]})}\\
 						&= \frac{\Un}{\sqrt{3} \cdot ((\Rnet + j\Xnet)+(\Rtra + j\Xtra)+(\Rkab + j\Xkab))}\\

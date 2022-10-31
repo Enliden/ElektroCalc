@@ -1,7 +1,6 @@
-%Udarbejdet af Jakob Dupont
-
+%Udarbejdet af Magnus Overby
 % Her definerer jeg min "makro" som laver en udregning for mig
-\newenvironment{Ik1MinPrimTrafo}[7]%{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{Un}
+\newenvironment{Ik1MinSekTrafoHV}[7]%{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{trafoNavn,ZnetNavn,ZkabelNavn,IkMin/max}
 {
 % I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
 % Hver variabel starter med # og derefter nummeret i rækken.
@@ -12,7 +11,9 @@
 \StrSubstitute{#4}{,}{.}[\Xkab]%
 \StrSubstitute{#5}{,}{.}[\Rtra]%
 \StrSubstitute{#6}{,}{.}[\Xtra]%
-\StrSubstitute{#7}{,}{.}[\Un]%
+\readlist\arg{#7}
+
+\FPeval\sqrTre{root(2,3)}
 
 %Læg alle resistanser sammen.
 \FPeval\SumR{\Rnet + \Rkab + \Rtra}
@@ -21,52 +22,17 @@
 \FPeval\SumX{\Xnet + \Xkab + \Xtra}
 
 %my man pythagoros got the drip
-\FPeval\Z{ROOT(POW(\SumR,2) + POW(\SumX),2)}
+\FPeval\Zpow{pow(2,\SumR) + pow(2,\SumX)}
+\FPeval\Z{root(2,\Zpow)}
 
 %Regn korslutningen
-\
+\FPeval\result{clip(round(10000/(\Z * \sqrTre) * 1/ \sqrTre:2))}
 
-%Gang Sk med eksponent
-\FPeval\FirstResult{\Sk * 10^\eksponent}%
-
-% Del Un i anden potens med Sk
-\FPeval\Z{(\Un^2) * \c / \FirstResult}%
-
-% Resultat i radianer
-\FParccot\InverseCot{\RX}
-
-% Cos af X/R
-\FPcos\CosResult{\InverseCot}
-
-% R
-\FPeval\R{clip(\CosResult*\Z)}
-\FPeval\Rrounded{clip(round(\CosResult*\Z:2))}
-
-% Sin af X/R
-\FPsin\SinResult{\InverseCot}
-
-% X
-\FPeval\X{clip(\SinResult*\Z)}
-\FPeval\Xrounded{clip(round(\SinResult*\Z:2))}
-
-\def\enhed{}%
-
-% Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
-\FPifgt{\Un}{500}%
-\renewcommand\enhed{\ohm}%
-\else
- %Lav til milli
-\FPeval\R{clip(\R * 1000)}
-\FPeval\Rrounded{clip(round(\R:2))}
-\FPeval\X{clip(\X * 1000)}
-\FPeval\Xrounded{clip(round(\X:2))}
-\renewcommand\enhed{\milli \ohm}%
-\fi
-
+\def\enhed{A}%
 \begin{align*}
-        \overline{Z}_{#1} &= \frac{U_n^2 \cdot c_{#8}}{S_{kn,#2}} \angle \text{arccot} \left( \frac{R}{X}\right) [\unit{\enhed}]\\
-        &= \frac{#6^2 \cdot #7}{#3 \cdot 10^#4} \angle \text{arccot} \left( #5 \right)\\
-        &= \Rrounded+j\Xrounded \unit{\enhed}
+   	I'_{k1,\arg[4],\arg[1]} &= \frac{U_{n}}{\sqrt{3} \cdot (Z_{\arg[2]} + Z_{\arg[3]} + Z_{\arg[1]})} \cdot \frac{1}{\sqrt{3}}\\
+   	&= \frac{10000}{\sqrt{3} \cdot ((\Rnet + j\Xnet) + (\Rkab + j\Xkab) + (\Rtra + j\Xtra))} \cdot \frac{1}{\sqrt{3}}\\
+   	&=\result \enhed
 \end{align*}
 }
 
