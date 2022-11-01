@@ -1,0 +1,280 @@
+\documentclass[11pt]{report}
+
+
+%\usepackage[danish]{babel}%https://ctan.org/pkg/babel (Multilingual support for Plain TEX or LATEX)
+\usepackage[utf8]{inputenc}%https://ctan.org/pkg/inputenc (Accept different input encodings)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{icomma}%https://ctan.org/pkg/icomma (Intelligent commas for decimal numbers)
+\usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
+\usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
+\usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+\usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{calculator}%https://ctan.org/pkg/calculator (Use LATEX as a scientific calculator)
+\usepackage{icomma}%https://ctan.org/pkg/icomma (Intelligent commas for decimal numbers)
+\usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
+%\usepackage{tabu}%https://ctan.org/pkg/tabu (Flexible LATEX tabulars)
+\usepackage{ifthen}%https://ctan.org/pkg/ifthen (Conditional commands in LATEX documents)
+\usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
+\usepackage{xintexpr}%https://ctan.org/tex-archive/macros/generic/xint ()
+\usepackage{etoolbox}%https://ctan.org/pkg/etoolbox (e-TEX tools for LATEX)
+\usepackage{makecell}%https://ctan.org/pkg/makecell (Tabular column heads and multilined cells)
+\usepackage{bm}%https://ctan.org/pkg/bm (Access bold symbols in maths mode)
+\usepackage{xfp}
+
+
+
+% Jeg bruger myspace inden enhed i klammer, og synes der skal være lidt afstand
+\def\myspace{\hspace{5pt}}
+% Jeg bruger ofte rod(3) og definerer den her for nemmere adgang
+\FProot\RodAfTre{3}{2}%
+
+% Her ændrer jeg i den måde SI pakken viser tal på. Bla ved komma i stedet for punktum
+\sisetup{output-decimal-marker = {,}, output-complex-root=\ensuremath{\mathrm{j}}, complex-root-position=before-number, exponent-product = \cdot, output-product = \cdot, detect-weight=true, detect-family=true, detect-shape=true, detect-all=true, per-mode=fraction}
+
+\begin{document}
+
+\newenvironment{Rect=>Polar}[2]%{R}{X}%
+{
+\StrSubstitute{#1}{,}{.}[\R]%
+\StrSubstitute{#2}{,}{.}[\X]%
+
+% Find RX forholdet
+%\FPeval\RX{clip(round(\R / \X:2))}%
+\FPeval\RX{\R / \X}%
+\FPeval\XR{\X / \R}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+%Inversecot: \InverseCot\\
+
+% Fra radianer til grader
+\FPeval\AngleResult{\InverseCot*180/\FPpi}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{clip(round(\R/\cosphi:2))}%
+
+% Afrund grader
+\FPeval\AngleResult{clip(round(\AngleResult:2))}%
+
+\num{\Z}$\angle$\num{\AngleResult}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{IK,3F=>IK,2F}[3]%{max}{IK3F}{A/kA}
+{
+\StrSubstitute{#2}{,}{.}[\IK]%
+
+% Regn IK
+\FPeval\res{clip(round(\IK * (\RodAfTre / 2):2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k2,#1} &= I_{k3,#1} \cdot \frac{\sqrt{3}}{2} \myspace [\si{\ampere}]\\
+        &= \num{\IK} \cdot \frac{\sqrt{3}}{2}\\
+        &= \SI{\res}{#3}
+    \end{split}
+\end{equation}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{IK,2F=>IK,3F}[3]%{navn}{IK2F}{A/kA}
+{
+\StrSubstitute{#2}{,}{.}[\IK]%
+
+% Regn IK
+\FPeval\res{clip(round(\IK * (2 / \RodAfTre):2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k3,#1} &= I_{k2,#1} \cdot \frac{2}{\sqrt{3}} \myspace [\si{\ampere}]\\
+        &= \num{\IK} \cdot \frac{2}{\sqrt{3}}\\
+        &= \SI{\res}{#3}
+    \end{split}
+\end{equation}
+
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{HV@Sk=>Z}[8]%{net navn}{Sk navn}{Sk}{eksponent}{R/X}{Un}{c}{c navn}
+{
+\StrSubstitute{#3}{,}{.}[\Sk]%
+\StrSubstitute{#4}{,}{.}[\eksponent]%
+\StrSubstitute{#5}{,}{.}[\RX]%
+\StrSubstitute{#6}{,}{.}[\Un]%
+\StrSubstitute{#7}{,}{.}[\c]%
+
+%Gang Sk med eksponent
+\FPeval\FirstResult{\Sk * 10^\eksponent}%
+
+% Del Un i anden potens med Sk
+\FPeval\Z{(\Un^2) * \c / \FirstResult}%
+
+% Resultat i radianer
+\FParccot\InverseCot{\RX}
+
+% Cos af X/R
+\FPcos\CosResult{\InverseCot}
+
+% R
+\FPeval\R{clip(\CosResult*\Z)}
+\FPeval\Rrounded{clip(round(\CosResult*\Z:2))}
+
+% Sin af X/R
+\FPsin\SinResult{\InverseCot}
+
+% X
+\FPeval\X{clip(\SinResult*\Z)}
+\FPeval\Xrounded{clip(round(\SinResult*\Z:2))}
+
+\def\enhed{}%
+
+\FPifgt{\Un}{500}%
+\renewcommand\enhed{\ohm}%
+\else
+% Lav til milli
+\FPeval\R{clip(\R * 1000)}
+\FPeval\Rrounded{clip(round(\R:2))}
+\FPeval\X{clip(\X * 1000)}
+\FPeval\Xrounded{clip(round(\X:2))}
+\renewcommand\enhed{\milli\ohm}%
+\fi
+
+\begin{equation}
+    \begin{split}
+        \overline{Z}_{#1} &= \frac{U_n^2 \cdot c_{#8}}{S_{kn,#2}} \angle \text{arccot} \left( \frac{R}{X} \right) \myspace [\Omega]\\
+        &= \frac{#6^2 \cdot #7}{#3 \cdot 10^#4} \angle \text{arccot} \left( #5 \right)\\
+        &=
+        \left \{
+        \begin{tabular}{r}
+            \begin{Rect=>Polar}{\R}{\X}\end{Rect=>Polar}\ \si{\enhed}\\
+            {\Rrounded+j\Xrounded}\unit{\enhed}
+        \end{tabular}
+        \right.
+    \end{split}
+\end{equation}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{HV@Sk=>Ik}[3]%{navn}{Skn}{Unet}
+{
+\StrSubstitute{#2}{,}{.}[\Skn]%
+\StrSubstitute{#3}{,}{.}[\Unet]%
+
+\FPeval\UnetShort{clip(round(\Unet / 1000:2))}%
+\FPpow\potens{10}{6}%
+
+\FPeval\IkTreF{clip(round(((\Skn * \potens)/(\Unet * root(2,3)) / 1000):2))}%
+
+% Find IK,2F ved at gange med 2/rod 3
+\FPeval\IkToF{clip(round(\IkTreF * (root(2,3) / 2):2))}%
+
+    \begin{equation}
+        \begin{split}
+            I_{k3,#1} &= \frac{S_{k,#1}}{\sqrt{3} \cdot U_{n}} \myspace \si{[\ampere]}\\
+            &= \frac{\num{\Skn e6}}{\sqrt{3} \cdot \num{\UnetShort e3}}\\
+            &= \SI{\IkTreF}{\si{\kilo\ampere}}
+        \end{split}
+    \end{equation}
+    
+    \begin{equation}
+        \begin{split}
+            I_{k2,#1} &= I_{k3,#1} \cdot \frac{\sqrt 3}{2} \myspace \si{[\ampere]}\\
+            &= \num{\IkTreF} \cdot \frac{\sqrt 3}{2}\\
+            &= \SI{\IkToF}{\si{\kilo\ampere}}
+        \end{split}
+    \end{equation}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{HV@I'K,3F=>IK,3F,sek@trafo}[5]%{navn}{trafoNavn}{IK}{U1}{U2}
+{
+\StrSubstitute{#3}{,}{.}[\IK]%
+\StrSubstitute{#4}{,}{.}[\U]%
+\StrSubstitute{#5}{,}{.}[\UU]%
+
+\FPeval\res{clip(round(\IK * (\U / \UU) / 1000:2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k3,#1,LV} &= I^{\prime}_{k3,#1,HV} \cdot \frac{U_{1,#2}}{U_{2,#2}} \myspace [\si{\ampere}]\\
+        &= \num{\IK} \cdot \frac{\num{\U}}{\num{\UU}}\\
+        &= \SI{\res}{\kilo\ampere}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    I_{k1,LV} \approx I_{k3,LV}
+\end{equation}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{HV@I'K,FN=>IK,FN,sek@trafo}[4]%{trafoNavn}{IK}{U1}{U2}
+{
+\StrSubstitute{#2}{,}{.}[\IK]%
+\StrSubstitute{#3}{,}{.}[\U]%
+\StrSubstitute{#4}{,}{.}[\UU]%
+
+\FProot\RodAfTre{3}{2}%
+
+\FPeval\res{clip(round(\IK * \RodAfTre * (\U / \UU) / 1000:2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k1,LV} &= I^{\prime}_{k1} \cdot \sqrt{3} \cdot \frac{U_{1,#1}}{U_{2,#1}} \myspace [\si{A}]\\
+        &= \num{\IK} \cdot \sqrt{3} \cdot \frac{\num{\U}}{\num{\UU}}\\
+        &= \SI{\res}{\kilo\ampere}
+    \end{split}
+\end{equation}
+
+\begin{equation*}
+    I_{k1,LV} \approx I_{k3,LV}
+\end{equation*}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\section{Ik3 til Ik2}
+\begin{IK,3F=>IK,2F}{navn}{12000}{A}
+\end{IK,3F=>IK,2F}
+
+\section{Ik2 til Ik3}
+\begin{IK,2F=>IK,3F}{navn}{10392,305}{A}
+\end{IK,2F=>IK,3F}
+
+\section{Sk til Z}
+\begin{HV@Sk=>Z}{max}{min}{120}{6}{0,3}{10000}{1}{max}%{net navn}{Sk navn}{Sk}{eksponent}{R/X}{Un}{c}{c navn}
+\end{HV@Sk=>Z}
+
+\section{Sk til Ik}
+\begin{HV@Sk=>Ik}{max}{100}{10000}%{navn}{Skn}{Unet}
+\end{HV@Sk=>Ik}
+
+\section{I'K,3F til IK,3F,sek over trafo}
+\begin{HV@I'K,3F=>IK,3F,sek@trafo}{max}{T5}{500}{10500}{400}%{navn}{trafoNavn}{IK}{U1}{U2}
+\end{HV@I'K,3F=>IK,3F,sek@trafo}
+
+\section{I'K,1F til IK,1F,sek over trafo}
+\begin{HV@I'K,FN=>IK,FN,sek@trafo}{T5}{400}{10500}{400}%{trafoNavn}{IK}{U1}{U2}
+\end{HV@I'K,FN=>IK,FN,sek@trafo}
+
+
+\end{document}
