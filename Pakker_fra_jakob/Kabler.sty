@@ -1,0 +1,172 @@
+% !TeX spellcheck = da_DK
+% !TeX encoding = UTF-8
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HV@kabel=>korrektionsfaktorer}[8]%{Iz}{kt}{ks}{kd}{ktm}{kmetode}{vis tabel (ja/nej)}{vis udregning (ja/nej)}
+{
+\StrSubstitute{#1}{,}{.}[\Iz]%
+\StrSubstitute{#2}{,}{.}[\kt]%
+\StrSubstitute{#3}{,}{.}[\ks]%
+\StrSubstitute{#4}{,}{.}[\kd]%
+\StrSubstitute{#5}{,}{.}[\ktm]%
+\StrSubstitute{#6}{,}{.}[\koplaegning]%
+
+\FPeval\res{clip(round(\Iz * \kt * \ks * \kd * \ktm * \koplaegning:2))}%
+
+\renewcommand\theadalign{cc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+\ifthenelse{\equal{\detokenize{#7}}{\detokenize{ja}}}
+{
+\emph{Korrektioner for kablet:}\\
+\begin{tabularx}{1\textwidth} { 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X | }	
+        \hline
+        \thead{\bm{$k_{t}$} \\\small(tabel 62/63)} & \thead{\bm{$k_{s,jord}$} \\\small(tabel 64)} & \thead{\bm{$k_d$} \\\small(tabel 65)} & \thead{\bm{$k_{tm}$} \\\small(tabel 66)} & \thead{\bm{$k_{opl\text{æ}gning}$} \\\small(tabel 67--69)} \\
+        \hline
+        \makecell{\num{\kt}} & \makecell{\num{\ks}} & \makecell{\num{\kd}} & \makecell{\num{\ktm}} & \makecell{\num{\koplaegning}}  \\
+    \hline
+	
+\end{tabularx}	
+}
+{
+
+}%
+
+
+
+\def\faktorer{}
+\def\tal{}
+\def\tmp{}%
+
+%kt
+\FPifeq\kt{1}
+\renewcommand{\tmp}{}%
+\else
+\appto\faktorer{\cdot k_t}
+\appto\tal{\cdot \num{\kt}}
+\fi
+
+%ks
+\FPifeq\ks{1}
+\renewcommand{\tmp}{}%
+\else
+\appto\faktorer{\cdot k_{s,jord}}
+\appto\tal{\cdot \num{\ks}}
+\fi
+
+%kd
+\FPifeq\kd{1}
+\renewcommand{\tmp}{}%
+\else
+\appto\faktorer{\cdot k_{d}}
+\appto\tal{\cdot \num{\kd}}
+\fi
+
+%kd
+\FPifeq\ktm{1}
+\renewcommand{\tmp}{}%
+\else
+\appto\faktorer{\cdot k_{tm}}
+\appto\tal{\cdot \num{\ktm}}
+\fi
+
+%koplægning
+\FPifeq\koplaegning{1}
+\renewcommand{\tmp}{}%
+\else
+\appto\faktorer{\cdot k_{opl\text{æ}gning}}
+\appto\tal{\cdot \num{\koplaegning}}
+\fi
+    \ifthenelse{\equal{\detokenize{#8}}{\detokenize{ja}}}
+    {
+\begin{equation}
+    \begin{split}
+        %I_{z,korr} &= I_{z,tabel} \cdot k_t \cdot k_s \cdot k_d \cdot k_{tm} \cdot k_{opl\text{æ}gning} \myspace [A]\\
+        I_{z,korr} &= I_{z,tabel} \faktorer \myspace [\si{\ampere}]\\
+        %&= \num{\Iz} \cdot \num{\kt} \cdot \num{\ks} \cdot \num{\kd} \cdot \num{\ktm}\\
+        &= \num{\Iz} \tal\\
+        &= \SI{\res}{\ampere}
+    \end{split}
+\end{equation}
+    }{ }%
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@kabel=>Z}[4]%{navn}{længde}{r}{x}
+{
+\StrSubstitute{#1}{,}{,}[\navn]%
+\StrSubstitute{#2}{,}{.}[\lengde]%
+\StrSubstitute{#2}{,}{,}[\leng]%
+\StrSubstitute{#3}{,}{.}[\r]%
+\StrSubstitute{#4}{,}{.}[\x]%
+
+% Gang r med længde
+\FPeval\R{\lengde * r}%
+
+% Gang x med længde
+\FPeval\X{\lengde * x}%
+
+% Afrund
+\FPeval\Rrounded{clip(round(\R:2))}%
+\FPeval\Xrounded{clip(round(\X:2))}%
+}{
+\begin{equation}
+    \begin{split}
+        \overline{Z}_{\navn} & = l \cdot \left( r_{k} + \text{j}x_{k} \right) \myspace [\Omega]\\
+        & = \leng \cdot \left( \num{\r + j\x} \right)\\
+        & =
+        \left \{
+        \begin{tabular}{r}
+            \begin{Rect=>Polar}{\R}{\X}\end{Rect=>Polar} \si{\ohm}\\
+            \SI{\Rrounded+j\Xrounded}{\ohm}
+        \end{tabular}
+        \right.
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@kabeldata}[7]%{kabeltype}{tværsnit}{strømværdi}{r}{x}{IK,leder}{IK,skærm}
+{
+\StrSubstitute{#3}{,}{.}[\I]%
+\StrSubstitute{#4}{,}{.}[\r]%
+\StrSubstitute{#5}{,}{.}[\x]%
+\StrSubstitute{#6}{,}{.}[\IKleder]%
+\StrSubstitute{#7}{,}{.}[\IKskaerm]%
+
+\renewcommand\theadalign{cc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+\emph{Kabeldata for #1 #2 \si{mm^2}:}\\
+\begin{tabularx}{1\textwidth} { 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X | }
+   \hline
+   \thead{Strømværdi} & \thead{\bm{$r_{leder}$}} & \thead{\bm{$x_{leder}$}} & \thead{\bm{$I_{k,1s,leder}$}} & \thead{\bm{$I_{k,1s,skærm}$}} \\
+   \hline
+   \makecell{\SI{\I}{A}} & \makecell{\SI{\r}\ohm/km} & \makecell{\SI{\x}{\ohm/km}} & \makecell{\SI{\IKleder}{kA}} & \makecell{\SI{\IKskaerm}{kA}}  \\
+  \hline
+  \end{tabularx}
+
+}
+
+%--------------------------------------------------
+
+

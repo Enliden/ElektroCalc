@@ -1,0 +1,765 @@
+% !TeX spellcheck = da_DK
+% !TeX encoding = UTF-8
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HSP@relae=>indstilling}[4]%{I>}{t>}{I>>}{t>>}
+{
+\StrSubstitute{#1}{,}{.}[\iHak]%
+\StrSubstitute{#2}{,}{.}[\tHak]%
+\StrSubstitute{#3}{,}{.}[\iHakHak]%
+\StrSubstitute{#4}{,}{.}[\tHakHak]%
+
+\renewcommand\theadalign{cc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+\ifthenelse{\equal{\iHakHak}{\string -}}
+{
+\def\ResA{-}%
+}
+{
+\def\ResA{\SI{\iHakHak}{A}}%
+}%
+
+\ifthenelse{\equal{\tHakHak}{\string -}}
+{
+\def\ResB{-}%
+}{
+\def\ResB{\SI{\tHakHak}{s}}%
+}%
+
+\begin{center}
+    \begin{tabu}
+        to 1.0\textwidth { | X[c] | X[c] | X[c] | X[c] | }
+        \hline
+        \thead{\bm{$I {\scriptstyle >}$}} &
+        \thead{\bm{$t {\scriptstyle >}$}} &
+        \thead{\bm{$I {\scriptstyle \!>{}\!\!>}$}} &
+        \thead{\bm{$t {\scriptstyle >{}\!\!>}$}} \\
+        \hline
+        \makecell{\SI{\iHak}{A}} & \makecell{\SI{\tHak}{s}} & \makecell{\ResA} & \makecell{\ResB}  \\
+        \hline
+    \end{tabu}
+\end{center}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Sk=>Z}[7]%{net navn}{Sk navn}{Sk}{eksponent}{R/X}{Un}{c}
+{
+\StrSubstitute{#3}{,}{.}[\Sk]%
+\StrSubstitute{#4}{,}{.}[\eksponent]%
+\StrSubstitute{#5}{,}{.}[\RX]%
+\StrSubstitute{#6}{,}{.}[\Un]%
+\StrSubstitute{#7}{,}{.}[\c]%
+
+%Gang Sk med eksponent
+\FPeval\FirstResult{\Sk * 10^\eksponent}%
+
+% Del Un i anden potens med Sk
+\FPeval\Z{(\Un^2) * \c / \FirstResult}%
+
+% Resultat i radianer
+\FParccot\InverseCot{\RX}
+
+% Cos af X/R
+\FPcos\CosResult{\InverseCot}
+
+% R
+\FPeval\R{clip(\CosResult*\Z)}
+\FPeval\Rrounded{clip(round(\CosResult*\Z:2))}
+
+% Sin af X/R
+\FPsin\SinResult{\InverseCot}
+
+% X
+\FPeval\X{clip(\SinResult*\Z)}
+\FPeval\Xrounded{clip(round(\SinResult*\Z:2))}
+
+\def\enhed{}%
+
+\FPifgt{\Un}{500}%
+\renewcommand\enhed{\ohm}%
+\else
+% Lav til milli
+\FPeval\R{clip(\R * 1000)}
+\FPeval\Rrounded{clip(round(\R:2))}
+\FPeval\X{clip(\X * 1000)}
+\FPeval\Xrounded{clip(round(\X:2))}
+\renewcommand\enhed{\milli\ohm}%
+\fi
+
+\begin{equation}
+    \begin{split}
+        \overline{Z}_{#1} &= \frac{U_n^2 \cdot c}{S_{kn,#2}} \angle \text{arccot} \left( \frac{R}{X} \right) \myspace [\Omega]\\
+        &= \frac{#6^2 \cdot #7}{#3 \cdot 10^#4} \angle \text{arccot} \left( #5 \right)\\
+        &=
+        \left \{
+        \begin{tabular}{r}
+            \begin{Rect=>Polar}{\R}{\X}\end{Rect=>Polar}\ \si{\enhed}\\
+            \SI{\Rrounded+j\Xrounded}{\enhed}
+        \end{tabular}
+        \right.
+    \end{split}
+\end{equation}
+
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Sk=>Ik}[3]%{navn}{Skn}{Unet}
+{
+\StrSubstitute{#2}{,}{.}[\Skn]%
+\StrSubstitute{#3}{,}{.}[\Unet]%
+
+\FPeval\UnetShort{clip(round(\Unet / 1000:2))}%
+\FPpow\potens{10}{6}%
+
+\FPeval\IkTreF{clip(round(((\Skn * \potens)/(\Unet * root(2,3)) / 1000):2))}%
+
+% Find IK,2F ved at gange med 2/rod 3
+\FPeval\IkToF{clip(round(\IkTreF * (root(2,3) / 2):2))}%
+
+\begin{tabu}
+    to 1\textwidth { X[c] X[c] }
+    \vbox{
+    \begin{equation}
+        \begin{split}
+            I_{k3,#1} &= \frac{S_{k,#1}}{\sqrt{3} \cdot U_{n}} \myspace \si{[\ampere]}\\
+            &= \frac{\num{\Skn e6}}{\sqrt{3} \cdot \num{\UnetShort e3}}\\
+            &= \SI{\IkTreF}{\si{\kilo\ampere}}
+        \end{split}
+    \end{equation}
+    }
+    &
+    \vbox{
+    \begin{equation}
+        \begin{split}
+            I_{k2,#1} &= I_{k3,#1} \cdot \frac{\sqrt 3}{2} \myspace \si{[\ampere]}\\
+            &= \num{\IkTreF} \cdot \frac{\sqrt 3}{2}\\
+            &= \SI{\IkToF}{\si{\kilo\ampere}}
+        \end{split}
+    \end{equation}
+    }
+\end{tabu}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HSP@Z=>S}[5]%{navn}{R}{X}{ohm/milli}{U}
+{
+\StrSubstitute{#2}{,}{.}[\R]%
+\StrSubstitute{#3}{,}{.}[\X]%
+\StrSubstitute{#5}{,}{.}[\U]%
+
+% Midlertidig potens
+\FPpow\potens{10}{-6}
+
+% Find RX forholdet
+\FPeval\RX{\R/\X}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+
+% Fra radianer til grader
+\FPeval\AngleResult{\InverseCot*180/\FPpi}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{clip(round(\R/\cosphi:2))}%
+
+\FPeval\res{clip(round(((\U * \U) / \Z) * \potens :2))}%
+
+\ifthenelse{\equal{\detokenize{#4}}{\detokenize{milli}}}
+{
+\def\enhed{GVA}
+}
+{
+\def\enhed{MVA}
+}
+
+\begin{equation}
+    \begin{split}
+        S_{#1} &= \frac{U_n^2}{\sum \overline{Z}} \myspace [VA]\\
+        &= \frac{\U^2}{\num{\Z}}\\
+        &= \SI{\res}{\enhed}
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@I'K,3F=>IK,3F,sek@trafo}[5]%{navn}{trafoNavn}{IK}{U1}{U2}
+{
+\StrSubstitute{#3}{,}{.}[\IK]%
+\StrSubstitute{#4}{,}{.}[\U]%
+\StrSubstitute{#5}{,}{.}[\UU]%
+
+\FPeval\res{clip(round(\IK * (\U / \UU) / 1000:2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k3,#1,LV} &= I^{\prime}_{k3,#1,HV} \cdot \frac{U_{1,#2}}{U_{2,#2}} \myspace [\si{\ampere}]\\
+        &= \num{\IK} \cdot \frac{\num{\U}}{\num{\UU}}\\
+        &= \SI{\res}{\kilo\ampere}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    I_{k1,LV} \approx I_{k3,LV}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@I'K,FN=>IK,FN,sek@trafo}[4]%{trafoNavn}{IK}{U1}{U2}
+{
+\StrSubstitute{#2}{,}{.}[\IK]%
+\StrSubstitute{#3}{,}{.}[\U]%
+\StrSubstitute{#4}{,}{.}[\UU]%
+
+\FProot\RodAfTre{3}{2}%
+
+\FPeval\res{clip(round(\IK * \RodAfTre * (\U / \UU) / 1000:2))}%
+
+\begin{equation}
+    \begin{split}
+        I_{k1,LV} &= I^{\prime}_{k1} \cdot \sqrt{3} \cdot \frac{U_{1,#1}}{U_{2,#1}} \myspace [\si{A}]\\
+        &= \num{\IK} \cdot \sqrt{3} \cdot \frac{\num{\U}}{\num{\UU}}\\
+        &= \SI{\res}{\kilo\ampere}
+    \end{split}
+\end{equation}
+
+\begin{equation*}
+    I_{k1,LV} \approx I_{k3,LV}
+\end{equation*}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Znet+Zkabel=>IK,2F}[9]%{navn}{Net navn}{Rnet}{Xnet}{kabelnavn}{Rkabel}{Xkabel}{Unet}{c}
+{
+\StrSubstitute{#3}{,}{.}[\Rnet]%
+\StrSubstitute{#4}{,}{.}[\Xnet]%
+\StrSubstitute{#6}{,}{.}[\Rkabel]%
+\StrSubstitute{#7}{,}{.}[\Xkabel]%
+\StrSubstitute{#8}{,}{.}[\Unet]%
+\StrSubstitute{#9}{,}{.}[\c]%
+
+\FPeval\SumR{\Rnet + \Rkabel}%
+\FPeval\SumX{\Xnet + \Xkabel}%
+
+% Find RX forholdet
+\FPeval\RX{\SumR/\SumX}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+
+% Fra radianer til grader
+\FPeval\AngleResult{\InverseCot*180/\FPpi}%
+\FPeval\AngleResultRounded{clip(round(\AngleResult:2))}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{\SumR/\cosphi}%
+\FPeval\Zrounded{clip(round(\Z:2))}%
+
+% Regn IK
+\FPeval\IK{clip(round(((\Unet * \c) / (\RodAfTre * \Z) * (\RodAfTre / 2)):2))}%
+
+\ifthenelse{\lengthtest{\Unet pt > 1000pt}}
+{
+\FPeval\Utmp{clip(round(\Unet / 1000:2))}%
+\def\TMP{\num{\Utmp e3}}%
+}
+{
+\def\TMP{\num{\Unet}}%
+}
+
+\ifthenelse{\lengthtest{\IK pt > 1000pt}}
+{
+\FPeval\IK{clip(round(\IK / 1000:2))}%
+\def\unit{\kilo\ampere}%
+}
+{
+\def\unit{\ampere}%
+}
+
+\begin{equation}
+    \begin{split}
+        \overline{I}_{k2,#1} &= \frac{U_n \cdot c}{\sqrt{3} \cdot (\overline{Z}_{net,#2} + \overline{Z}_{#5})} \cdot \frac{\sqrt{3}}{2} \myspace \si{[\ampere]}\\
+        &= \frac{\TMP \cdot #9}{\sqrt{3} \cdot (\num{\Rnet+j\Xnet} + \num{\Rkabel+j\Xkabel})} \cdot \frac{\sqrt{3}}{2}\\
+        &= \num{\IK}\angle-\num{\AngleResultRounded}\ \si{\unit}
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Znet+Zkabel=>IK,3F}[9]%{navn}{Net navn}{Rnet}{Xnet}{kabelnavn}{Rkabel}{Xkabel}{Unet}{c}
+{
+\StrSubstitute{#3}{,}{.}[\Rnet]%
+\StrSubstitute{#4}{,}{.}[\Xnet]%
+\StrSubstitute{#6}{,}{.}[\Rkabel]%
+\StrSubstitute{#7}{,}{.}[\Xkabel]%
+\StrSubstitute{#8}{,}{.}[\Unet]%
+\StrSubstitute{#9}{,}{.}[\c]%
+
+\FPeval\SumR{clip(\Rnet + \Rkabel)}%
+\FPeval\SumX{clip(\Xnet + \Xkabel)}%
+
+% Find RX forholdet
+\FPeval\RX{\SumR/\SumX}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+
+% Fra radianer til grader
+\FPeval\AngleResult{clip(round(\InverseCot*180/\FPpi:2))}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{clip(\SumR/\cosphi)}%
+
+% Regn IK
+\FPeval\IK{clip(round(((\Unet * \c) / (\RodAfTre * \Z)):2))}%
+
+\ifthenelse{\lengthtest{\Unet pt > 1000pt}}
+{
+\FPeval\Utmp{clip(round(\Unet / 1000:2))}%
+\renewcommand\TMP{\num{\Utmp e3}}%
+}
+{
+\renewcommand\TMP{\num{\Unet}}%
+}
+
+\ifthenelse{\lengthtest{\IK pt > 1000pt}}
+{
+\FPeval\IK{clip(round(\IK / 1000:2))}%
+\renewcommand\unit{\kilo\ampere}%
+}
+{
+\renewcommand\unit{\ampere}%
+}
+
+\begin{equation}
+    \begin{split}
+        \overline{I}_{k3,#1} &= \frac{U_n \cdot c}{\sqrt{3} \cdot (\overline{Z}_{#2} + \overline{Z}_{#5})} \myspace [\si{\ampere}]\\
+        &= \frac{\TMP \cdot #9}{\sqrt{3} \cdot (\num{\Rnet+j\Xnet} + \num{\Rkabel+j\Xkabel})}\\
+        &= \num{\IK}\angle-\num{\AngleResult}\ \si{\unit}
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Znet+Zkabel+Ztrafo=>I'K,3F}[1]%{min/max | net,navn | Rnet | Xnet | KabelNavn | Rkabel | Xkabel | TrafoNavn | Rtrafo | Xtrafo | Unet | c}
+{
+\setsepchar{ | }
+\readlist\args{#1}
+
+\StrSubstitute{\args[3]}{,}{.}[\Rnet]%
+\StrSubstitute{\args[4]}{,}{.}[\Xnet]%
+\StrSubstitute{\args[6]}{,}{.}[\Rkabel]%
+\StrSubstitute{\args[7]}{,}{.}[\Xkabel]%
+\StrSubstitute{\args[9]}{,}{.}[\Rtrafo]%
+\StrSubstitute{\args[10]}{,}{.}[\Xtrafo]%
+\StrSubstitute{\args[11]}{,}{.}[\Unet]%
+\StrSubstitute{\args[12]}{,}{.}[\c]%
+
+\FPeval\SumR{clip(round(\Rnet + \Rkabel + \Rtrafo:2))}%
+\FPeval\SumX{clip(round(\Xnet + \Xkabel + \Xtrafo:2))}%
+
+% Find RX forholdet
+\FPeval\RX{\SumR/\SumX}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+
+% Fra radianer til grader
+\FPeval\AngleResult{clip(round(\InverseCot*180/\FPpi:2))}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{clip(round(\SumR/\cosphi:2))}%
+
+% Regn IK
+\FPeval\IK{clip(round((\Unet * \c) / (\RodAfTre * \Z):2))}%
+
+\ifthenelse{\Unet>1000}
+{
+\FPeval\Utmp{clip(round(\Unet / 1000:2))}%
+\renewcommand\TMP{\num{\Utmp e3}}%
+}
+{
+\renewcommand\TMP{\num{\Unet}}%
+}
+\begin{equation}
+    \begin{split}
+        \overline{I^{\prime}}_{k3,\args[1]} &= \frac{U_n \cdot c}{\sqrt{3} \cdot (\overline{Z}_{\args[2]} + \overline{Z}_{\args[5]} + \overline{Z}_{\args[8]})} \myspace [\si{A}]\\
+        &= \frac{\TMP \cdot \args[12]}{\sqrt{3} \cdot (\num{\Rnet+j\Xnet} + \num{\Rkabel+j\Xkabel} + \num{\Rtrafo+j\Xtrafo})}\\
+        &= \num{\IK}\angle\num{-\AngleResult}\ \si{A}
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Znet+Zkabel+Ztrafo=>I'K,FN}[1]%{min/max | net,navn | Rnet | Xnet | KabelNavn | Rkabel | Xkabel | TrafoNavn | Rtrafo | Xtrafo | Unet}
+{
+\setsepchar{ | }
+\readlist\args{#1}
+
+\StrSubstitute{\args[3]}{,}{.}[\Rnet]%
+\StrSubstitute{\args[4]}{,}{.}[\Xnet]%
+\StrSubstitute{\args[6]}{,}{.}[\Rkabel]%
+\StrSubstitute{\args[7]}{,}{.}[\Xkabel]%
+\StrSubstitute{\args[9]}{,}{.}[\Rtrafo]%
+\StrSubstitute{\args[10]}{,}{.}[\Xtrafo]%
+\StrSubstitute{\args[11]}{,}{.}[\Unet]%
+
+\FPeval\SumR{clip(round(\Rnet + \Rkabel + \Rtrafo:2))}%
+\FPeval\SumX{clip(round(\Xnet + \Xkabel + \Xtrafo:2))}%
+
+% Find RX forholdet
+\FPeval\RX{\SumR/\SumX}%
+
+% Tag invers
+\FParccot\InverseCot{\RX}
+
+% Fra radianer til grader
+\FPeval\AngleResult{clip(round(\InverseCot*180/\FPpi:2))}%
+
+% cos phi
+\FPcos\cosphi{\InverseCot}%
+
+% Find Z
+\FPeval\Z{clip(round(\SumR/\cosphi:2))}%
+
+% Rod 3
+\FProot\RodAfTre{3}{2}%
+
+% Regn IK
+\FPeval\IK{clip(round(\Unet / (\RodAfTre * \RodAfTre * \Z):2))}%
+
+\ifthenelse{\Unet>1000}
+{
+\FPeval\Utmp{clip(round(\Unet / 1000:2))}%
+\renewcommand\TMP{\num{\Utmp e3}}%
+}
+{
+\renewcommand\TMP{\num{\Unet}}%
+}
+
+\begin{equation}
+    \begin{split}
+        \overline{I^{\prime}}_{k1,\args[1]} &= \frac{U_n}{\sqrt{3} \cdot (\overline{Z}_{net,\args[2]} + \overline{Z}_{\args[5]} + \overline{Z}_{\args[8]})} \cdot \frac{1}{\sqrt{3}} \myspace [\si{A}]\\
+        &= \frac{\TMP}{\sqrt{3} \cdot (\num{\Rnet+j\Xnet} + \num{\Rkabel+j\Xkabel} + \num{\Rtrafo+j\Xtrafo})} \cdot \frac{1}{\sqrt{3}}\\
+        &= \num{\IK}\angle-\num{\AngleResult}\ \si{A}
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Inverse=>tid@linje}[5]%{K}{C}{a}{I>,linje}{IK}
+{
+\StrSubstitute{#1}{,}{.}[\K]%
+\StrSubstitute{#2}{,}{.}[\C]%
+\StrSubstitute{#3}{,}{.}[\a]%
+\StrSubstitute{#4}{,}{.}[\ihak]%
+\StrSubstitute{#5}{,}{.}[\IK]%
+
+\FPeval\result{clip(round(\K * ( \C / ((\IK/\ihak)^\a - 1)):3))}%
+
+\begin{equation}
+	\begin{split}
+		t &= K \cdot \frac{C}{\left ( \frac{I}{\iHak} \right )^a -1} \myspace [\si{\second}]\\
+		&= \num{\K} \cdot \frac{\num{\C}}{\left ( \frac{\num{\IK}}{\num{\ihak}} \right )^{\num{\a}} - 1}\\
+		&= \SI{\result}{s}
+	\end{split}
+\end{equation}
+}{}
+
+\newenvironment{HV@SyvPunktsPlanen@1}[2]%{Unet}{U,sikring}
+{
+\StrSubstitute{#1}{,}{.}[\Unet]%
+\StrSubstitute{#2}{,}{.}[\Usikring]%
+
+\FPifgt{\Usikring}{\Unet}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{\Usikring}{\Unet}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Mærkespændingen skal være større end eller lig transformerens mærkespænding. Dog ikke for stor mærkespænding af hensyn til overspændinger ved sikringsoverbrænding.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+}{
+\begin{equation}
+    \begin{split}
+        U_{sikring} & \ge U_{n}\\
+        \num{\Usikring} & \ge \num{\Unet} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@2}[3]%{Trafo,navn}{Trafo,fuldlast}{Sikring,mærkestrøm}
+{
+\StrSubstitute{#1}{,}{,}[\navn]%
+\StrSubstitute{#2}{,}{.}[\Itrafo]%
+\StrSubstitute{#3}{,}{.}[\Isikring]%
+
+\FPifgt{\Isikring}{\Itrafo}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Mærkestrømmen skal være større end transformerens fuldlaststrøm med en værdi, der tillader ønsket overlast dog må en overlast ikke ligger i et brydeusikkert område.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+\begin{equation}
+    \begin{split}
+        I_{n} & > I_{\navn,1/1}\\
+        \num{\Isikring} & > \num{\Itrafo} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@3}[2]%{inrush}{strøm den kan klare i 100 ms}
+{
+\StrSubstitute{#1}{,}{.}[\Inrush]%
+\StrSubstitute{#2}{,}{.}[\I]%
+
+\FPifgt{\I}{\Inrush}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{\I}{\Inrush}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Sikringen skal kunne holde til transformerens indkoblingsstrøm (ca. 12 gange transformerens mærkestrøm) i mindst 0,1 sekund.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+\begin{equation}
+    \begin{split}
+        I_{sikring,100\ ms} & > I_{inrush}\\
+        \num{\I} & > \num{\Inrush} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@3medtid}[1]%{tid}
+{
+\StrSubstitute{#1}{,}{.}[\tid]%
+
+\FPifgt{\tid}{0.1}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{\tid}{0.1}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Sikringen skal kunne holde til transformerens indkoblingsstrøm (ca. 12 gange transformerens mærkestrøm) i mindst 0,1 sekund.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+\begin{equation}
+    \begin{split}
+        t_{smelte} & \ge \SI{0,1}{s}\\
+        \num{\tid} & \ge \SI{0,1}{s} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@4}
+{
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Selektivitet med de sikringer eller maksimalafbrydere, der er placeret på transformerens lavspændingsside.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@5}
+{
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Hvis sikringen monteres i et kapslet anlæg, skal den kunne bære belastningsstrømmen (inkl. overbelastning) uden at blive for varm. Dette kan betyde, at det må vælges en sikring med større mærkestrøm end valgt under kriterie 2.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@6}[1]%{tid på sikring}
+{
+\StrSubstitute{#1}{,}{.}[\tid]%
+
+\FPifgt{2}{\tid}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{2}{\tid}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{For sikkert at kunne bryde strømmen ved kortslutningsfejl på lavspændingssiden, skal sikringen vælges således, at disse fejl bortkoblet inden 2 sekunder.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+\begin{equation}
+    \begin{split}
+        t_{a} & \le 2\\
+        \num{\tid} & \le 2 \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SyvPunktsPlanen@7}[4]%{max brydestrøm}{IK,max}{min brydestrøm}{IK,min}
+{
+\StrSubstitute{#1}{,}{.}[\max]%
+\StrSubstitute{#2}{,}{.}[\IKmax]%
+\StrSubstitute{#3}{,}{.}[\min]%
+\StrSubstitute{#4}{,}{.}[\IKmin]%
+
+\vspace{-.5cm}
+\begin{center}
+\fcolorbox{black}{gray!20}{%
+\begin{minipage}{1\textwidth}
+
+\emph{Overholdelse af fabrikantens værdier for minimum og maksimum brydestrøm.}
+
+\end{minipage}}%
+\end{center}
+\vspace{.2cm}
+
+}{
+
+\FPifgt{\max}{\IKmax}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{\max}{\IKmax}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\begin{equation}
+    \begin{split}
+        I_{1} & \ge I_{k,max}\\
+        \num{\max} & \ge \num{\IKmax} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+
+
+\FPifgt{\IKmin}{\min}%
+\renewcommand\ConditionA{Ok}%
+\else
+\FPifeq{\min}{\IKmin}%
+\renewcommand\ConditionA{Ok}%
+\else
+\renewcommand\ConditionA{Ikke\ ok}%
+\fi
+
+\begin{equation}
+    \begin{split}
+        I_{3} & \le I_{k,min}\\
+        \num{\min} & \le \num{\IKmin} \rightarrow \ConditionA
+    \end{split}
+\end{equation}
+}
+
+
+%--------------------------------------------------
+
+

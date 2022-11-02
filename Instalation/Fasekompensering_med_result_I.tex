@@ -1,0 +1,70 @@
+%Udarbejdet af Magnus Overby
+
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{faseKOMP-Iny}[5]
+%{I_belastning}{cosphi_før}{cosphi_ønsket}{Q_batteristørrelse}{Tavlenavn}
+{
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\Ib]%
+\StrSubstitute{#2}{,}{.}[\cphif]%
+\StrSubstitute{#3}{,}{.}[\cphief]%
+\StrSubstitute{#4}{,}{.}[\Qbat]%
+\readlist\arg{#5}
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn effekten for belastningen
+\FPeval\Pfor{400 * \Ib * \sqTre * \cphif}
+\FPeval\PkW{round(\Pfor/1000:2)}
+
+%Udregner den øsnkede reaktive effekt fra batterier
+\FParccos\phif{\cphif}
+\FParccos\phief{\cphief}
+\FPtan\tanPhif{\phif}
+\FPtan\tanPhief{\phief}
+\FPeval\QbatOE{\Pfor * (\tanPhif - \tanPhief)}
+\FPeval\QbatOEk{round(\QbatOE / 1000:2)}
+
+%Antal ønskede batterier
+\FPeval\AnBat{round(\QbatOEk / \Qbat:2)}
+\FPeval\AnBatUP{round(trunc(\AnBat:0)+0.5:0)}
+
+
+%Det der skrives i opgaven%
+Først regnes det samlede effektforbrug.
+$$ P_{A1} = U_{n} \cdot I_{\arg[1]} \cdot \sqrt{3} \cdot cos \varphi_{før} = 400 \cdot \Ib \cdot \sqrt{3} \cdot \cphif = \PkW \unit{kW}$$
+Vi kan så regnede den ønskede reaktiv effekt fra batterierne. Vi ønsker en $cos \varphi$ på \cphief.
+
+\begin{align*}
+Q_{ønsket}  &= P_{\arg[1]} \cdot (tan \varphi_{før} - tan \varphi_{efter})\\
+			&= \PkW \cdot (tan(cos^{-1}(\cphif)) - tan(cos^{-1}(cphief)))\\
+			&= \QbatOEk \unit{kVAR}\\
+%
+\intertext{Vi kan så udregne hvor mange batterier vi skal bruge af størrelsen \Qbat \unit{kVAR}.}
+%
+Antal_{batterier} &= \frac{Q_{ønsket}}{Q_{batteri}}\\
+				&= \frac{\QbatOEk}{\Qbat}\\
+				&= \AnBat \approx \AnBatUP\\
+\end{align*}
+
+Vi runder op for at komme tætter på $cos \varphi = 1$. Vi kan nu udregne den nye belastningsstrøm.
+
+\begin{align*}\\
+Q_{før} &= U_{n} \cdot I_{A1} \cdot \sqrt{3} \cdot sin \varphi\\
+		&= 400 \cdot 526.41 \cdot \sqrt{3} \cdot sin(cos^{-1}(0.82))\\
+		&= 209kVAR\\
+Q_{rest} &= Q_{før} - Q_{totBatteri}\\
+		&= 209 - (10 \cdot 7)\\
+		&= 139kVAR\\
+\varphi_{ny}		&= tan^{-1}\left(\frac{Q_{rest}}{P_{A1}}\right)\\
+					&= 24.9 \degree\\
+cos \varphi_{ny} &= cos(24.9) = 0,91\\
+I_{ny,A1} &= \frac{P_{A1}}{U_{n} \cdot \sqrt{3} \cdot cos \varphi_{ny}}\\
+			&= \frac{299000}{400 \cdot \sqrt{3} \cdot 0.91}\\
+			&= 474A
+\end{align*}
+
+Strømmen efter fasekompenseringer bliver altså $474 A$ $cos \varphi = 0.91$
+}
+
+

@@ -1,0 +1,188 @@
+%\usepackage[danish]{babel}%https://ctan.org/pkg/babel (Multilingual support for Plain TEX or LATEX)
+\usepackage[utf8]{inputenc}%https://ctan.org/pkg/inputenc (Accept different input encodings)
+\usepackage{fixltx2e}
+\usepackage{tocloft}
+\usepackage{tabularx}
+\setlength\tabcolsep{0pt}
+\usepackage{listofitems}
+\usepackage{graphicx}%https://ctan.org/pkg/graphicx (Enhanced support for graphics)
+\usepackage{adjustbox}
+\usepackage{lastpage}%https://ctan.org/pkg/lastpage (Reference last page for Page N of M type footers)
+\usepackage{pageslts}
+\usepackage[left=2cm, right=2cm, top=3cm]{geometry}%https://ctan.org/pkg/geometry (Flexible and complete interface to document dimensions)
+\usepackage{fancyhdr}%https://ctan.org/pkg/fancyhdr (Extensive control of page headers and footers in LATEX2ε)
+\usepackage{subfiles}%https://ctan.org/pkg/subfiles (Individual typesetting of subfiles of a "main" document)
+\usepackage[useregional]{datetime2}%https://ctan.org/pkg/datetime2 (Formats for dates, times and time zones)
+\usepackage[shortlabels]{enumitem}%https://ctan.org/pkg/enumitem (Control layout of itemize, enumerate, description)
+\usepackage{titlesec}%https://ctan.org/pkg/titlesec (Select alternative section titles)
+\usepackage{parskip}%https://ctan.org/pkg/parskip (Layout with zero \parindent, non-zero \parskip)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{caption}%https://ctan.org/pkg/caption (Customising captions in floating environments)
+\usepackage{import}%https://ctan.org/pkg/import (Establish input relative to a directory)
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[bottom]{footmisc}
+%\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{hyperref}%https://ctan.org/pkg/hyperref (Extensive support for hypertext in LATEX)
+\usepackage{bookmark}
+
+\usepackage{tikz}
+\usepackage[straightvoltages]{circuitikzgit}
+\usepackage{marvosym}
+\ctikzset{resistor = european}
+\tikzset{>=latex}
+\usetikzlibrary{calc,patterns,angles,quotes,positioning,fit,shapes.misc}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm}
+%\usepackage[siunitx]{circuitikz}
+\usepackage{amssymb}
+
+\usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{calculator}%https://ctan.org/pkg/calculator (Use LATEX as a scientific calculator)
+\usepackage{icomma}%https://ctan.org/pkg/icomma (Intelligent commas for decimal numbers)
+\usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
+\usepackage{tabu}%https://ctan.org/pkg/tabu (Flexible LATEX tabulars)
+\usepackage{ifthen}%https://ctan.org/pkg/ifthen (Conditional commands in LATEX documents)
+\usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
+\usepackage{xintexpr}%https://ctan.org/tex-archive/macros/generic/xint ()
+\usepackage{etoolbox}%https://ctan.org/pkg/etoolbox (e-TEX tools for LATEX)
+\usepackage{makecell}%https://ctan.org/pkg/makecell (Tabular column heads and multilined cells)
+\usepackage{bm}%https://ctan.org/pkg/bm (Access bold symbols in maths mode)
+\usepackage{xfp}
+
+\usepackage{multirow}
+\renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
+
+\def\result{}%
+\def\TMP{}%
+\def\unit{}%
+\def\ConditionA{}%
+\def\ConditionB{}%
+\def\ConditionC{}%
+
+\sisetup{output-decimal-marker = {,}, output-complex-root=\ensuremath{\mathrm{j}}, complex-root-position=before-number, exponent-product = \cdot, output-product = \cdot, detect-weight=true, detect-family=true, detect-shape=true, detect-all=true, per-mode=fraction}
+
+% Bold math in section title
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+\DeclareSIUnit \voltampere {VA}
+\DeclareSIUnit \var {varr}
+
+\FProot\RodAfTre{3}{2}%
+
+\usepackage{tikz}
+
+\usetikzlibrary{calc,patterns,angles,quotes}
+
+\tikzset{
+    lightning/.pic = {
+        \node at (0,0)[red] {\Huge\Lightning};
+    }
+}
+
+
+
+\usepackage{/Users/jakob/Documents/Latex/v6/konverteringer}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/MCCB}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/LSP}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/MCB}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/spaendingsfald}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/Basis}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/Kabler}
+\usepackage{/Users/jakob/Documents/Latex/v6/LSP/Kabler}
+\usepackage{/Users/jakob/Documents/Latex/v6/figurer}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/trafo}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/HSP}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/HSP_Relae}
+\usepackage{/Users/jakob/Documents/Latex/v6/IK}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/Jording}
+\usepackage{/Users/jakob/Documents/Latex/v6/HSP/spaendingsfald}
+
+\urlstyle{same}
+
+\renewcommand{\contentsname}{Indhold}
+\renewcommand{\chapterautorefname}{Kapitel}
+\renewcommand{\sectionautorefname}{Afsnit}
+\renewcommand{\subsectionautorefname}{Afsnit}
+\renewcommand{\figurename}{Figur}
+\renewcommand{\figureautorefname}{Figur}
+\renewcommand{\listfigurename}{}
+\renewcommand{\tablename}{Tabel}
+
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+
+\titleformat{\chapter}[display]
+{\normalfont\bfseries}{}{0pt}{\Huge}
+\def\myspace{\hspace{5pt}}
+\addtolength{\jot}{8pt}
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{15pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{15pt}
+
+
+
+\graphicspath{ {/Users/jakob/Documents/Latex/billeder/}{./billeder/}{/Users/jakob/Documents/El/Undervisningsmateriale/Tegninger/} }
+%\usepackage{showframe}% http://ctan.org/pkg/showframe
+\renewcommand\theadalign{cc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} \nameref*{#1}}} % One single link
+\newcommand*{\shortref}[1]{\hyperref[{#1}]{\autoref*{#1}}} % One single link
+
+%--------------------------------------------------
+\newcommand{\valg}[1]{\noindent\emph{\textbf{#1}}}%
+
+
+\newcommand{\iHak}{I\textsubscript{$>$}\,}%
+\newcommand{\tHak}{t\textsubscript{$>$}\,}%
+\newcommand{\iHakHak}{I\textsubscript{$>\!\!>$}\,}%
+\newcommand{\tHakHak}{t\textsubscript{$>\!\!>$}\,}%
+\newcommand{\iHakHakHak}{I\textsubscript{$>\!\!>\!\!>$}\,}%
+\newcommand{\tHakHakHak}{t\textsubscript{$>\!\!>\!\!>$}\,}%
+%--------------------------------------------------
+
+
+\definecolor{red}{rgb}{0.63, 0.13, 0.14}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\definecolor{blue}{rgb}{0.0, 0.5, 1.0}
+\hypersetup{
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black,
+hidelinks,
+bookmarksnumbered,
+bookmarks=true
+}
+
+%\titlespacing*{\chapter}{0pt}{-30pt}{10pt}
+%\titlespacing{\section}{0pt}{2ex}{-5pt}
+%\titlespacing{\subsection}{0pt}{1ex}{10pt}
+%\titlespacing{\subsubsection}{0pt}{0.5ex}{0ex}
+
+%\titlespacing*{⟨command ⟩}{⟨left ⟩}{⟨before-sep ⟩}{⟨after-sep ⟩}[⟨right-sep ⟩]
+% Fjerner stor margin rundt om overskrifter
+\titlespacing*{\chapter}{0pt}{-20pt}{0pt}
+%\titlespacing{\section}{0pt}{100pt}{0pt}
+%\titlespacing{\subsection}{0pt}{10pt}{0pt}
+%\titlespacing{\subsubsection}{0pt}{10pt}{0pt}
+
+% Fjerner margin over indsholdfortegnelse
+\setlength{\cftbeforetoctitleskip}{-20pt}
+\setlength{\cftaftertoctitleskip}{0pt}
+
+% Sætter nummer foran chapter
+\titleformat{\chapter}[hang]
+{\normalfont\huge\bfseries}{\thechapter.}{.5em}{} 
+
+
