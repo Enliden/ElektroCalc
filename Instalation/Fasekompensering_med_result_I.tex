@@ -14,7 +14,7 @@
 \FPeval\sqTre{root(2,3)}
 
 %Udregn effekten for belastningen
-\FPeval\Pfor{400 * \Ib * \sqTre * \cphif}
+\FPeval\Pfor{round(400 * \Ib * \sqTre * \cphif:0)}
 \FPeval\PkW{round(\Pfor/1000:2)}
 
 %Udregner den øsnkede reaktive effekt fra batterier
@@ -29,6 +29,24 @@
 \FPeval\AnBat{round(\QbatOEk / \Qbat:2)}
 \FPeval\AnBatUP{round(trunc(\AnBat:0)+0.5:0)}
 
+%Udregn Q før fasekompensering
+\FPsin\sinPhif{\phif}
+\FPeval\Qf{400 * \Ib * \sqTre * \sinPhif}
+\FPeval\QfkW{round(\Qf / 1000:2)}
+
+%Udregn Q rest efter fasekompensering
+\FPeval\Qrest{round(\QfkW - (\AnBatUP * \Qbat):2)}
+
+%Udregn den nye faseforskydning
+\FPeval\arctphi{\Qrest / \PkW}
+\FParctan\radphiNy{\arctphi}
+\FPeval\phiNy{round(\radphiNy * 180 / pi:2)}
+\FPcos\cphiNy{\phiNy}
+\FPeval\cphiNyRo{round(\cphiNy:2)}
+
+%Udregn den nye belastningsstrøm
+\FPeval\IbNy{round(\Pfor / (400 * \sqTre * \cphiNy):2)}
+
 
 %Det der skrives i opgaven%
 Først regnes det samlede effektforbrug.
@@ -37,7 +55,7 @@ Vi kan så regnede den ønskede reaktiv effekt fra batterierne. Vi ønsker en $c
 
 \begin{align*}
 Q_{ønsket}  &= P_{\arg[1]} \cdot (tan \varphi_{før} - tan \varphi_{efter})\\
-			&= \PkW \cdot (tan(cos^{-1}(\cphif)) - tan(cos^{-1}(cphief)))\\
+			&= \PkW \cdot (tan(cos^{-1}(\cphif)) - tan(cos^{-1}(\cphief)))\\
 			&= \QbatOEk \unit{kVAR}\\
 %
 \intertext{Vi kan så udregne hvor mange batterier vi skal bruge af størrelsen \Qbat \unit{kVAR}.}
@@ -48,23 +66,21 @@ Antal_{batterier} &= \frac{Q_{ønsket}}{Q_{batteri}}\\
 \end{align*}
 
 Vi runder op for at komme tætter på $cos \varphi = 1$. Vi kan nu udregne den nye belastningsstrøm.
-
+%
 \begin{align*}\\
-Q_{før} &= U_{n} \cdot I_{A1} \cdot \sqrt{3} \cdot sin \varphi\\
-		&= 400 \cdot 526.41 \cdot \sqrt{3} \cdot sin(cos^{-1}(0.82))\\
-		&= 209kVAR\\
+Q_{før} &= U_{n} \cdot I_{\arg[1]} \cdot \sqrt{3} \cdot sin \varphi\\
+		&= 400 \cdot \Ib \cdot \sqrt{3} \cdot sin(cos^{-1}(\cphif))\\
+		&= \QfkW \unit{kVAR}\\
 Q_{rest} &= Q_{før} - Q_{totBatteri}\\
-		&= 209 - (10 \cdot 7)\\
-		&= 139kVAR\\
-\varphi_{ny}		&= tan^{-1}\left(\frac{Q_{rest}}{P_{A1}}\right)\\
-					&= 24.9 \degree\\
-cos \varphi_{ny} &= cos(24.9) = 0,91\\
-I_{ny,A1} &= \frac{P_{A1}}{U_{n} \cdot \sqrt{3} \cdot cos \varphi_{ny}}\\
-			&= \frac{299000}{400 \cdot \sqrt{3} \cdot 0.91}\\
-			&= 474A
+		&= \QfkW - (\Qbat \cdot \AnBatUP)\\
+		&= \Qrest \unit{kVAR}\\
+\varphi_{ny}		&= tan^{-1}\left(\frac{Q_{rest}}{P_{\arg[1]}}\right)\\
+					&= \phiNy \degree\\
+cos \varphi_{ny} &= cos(\phiNy) = \cphiNyRo\\
+I_{ny,\arg[1]} &= \frac{P_{\arg[1]}}{U_{n} \cdot \sqrt{3} \cdot cos \varphi_{ny}}\\
+			&= \frac{\Pfor}{400 \cdot \sqrt{3} \cdot \cphiNyRo}\\
+			&= \IbNy \unit{A}
 \end{align*}
-
-Strømmen efter fasekompenseringer bliver altså $474 A$ $cos \varphi = 0.91$
 }
 
 
