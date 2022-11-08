@@ -1,0 +1,225 @@
+% !TeX spellcheck = da_DK
+% !TeX encoding = UTF-8
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HV@trafo=>er+ek=>Z}[5]%{navn}{sn}{Utrafo}{er}{ek}
+{
+\StrSubstitute{#2}{,}{.}[\Sn]%
+\StrSubstitute{#3}{,}{.}[\U]%
+\StrSubstitute{#4}{,}{.}[\er]%
+\StrSubstitute{#5}{,}{.}[\ek]%
+
+\def\enhed{}%
+
+\FPifgt{\U}{9999}%
+\FPeval\Z{(\ek * \U * \U) / (100 * \Sn * 1000)}%
+\FPeval\Zrounded{clip(round(\Z:2))}%
+\renewcommand{\enhed}{\ohm}%
+\else
+% Hvis U er under 10000 gør impedansen 1000 gange større
+\FPeval\Z{( (\ek * \U * \U) / (100 * \Sn * 1000) ) * 1000}%
+\FPeval\Zrounded{clip(round(\Z:2))}%
+\renewcommand{\enhed}{\milli\ohm}%
+\fi
+
+
+\FPeval\res{clip(round(\er / \ek:2))}%
+
+% Tag invers
+\FParccos\InverseCos{\res}
+% Fra radianer til grader
+\FPeval\AngleResult{clip(round(\InverseCos*180/\FPpi:2))}%
+
+\begin{equation}
+    \begin{split}
+        \overline{Z}_{#1} &= \frac{e_k \cdot U_{#1}^2}{100 \cdot S_n} \angle arccos \left( \frac{e_r}{e_k} \right) \myspace [\Omega]\\
+        &= \frac{\num{\ek} \cdot \num{\U}^2}{100 \cdot \num{\Sn e3}} \angle arccos \left( \frac{\num{\er}}{\num{\ek}} \right)\\
+        &=
+        \left \{
+        \begin{tabular}{r}
+            \num{\Zrounded}\angle\num{\AngleResult} \si{\enhed}\\
+            \begin{Polar=>Rect}{\Z}{\AngleResult}\end{Polar=>Rect}\si{\enhed}
+        \end{tabular}
+        \right.
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HSP@trafo=>Z}[5]%{navn}{sn}{Utrafo}{ek}{vinkel}
+{
+\StrSubstitute{#2}{,}{.}[\Sn]%
+\StrSubstitute{#3}{,}{.}[\U]%
+\StrSubstitute{#4}{,}{.}[\ek]%
+\StrSubstitute{#5}{,}{.}[\vinkel]%
+
+\def\enhed{}%
+
+\FPifeq{\U}{10000}%
+\FPeval\Z{(\ek * \U * \U) / (100 * \Sn * 1000)}%
+\FPeval\Zrounded{clip(round(\Z:2))}%
+\renewcommand{\enhed}{\ohm}%
+\else
+% Hvis U er under 10000 gør impedansen 1000 gange større
+\FPeval\Z{( (\ek * \U * \U) / (100 * \Sn * 1000) ) * 1000}%
+\FPeval\Zrounded{clip(round(\Z:2))}%
+\renewcommand{\enhed}{\milli\ohm}%
+\fi
+
+\begin{equation}
+    \begin{split}
+        Z_{#1} &= \frac{U_{#1}^2 \cdot e_k}{S_n \cdot 100} \angle \varphi \myspace [\Omega]\\
+        &= \frac{\num{\U}^2 \cdot \num{\ek}}{\num{\Sn e3} \cdot 100} \angle \num{\vinkel}\\
+        &=
+        \left \{
+        \begin{tabular}{r}
+            \num{\Zrounded}\angle\num{\vinkel} \si{\enhed}\\
+            \begin{Polar=>Rect}{\Z}{\vinkel}\end{Polar=>Rect}\si{\enhed}
+        \end{tabular}
+        \right.
+    \end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@trafo=>Pcu+ek=>Z}[5]%{navn}{sn}{Utrafo}{pcu}{ek}
+{
+    \StrSubstitute{#2}{,}{.}[\Sn]%
+    \StrSubstitute{#3}{,}{.}[\U]%
+    \StrSubstitute{#4}{,}{.}[\Pcu]%
+    \StrSubstitute{#5}{,}{.}[\ek]%
+
+    \FPeval\Z{clip((\ek * \U * \U) / (100 * \Sn * 1000))}%
+    \FPeval\res{clip((\Pcu * 100) / (\ek * \Sn * 1000))}%
+
+    % Tag invers
+    \FParccos\InverseCot{\res}
+    % Fra radianer til grader
+    \FPeval\AngleResult{\InverseCot*180/\FPpi}%
+    \FPeval\AngleResultRounded{clip(round(\AngleResult:2))}%
+
+    \FPifgt{\U}{1000}%
+
+    \def\unit{\si{\ohm}}%
+    \else
+    \FPeval\Z{clip(round(\Z * 1000:2))}%
+    \def\unit{\si{m\ohm}}%
+    \fi
+
+    \FPeval\Zrounded{clip(round(\Z:2))}%
+
+    \begin{equation}
+        \begin{split}
+            \overline{Z}_{#1} &= \frac{U_{#1}^2 \cdot e_k}{S_n \cdot 100} \angle \arccos \left( \frac{P_{Cu} \cdot 100}{S_n \cdot e_k} \right) \myspace [\Omega]\\
+            &= \frac{\num{\U}^2 \cdot \num{\ek}}{\num{\Sn e3} \cdot 100} \angle \arccos \left( \frac{\num{\Pcu} \cdot 100}{\num{\Sn e3} \cdot \num{\ek}} \right)\\
+            &=
+            \left \{
+            \begin{tabular}{r}
+                \num{\Zrounded}$\angle$\num{\AngleResultRounded}\ \unit\\
+                \begin{Polar=>Rect}{\Z}{\AngleResult}\end{Polar=>Rect}\unit
+            \end{tabular}
+            \right.
+        \end{split}
+    \end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@trafo=>I}[3]%{navn}{Sn}{U}
+{
+    \StrSubstitute{#2}{,}{.}[\Sn]%
+    \StrSubstitute{#3}{,}{.}[\U]%
+
+    \def\tmp{}
+
+    \ifthenelse{\lengthtest{\U pt > 1000pt}}
+    {
+        \FPeval\Utmp{clip(round(\U / 1000:2))}%
+        \renewcommand{\tmp}{\cdot \num{\Utmp e3}}
+    }{
+        \renewcommand{\tmp}{\cdot \U}
+    }
+
+    \FPeval\res{clip(round((\Sn * 1000) / (\RodAfTre * \U):2))}%
+
+    \begin{equation}
+        \begin{split}
+            I_{1/1,#1} &= \frac{S_n}{\sqrt{3} \cdot U_{n,#1} } \myspace [\si{A}]\\
+            &= \frac{\num{\Sn e3}}{\sqrt{3} \tmp }\\
+            &= \SI{\res}{A}
+        \end{split}
+    \end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@trafo=>Inrush}[2]%{navn}{strøm}
+{
+    \StrSubstitute{#2}{,}{.}[\I]%
+
+    \FPeval\inrush{clip(round(12 * \I:2))}%
+
+    \begin{equation}
+        \begin{split}
+            I_{inrush,#1} &= 12 \cdot I_{1/1,#1} \myspace [\si{A}]\\
+            &= 12 \cdot \num{\I}\\
+            &= \SI{\inrush}{A}
+        \end{split}
+    \end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@DeltaU@trafo}[7]%{navn}{strøm}{Rtrafo}{Xtrafo}{cos phi last}{1 = prim, 0 = sek}{1 = kompleks, 0 = trig}
+{
+\StrSubstitute{#2}{,}{.}[\IB]%
+\StrSubstitute{#3}{,}{.}[\Rtrafo]%
+\StrSubstitute{#4}{,}{.}[\Xtrafo]%
+\StrSubstitute{#5}{,}{.}[\cosphi]%
+
+% Find cos reciprok
+\FParccos\InverseCos{\cosphi}%
+\FPeval\AngleResult{\InverseCos*180/\FPpi}%
+\FPeval\AngleResultRounded{clip(round(\AngleResult:2))}%
+
+% Find sin phi til vinkel
+\DEGREESSIN{\AngleResult}{\sinphi}%
+
+\FPifeq{#6}{1}%
+\def\add{}%
+\FPeval\res{clip(round((\RodAfTre * \IB * (\Rtrafo * \cosphi + \Xtrafo * \sinphi)):2))}%
+\else
+\def\add{\cdot \num{e-3}}%
+\FPeval\res{clip(round((\RodAfTre * \IB * (\Rtrafo * \cosphi + \Xtrafo * \sinphi) / 1000):2))}%
+\fi
+
+\FPeval\CosPhiRounded{clip(round(\cosphi:3))}%
+\FPeval\SinPhiRounded{clip(round(\sinphi:3))}%
+
+
+\FPifeq{#7}{0}%
+\begin{equation}
+    \begin{split}
+        \Delta U_{net,#1} & = I_{1/1,#1} \cdot \left( R_{#1} \cdot \cos \varphi + X_{#1} \cdot \sin \varphi \right) \cdot \sqrt{3} \myspace [\si{\volt}]\\
+        & = \num{\IB} \cdot \left(\num{\Rtrafo} \cdot \num{\CosPhiRounded} + \num{\Xtrafo} \cdot \num{\SinPhiRounded} \right) \add \cdot \sqrt{3}\\
+        & = \SI{\res}{\volt}
+    \end{split}
+\end{equation}
+\else
+\begin{equation}
+    \begin{split}
+        \Delta U_{net,#1} & = \text{real} \left ( \overline{I}_{B,#1} \cdot \overline{Z}_{#1} \right) \cdot \sqrt{3} \myspace [\si{\volt}]\\
+        & = \text{real} \left( \left (\num{\IB} \angle -\arccos(\num{\cosphi}) \right ) \cdot (\num{\Rtrafo+j\Xtrafo}) \right) \add \cdot \sqrt{3}\\
+        & = \SI{\res}{\volt}
+    \end{split}
+\end{equation}
+\fi
+}
+
+%--------------------------------------------------
+

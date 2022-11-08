@@ -1,0 +1,46 @@
+% !TeX spellcheck = da_DK
+% !TeX encoding = UTF-8
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HV@DeltaU@3F}[6]%{navn}{strøm}{vinkel}{r}{x}{kompleks = 1, trig = 0}
+{
+    \StrSubstitute{#2}{,}{.}[\strom]%
+    \StrSubstitute{#3}{,}{.}[\vinkel]%
+    \StrSubstitute{#4}{,}{.}[\R]%
+    \StrSubstitute{#5}{,}{.}[\X]%
+
+    % Find cos phi til vinkel
+    \DEGREESCOS{\vinkel}{\cosphi}%
+
+    % Find sin phi til vinkel
+    \DEGREESSIN{\vinkel}{\sinphi}%
+
+    \FPeval\res{clip(round((\strom * \RodAfTre * ( \R * \cosphi + \X * \sinphi)):2))}%
+
+    \FPeval\CosPhiRounded{clip(round(\cosphi:3))}%
+    \FPeval\SinPhiRounded{clip(round(\sinphi:3))}%
+
+
+\FPifeq{#6}{1}%
+\begin{equation}
+    \begin{split}
+        \Delta U_{n,#1} & = \text{real} \left (\overline{I}_B \cdot \overline{Z}_{#1} \right) \cdot \sqrt{3} \myspace [\si{\volt}]\\
+        & = \text{real} \left((\num{\strom} \angle -\num{\vinkel}) \cdot (\num{\R+j\X}) \right) \cdot \sqrt{3}\\
+        & = \SI{\res}{\volt}
+    \end{split}
+\end{equation}
+\else
+\begin{equation}
+    \begin{split}
+        \Delta U_{n,#1} & = I_B  \cdot \left( R_{#1} \cdot \cos \varphi + X_{#1} \cdot \sin \varphi \right)  \cdot \sqrt{3}  \myspace [\si{\volt}]\\
+        & = \num{\strom} \cdot \left(\num{\R} \cdot \num{\CosPhiRounded} + \num{\X} \cdot \num{\SinPhiRounded} \right)  \cdot \sqrt{3} \\
+        & = \SI{\res}{\volt}
+    \end{split}
+\end{equation}
+\fi
+
+}
+

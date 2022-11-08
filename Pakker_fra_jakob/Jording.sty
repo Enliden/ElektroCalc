@@ -1,0 +1,220 @@
+% !TeX spellcheck = da_DK
+% !TeX encoding = UTF-8
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Bj@trafo}[5]%{TrafoNavn}{tid}{IK,2F,max}{StartTemp}{SlutTemp}
+{
+	\StrSubstitute{#2}{,}{.}[\tid]%
+	\StrSubstitute{#3}{,}{.}[\IKprim]%
+	\StrSubstitute{#4}{,}{.}[\StartTemp]%
+	\StrSubstitute{#5}{,}{.}[\SlutTemp]%
+
+	\FPeval\tmp{(\SlutTemp + 234.5) / (\StartTemp + 234.5)}%
+	\FPln\lnfunktion{\tmp}%
+	\FPeval\res{(\tid + 0.1) / \lnfunktion}%
+	\FProot\result{\res}{2}%
+	\FPeval\FinalResult{clip(round((\IKprim / 226) * (\result):2))}%
+
+	\begin{equation}
+		\begin{split}
+			S_{BJ} & \ge \frac{I_{k2,#1}}{k} \cdot \sqrt{\frac{t_{relæ} + t_e}{\ln \left( \frac{\Theta_{f} + \beta}{\Theta_{i} + \beta} \right)}} \myspace [\si{mm^2}]\\
+			& \ge \frac{\num{\IKprim}}{226} \cdot \sqrt{\frac{\num{\tid} + 0,1}{\ln \left( \frac{\num{\SlutTemp} + 234,5}{\StartTemp + 234,5} \right)}}\\
+			& \ge \SI{\FinalResult}{\milli\meter\squared}
+		\end{split}
+	\end{equation}\\\\
+	\emph{Mindstekrav ifølge DS/EN 50522 pkt. 5.2.2 16 \si{mm^2}}\\
+
+
+\ifdim \FinalResult pt < 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt = 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt < 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt = 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt < 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt = 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt < 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt = 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt < 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt = 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt < 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt = 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt < 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt = 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt < 150pt \def\kobber{150}
+\else\ifdim \FinalResult pt = 150pt \def\kobber{150}
+\else
+\def\kobber{\FinalResult}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+\def\BJ{\kobber}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SJ@trafo@relae}[5]%{TrafoNavn}{tid}{IK,FN}{StartTemp}{SlutTemp}
+{
+\StrSubstitute{#2}{,}{.}[\tid]%
+\StrSubstitute{#3}{,}{.}[\IKprim]%
+\StrSubstitute{#4}{,}{.}[\StartTemp]%
+\StrSubstitute{#5}{,}{.}[\SlutTemp]%
+
+\FPeval\tmp{(\SlutTemp + 234.5) / (\StartTemp + 234.5)}%
+\FPln\lnfunktion{\tmp}%
+\FPeval\res{(\tid + 0.1) / \lnfunktion}%
+\FProot\result{\res}{2}%
+\FPeval\FinalResult{clip(round((\IKprim / 226) * (\result):2))}%
+
+\begin{equation}
+	\begin{split}
+		S_{SJ} & \ge \frac{I_{k1,LV,#1}}{k} \cdot \sqrt{\frac{t_{relæ} + t_e}{\ln \left( \frac{\Theta_{f} + \beta}{\Theta_{i} + \beta} \right)}} \myspace [\si{mm^2}]\\
+		& \ge \frac{\IKprim}{226} \cdot \sqrt{\frac{\num{\tid} + 0,1}{\ln \left( \frac{\num{\SlutTemp} + 234,5}{\StartTemp + 234,5} \right)}}\\
+		& \ge \SI{\FinalResult}{\milli\meter\squared}
+	\end{split}
+\end{equation}\\\\
+\emph{Mindstekrav ifølge DS/EN 50522 pkt. 5.2.2 16 \si{mm^2}}\\
+
+\ifdim \FinalResult pt < 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt = 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt < 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt = 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt < 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt = 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt < 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt = 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt < 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt = 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt < 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt = 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt < 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt = 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt < 150pt \def\kobber{150}
+\else\ifdim \FinalResult pt = 150pt \def\kobber{150}
+\else
+\def\kobber{\FinalResult}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@SJ@trafo@sikring}[5]%{TrafoNavn}{tid}{IK,FN}{StartTemp}{SlutTemp}
+{
+\StrSubstitute{#2}{,}{.}[\tid]%
+\StrSubstitute{#3}{,}{.}[\IKprim]%
+\StrSubstitute{#4}{,}{.}[\StartTemp]%
+\StrSubstitute{#5}{,}{.}[\SlutTemp]%
+
+\FPeval\tmp{(\SlutTemp + 234.5) / (\StartTemp + 234.5)}%
+\FPln\lnfunktion{\tmp}%
+\FPeval\res{(\tid) / \lnfunktion}%
+\FProot\result{\res}{2}%
+\FPeval\FinalResult{clip(round((\IKprim / 226) * (\result):2))}%
+
+\begin{equation}
+	\begin{split}
+		S_{SJ} & \ge \frac{I_{k1,#1,LV}}{k} \cdot \sqrt{\frac{t_{sikring}}{\ln \left( \frac{\Theta_{f} + \beta}{\Theta_{i} + \beta} \right)}} \myspace [\si{mm^2}]\\
+		& \ge \frac{#3}{226} \cdot \sqrt{\frac{\num{\tid}}{\ln \left( \frac{\num{\SlutTemp} + 234,5}{\StartTemp + 234,5} \right)}}\\
+		& \ge \SI{\FinalResult}{\milli\meter\squared}
+	\end{split}
+\end{equation}\\\\
+\emph{Mindstekrav ifølge DS/EN 50522 pkt. 5.2.2 16 \si{mm^2}}\\
+
+\ifdim \FinalResult pt < 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt = 16pt \def\kobber{16}
+\else\ifdim \FinalResult pt < 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt = 25pt \def\kobber{25}
+\else\ifdim \FinalResult pt < 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt = 35pt \def\kobber{35}
+\else\ifdim \FinalResult pt < 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt = 50pt \def\kobber{50}
+\else\ifdim \FinalResult pt < 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt = 70pt \def\kobber{70}
+\else\ifdim \FinalResult pt < 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt = 95pt \def\kobber{95}
+\else\ifdim \FinalResult pt < 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt = 120pt \def\kobber{120}
+\else\ifdim \FinalResult pt < 150pt \def\kobber{150}
+\else\ifdim \FinalResult pt = 150pt \def\kobber{150}
+\else
+\def\kobber{\FinalResult}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+\def\SJ{\kobber}%
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Fj@trafo}[3]%{TrafoNavn}{Bj}{Dj}
+{
+	\StrSubstitute{#2}{,}{.}[\bj]%
+	\StrSubstitute{#3}{,}{.}[\dj]%
+
+	\[
+		S_{jordskinne} \ge S_{BJ}\ /\ S_{DJ} \Rightarrow \num{\bj}\ /\ \num{\dj}
+	\]
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@RE@trafo}[2]%{tn/tt}{I,rest}
+{
+	\StrSubstitute{#2}{,}{.}[\I]%
+
+	\def\index{U_{TP}}%
+	\def\krav{0}%
+
+	\ifthenelse{\equal{\detokenize{#1}}{\detokenize{TN}}}
+	{
+		\renewcommand{\krav}{80}%
+	}
+	{
+		\renewcommand{\krav}{160}%
+		\renewcommand{\index}{2 \cdot U_{TP}}%
+	}
+
+	\FPeval\res{clip(round(\krav / \I:2))}%
+
+	\begin{equation}
+		\begin{split}
+			R_{E,#1} & \ge \frac{\index}{I_{res}} \myspace [\si{\ohm}]\\
+			& \ge \frac{\krav}{\num{\I}}\\
+			& \ge \SI{\res}{\ohm}
+		\end{split}
+	\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@RE}[1]%{I,rest}
+{
+\StrSubstitute{#1}{,}{.}[\I]%
+
+\FPeval\tn{clip(round(80 / \I:2))}%
+\FPeval\tt{clip(round(250 / \I:2))}%
+
+\begin{tabu} to 1\textwidth { X[l] X[r] }
+\vbox{
+\begin{equation}
+	\begin{split}
+		R_{E,TN} & \le \frac{U_{TP}}{I_{rest}}\\
+		& \le \frac{80}{\I}\\
+		& \le \SI{\tn}{\Omega}
+	\end{split}
+\end{equation}
+}
+&
+\vbox{
+\begin{equation}
+	\begin{split}
+		R_{E,TT} & \le \frac{U_{p\text{å}virkning}}{I_{rest}}\\
+		& \le \frac{250}{\I}\\
+		& \le \SI{\tt}{\Omega}
+	\end{split}
+\end{equation}
+}
+\end{tabu}
+}
+
+%--------------------------------------------------

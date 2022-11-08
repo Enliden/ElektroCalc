@@ -1,0 +1,478 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = da_DK
+
+\input{/Users/jakob/Documents/Latex/el_funktioner_preamble}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>ki}[2]%{navn IB / Z,korr}{I} Vælger strømtrafo ki ud fra en last det skal kunne trække (både linje og trafo)
+{
+	\StrSubstitute{#2}{,}{.}[\I]%
+
+	\ifdim \I pt < 50pt \def\ki{50}
+	\else\ifdim \I pt = 60pt \def\ki{60}
+	\else\ifdim \I pt < 75pt \def\ki{75}
+	\else\ifdim \I pt = 100pt \def\ki{100}
+	\else\ifdim \I pt < 150pt \def\ki{150}
+	\else\ifdim \I pt = 200pt \def\ki{200}
+	\else\ifdim \I pt < 300pt \def\ki{300}
+	\else\ifdim \I pt = 400pt \def\ki{400}
+	\else\ifdim \I pt < 500pt \def\ki{500}
+	\else\ifdim \I pt = 600pt \def\ki{600}
+	\else\ifdim \I pt < 750pt \def\ki{750}
+	\else\ifdim \I pt = 1000pt \def\ki{1000}
+	\else\ifdim \I pt < 1200pt \def\ki{1200}
+	\else
+	\def\ki{\res}
+	\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+	\begin{equation}
+		\begin{split}
+			k_{i,prim} &\ge I_{#1}\\
+			\num{\ki} &\ge \num{\I} \rightarrow Ok
+		\end{split}
+	\end{equation}
+
+	\vspace{10pt}
+
+\valg{Vælger $\bm{k_i = \ki/5}$ protection 5P20}
+}{}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>}[5]%{navn B / Z,korr}{I}{ki,prim}{ki,sek}{op/ned} Indstiller I> ud fra en strøm og en strømtrafo ki (både linje og trafo)
+{
+	\StrSubstitute{#2}{,}{.}[\I]%
+	\StrSubstitute{#3}{,}{.}[\prim]%
+	\StrSubstitute{#4}{,}{.}[\sek]%
+
+	\FPeval\ResultWithThreeDigits{clip(round(\I / \prim:3))}%
+
+	\ifthenelse{\equal{\detokenize{#5}}{\detokenize{op}}}
+	{
+	\def\ResultRounded{\fpeval{ceil(\ResultWithThreeDigits*100)/100}}%
+	}
+	{
+	\def\ResultRounded{\fpeval{floor(\ResultWithThreeDigits*100)/100}}%
+	}
+
+	\FPeval\FinalResult{clip(round(\prim * \ResultRounded:2))}%
+	
+	\vspace{10pt}
+	\emph{\iHak kan indstilles i intervallet $0,05 - 5 \cdot I_n$ og af step på $\num{0,01}$}
+
+	\FPifeq{\ResultWithThreeDigits}{\ResultRounded}%
+	% Hvis de to resultater er det samme
+	\begin{equation}
+		\begin{split}
+			\iHak_{inst} &= \frac{I_{#1}}{k_{i,prim}}\\
+			&= \frac{\num{\I}}{\num{\prim}}\\
+			&= \num{\ResultRounded}
+		\end{split}
+	\end{equation}
+	\else
+	% Hvis de to resultater er forskellige laves en approx
+	\begin{equation}
+		\begin{split}
+			\iHak_{inst} &= \frac{I_{#1}}{k_{i,prim}}\\
+			&= \frac{\num{\I}}{\num{\prim}}\\
+			&= \num{\ResultWithThreeDigits} \approx \num{\ResultRounded}
+		\end{split}
+	\end{equation}
+	\fi
+
+	\begin{equation}
+		\begin{split}
+			I {\scriptstyle >}_{str\text{ø}m} &= k_{i,prim} \cdot I {\scriptstyle >}_{inst} \myspace \si{[\ampere]}\\
+			&= \num{\prim} \cdot \num{\ResultRounded}\\
+			&= \SI{\FinalResult}{\ampere}
+		\end{split}
+	\end{equation}
+}{}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>>@indstilling}[4]%{IKmin}{ki,prim}{ki,sek}{op/ned/ingen} Indstiller I>> ud fra en IK,min der skal fanges (linje og trafo)
+{
+\StrSubstitute{#1}{,}{.}[\IKmin]%
+\StrSubstitute{#2}{,}{.}[\prim]%
+\StrSubstitute{#3}{,}{.}[\sek]%
+
+\FPeval\res{clip(round(0.75 * (\IKmin / \prim):3))}%
+
+\ifthenelse{\equal{\detokenize{#4}}{\detokenize{op}}}
+{
+	%\FPeval\FinalRes{clip(round(\res + 0.01:2))}%
+	\def\FinalRes{\fpeval{ceil(\res*100)/100}}%
+}
+{
+	\ifthenelse{\equal{\detokenize{#4}}{\detokenize{ned}}}
+	{
+	% Gang med 100, lav ceil og del med 100 igen
+	\def\FinalRes{\fpeval{floor(\res*100)/100}}%
+	%\FPeval\FinalRes{clip(round(\res - 0.01:2))}%
+	}
+	{
+	\FPeval\FinalRes{clip(round(\res:2))}%
+	}
+}
+
+\FPifeq{\res}{\FinalRes}%
+\def\append{}%
+\else
+\def\append{\approx \num{\FinalRes}}%
+\fi
+
+\FPeval\Ires{clip(round(\prim * \FinalRes:2))}%
+\vspace{4pt}
+\emph{\iHakHak kan indstilles i intervallet $0,10 - 40 \cdot I_n$ og af step på $\num{0,01}$}
+\vspace{3pt}
+\begin{equation}
+	\begin{split}
+		I {\scriptstyle \!>{}\!\!>}_{inst} &= 0,75 \cdot \frac{I_{k2,min}}{k_{i,prim}}\\
+		&= 0,75 \cdot \frac{\num{\IKmin}}{\num{\prim}}\\
+		&= \num{\res} \append
+	\end{split}
+\end{equation}
+
+\begin{equation}
+	\begin{split}
+		I {\scriptstyle \!>{}\!\!>}_{strøm} &= k_{i,prim} \cdot I {\scriptstyle \!>{}\!\!>}_{inst} \myspace \si{[\ampere]}\\
+		&= \num{\prim} \cdot \num{\FinalRes}\\
+		&= \SI{\Ires}{\ampere}
+	\end{split}
+\end{equation}
+
+\FPeval\kontrol{clip(round(0.75 * \IKmin:2))}%
+
+\[
+	I_{k2,min} \cdot 0,75 \ge I {\scriptstyle \!>{}\!\!>}_{strøm} \Rightarrow \num{\kontrol} \ge \num{\Ires} \rightarrow Ok
+\]
+
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>=>Krav@trafo}[1]%{TrafoNavn} Opstiller krav for hvordan I> skal indstilles når relæ beskytter trafo
+{
+\begin{equation}
+	\begin{split}
+		\iHak \ &> \ I_{1/1,#1}\, \text{+ evt ønsket overlast}\\
+		\iHak \ &> \ I^{\prime}_{startstrømme,#1}\\
+		\iHak \ &< \ I^{\prime}_{k1,min,#1}
+	\end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>=>Kontrol@trafo}[6]%{Trafo navn}{I> indstillet}{I trafo fuldlast}{ønsket overlast i %}{I'start}{IK,FN} Viser kontrol af indstillet I> i 3 udtryk
+{
+\StrSubstitute{#2}{,}{.}[\Iindstillet]%
+\StrSubstitute{#3}{,}{.}[\Ifuldlast]%
+\StrSubstitute{#4}{,}{.}[\overlast]%
+\StrSubstitute{#5}{,}{.}[\Istart]%
+\StrSubstitute{#6}{,}{.}[\IKfn]%
+
+\FPeval\FirstResult{clip(round(\Ifuldlast * (1+(\overlast/100)):2))}%
+\FPeval\OverlastResult{clip(round(1+(\overlast/100):2))}%
+\FPifgt{\Iindstillet}{\FirstResult}
+\renewcommand{\ConditionA}{Ok}
+\else
+\renewcommand{\ConditionA}{Ikke\ ok}
+\fi
+
+
+\FPifgt{\overlast}{0}
+\renewcommand{\overlast}{\cdot \OverlastResult}
+\else
+\renewcommand{\overlast}{}
+\fi
+
+\FPifgt{\Iindstillet}{\Istart}
+\renewcommand{\ConditionB}{Ok}
+\else
+\renewcommand{\ConditionB}{Ikke\ ok}
+\fi
+
+\FPeval\ThirdResult{clip(round(\IKfn * 0.8:2))}%
+\FPiflt{\Iindstillet}{\ThirdResult}
+\renewcommand{\ConditionC}{Ok}
+\else
+\renewcommand{\ConditionC}{Ikke\ ok}
+\fi
+
+\begin{equation}
+	\begin{split}
+		\iHak \ &> \ I_{1/1,#1} \overlast \Rightarrow \num{\Iindstillet} > \num{\FirstResult} \rightarrow \ConditionA\\
+		\iHak \ &> \ I^{\prime}_{start,#1} \Rightarrow \num{\Iindstillet} > \num{\Istart} \rightarrow \ConditionB\\
+		\iHak \ &< \ 0,8 \cdot I^{\prime}_{k1,min,#1} \Rightarrow \num{\Iindstillet} < \num{\ThirdResult} \rightarrow \ConditionC
+	\end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>t>=>Krav@trafo}[1]%{navn}
+{
+	\begin{equation}
+		\begin{split}
+			t {\scriptstyle >} \ &< \ t {\scriptstyle >}_{linie} -\ 0,2\ \text{(selektivitet med linjen)}\\
+			t {\scriptstyle >} \ &\le \ 2 - 0,1\ \text{(DS/EN 60076-5 4.1.3)}\\
+			t {\scriptstyle >} \ &> \ t_{inrush,#1}\ (\SI{100}{\milli\second})
+		\end{split}
+	\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>t>@trafo}[2]%{linje}{valg} Viser indstillet t> i udtryk
+{
+\StrSubstitute{#1}{,}{.}[\linje]%
+\StrSubstitute{#2}{,}{.}[\valgt]%
+
+\FPeval\LinjeResult{clip(round(\linje - 0.2:2))}%
+
+\emph{\tHak kan indstilles i intervallet $40 - 200000\ \si{ms}$ og af step på $\SI{10}{ms}$}
+
+\begin{equation}
+	\begin{split}
+		\num{0,15} \ &\le \ \num{\valgt} \ \le \ \left ( \num{\linje}-\num{0,2} \right )\ /\ \left ( \num{2}-\num{0,1} \right )\\
+		\num{0,15} \ &\le \ \num{\valgt} \ \le \ \num{\LinjeResult}\ /\ \num{1,9} \rightarrow Ok
+	\end{split}
+\end{equation}
+}{}
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>>=>Krav@trafo}[1]%{navn} Opstiller krav for hvordan I>> skal indstilles når relæ beskytter trafo
+{
+\emph{Følgende krav tager udgangspunkt i at trin 2 ikke må udkoble på fejl fra LV-siden, samt at det skal udkoble for fejl på HV-siden. Disse krav kan fraviges ved argumentation}.
+
+\begin{equation}
+	\begin{split}
+		\iHakHak &> I_{inrush,#1}\\
+		\iHakHak &> I^{\prime}_{k3,max,#1}\\
+		\iHakHak &\le I_{k2,min,#1} \cdot 0,75
+	\end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>>}[4]%{I valgt}{ki,prim}{ki,sek}{op/ned/ingen} Viser hvilken strøm en indstilling af I>> vil give (både linje og trafo)
+{
+\StrSubstitute{#1}{,}{.}[\I]%
+\StrSubstitute{#2}{,}{.}[\prim]%
+\StrSubstitute{#3}{,}{.}[\sek]%
+
+\FPeval\res{clip(round((\I * (1/(\prim / \sek)) * (1/\sek)):3))}%
+
+\FPeval\simple{clip(round(\I / \prim:2))}%
+
+\ifthenelse{\equal{\detokenize{#4}}{\detokenize{op}}}
+{
+\FPeval\FinalRes{clip(round(\res + 0.01:2))}%
+\FPeval\SimpleRes{clip(round(\simple + 0.01:2))}%
+\def\append{\approx \num{\SimpleRes}}
+}
+{
+\ifthenelse{\equal{\detokenize{#4}}{\detokenize{ned}}}
+{
+\FPeval\FinalRes{clip(round(\res - 0.01:2))}%
+\FPeval\SimpleRes{clip(round(\simple - 0.01:2))}%
+\def\append{\approx \num{\SimpleRes}}
+}
+{
+\FPeval\FinalRes{clip(round(\res:2))}%
+\FPeval\SimpleRes{clip(round(\simple:2))}%
+\def\append{}
+}
+
+}
+
+\FPeval\Ires{clip(round(\prim * \FinalRes:2))}%
+
+\emph{\iHakHak kan indstilles i intervallet $0,10 - 40 \cdot I_n$ og af step på $\num{0,01}$}
+
+\begin{equation}
+	\begin{split}
+		\iHakHak_{inst} &= \frac{I_{valgt}}{k_{i,prim}}\\
+		&= \frac{\num{\I}}{\num{\prim}}\\
+		&= \num{\simple} \append
+	\end{split}
+\end{equation}
+
+%\begin{equation}
+%    \begin{split}
+%        I\!\!>_{inst} &= I_{B} \cdot \frac{1}{k_i} \cdot \frac{1}{I_n}\\
+%        I\!\!>_{inst} &= \num{\I} \cdot \frac{1}{\big(\frac{\prim}{\sek}\big)} \cdot \frac{1}{\sek}\\
+%        I\!\!>_{inst} &= \num{\res} \approx \num{\FinalRes}
+%    \end{split}
+%\end{equation}
+
+\begin{equation}
+	\begin{split}
+		I {\scriptstyle \!>{}\!\!>}_{strøm} &= k_{i,prim} \cdot I {\scriptstyle \!>{}\!\!>}_{inst} \myspace \si{[\ampere]}\\
+		&= \num{\prim} \cdot \num{\FinalRes}\\
+		&= \SI{\Ires}{\ampere}
+	\end{split}
+\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>I>>=>Kontrol@trafo}[5]%{trafo navn}{inrush}{IK'3F,max,LSP}{IK,2F,min,HSP}{I>> indstillet} Viser om indstillet I>> overholder de 3 krav
+{
+	\StrSubstitute{#2}{,}{.}[\inrush]%
+	\StrSubstitute{#3}{,}{.}[\IKsek]%
+	\StrSubstitute{#4}{,}{.}[\IKprim]%
+	\StrSubstitute{#5}{,}{.}[\Iinstillet]%
+
+	\FPeval\IKprimEfterKorrektion{clip(round(\IKprim * 0.75:2))}%
+
+	\ifthenelse{\lengthtest{\Iinstillet pt > \inrush pt}}
+	{
+		\def\ConditionA{Ok}%
+	}
+	{
+		\def\ConditionA{Ikke\ ok}%
+	}
+
+	\ifthenelse{\lengthtest{\Iinstillet pt > \IKsek pt}}
+	{
+		\def\ConditionB{Ok}%
+	}
+	{
+		\def\ConditionB{Ikke\ ok}%
+	}
+
+	\ifthenelse{\lengthtest{\Iinstillet pt < \IKprimEfterKorrektion pt}}
+	{
+		\def\ConditionC{Ok}%
+	}
+	{
+		\def\ConditionC{Ikke\ ok}%
+	}
+
+	\begin{equation}
+		\begin{split}
+			\iHakHak \ &> \ I_{inrush,#1} \ \Rightarrow \ \num{\Iinstillet} \ > \ \num{\inrush} \ \rightarrow \ \ConditionA\\
+			\iHakHak \ &> \ I^{\prime}_{k3,max,#1} \ \Rightarrow \ \num{\Iinstillet} \ > \ \num{\IKsek} \ \rightarrow \ \ConditionB\\
+			\iHakHak \ &\le \ I_{k2,min,#1} \cdot \num{0.75} \ \Rightarrow \ \num{\Iinstillet} \ < \ \num{\IKprimEfterKorrektion} \ \rightarrow \ \ConditionC
+		\end{split}
+	\end{equation}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>t>>@trafo}[1]%{valg i ms} Viser indstillet t>> når relæ beskytter trafo (typisk 40 ms)
+{
+\StrSubstitute{#1}{,}{.}[\valgt]%
+
+\emph{\tHakHak kan indstilles i intervallet $40 - 200000\ \si{ms}$ og af step på $\SI{10}{ms}$}
+
+\vspace{10pt}
+
+\valg{Sætter \tHakHak på $\SI{\valgt}{ms}$}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>t>>=>Kontrol}[7]%{navn}{Ik3F}{Ik2F}{Ik,1s,leder}{Ik,1s,skærm}{tid i s}{egentid i s} Kontrollerer 1 s værdien mod en given strøm
+{
+\StrSubstitute{#2}{,}{.}[\IkTreFase]%
+\StrSubstitute{#3}{,}{.}[\IkToFase]%
+\StrSubstitute{#4}{,}{.}[\IkLeder]%
+\StrSubstitute{#5}{,}{.}[\IkSkerm]%
+\StrSubstitute{#6}{,}{.}[\tid]%
+\StrSubstitute{#7}{,}{.}[\egentid]%
+
+\FPeval\TotalTid{clip(round(\tid + \egentid:2))}%
+\FProot\RodAfTid{\TotalTid}{2}%
+
+\FPeval\ResLeder{clip(round(\IkTreFase * \RodAfTid:2))}
+\FPeval\ResSkerm{clip(round(\IkToFase * \RodAfTid:2))}
+
+\ifdim\IkLeder pt>\ResLeder pt
+\def\ConditionLeder{Ok}
+\else\ifdim\IkLeder pt=\ResLeder pt
+\def\ConditionLeder{Ok}
+\else
+\def\ConditionLeder{Ikke \ ok}
+\fi
+\fi
+
+\ifdim\IkSkerm pt>\ResSkerm pt
+\def\ConditionSkerm{Ok}
+\else\ifdim\IkSkerm pt=\ResSkerm pt
+\def\ConditionSkerm{Ok}
+\else
+\def\ConditionSkerm{Ikke \ ok}
+\fi
+\fi
+
+\begin{tabu} to 1\textwidth { X[l] X[r] }
+\vbox{
+\begin{equation}
+	\begin{split}
+		I_{k,1s,leder} &\ge I_{k3,#1} \cdot \sqrt{t\!\!> + t_e} \myspace [\si{\second}]\\
+		\num{\IkLeder} &\ge \num{\IkTreFase} \cdot \sqrt{\num{\tid}+\num{\egentid}}\\
+		\num{\IkLeder} &\ge \num{\ResLeder} \rightarrow \ConditionLeder
+	\end{split}
+\end{equation}
+}
+&
+\vbox{
+\begin{equation}
+	\begin{split}
+		I_{k,1s,skærm} &\ge I_{k2,#1} \cdot \sqrt{t\!\!> + t_e}\\
+		\num{\IkSkerm} &\ge \num{\IkToFase} \cdot \sqrt{\num{\tid}+\num{\egentid}}\\
+		\num{\IkSkerm} &\ge \num{\ResSkerm} \rightarrow \ConditionSkerm
+	\end{split}
+\end{equation}
+}
+\end{tabu}
+}
+
+%--------------------------------------------------
+
+\newenvironment{HV@Relae=>t>>}[6]%{navn}{Ik3F}{Ik2F}{Ik,1s,leder}{Ik,1s,skærm}{egentid} Viser max t>> indstilling for at kablet er beskyttet
+{
+\StrSubstitute{#2}{,}{.}[\IkTreFase]%
+\StrSubstitute{#3}{,}{.}[\IkToFase]%
+\StrSubstitute{#4}{,}{.}[\IkLeder]%
+\StrSubstitute{#5}{,}{.}[\IkSkerm]%
+\StrSubstitute{#6}{,}{.}[\egentid]%
+
+% Fratræk egentid og lav en nedrunding
+\FPeval\TidLeder{clip(round((\IkLeder / \IkTreFase)^2 - 0.1:3))}%
+\FPeval\TidSkerm{clip(round((\IkSkerm / \IkToFase)^2 - 0.1:3))}%
+\def\FinalResLeder{\fpeval{floor(\TidLeder*100)/100}}%
+\def\FinalResSkerm{\fpeval{floor(\TidSkerm*100)/100}}%
+
+\begin{tabu} to 1\textwidth { X[l] X[r] }
+\vbox{
+\begin{equation}
+	\begin{split}
+		\tHakHak & \le \left( \frac{I_{k,1s,leder}}{I_{k3,max}} \right)^2 - t_e \myspace [\si{\second}]\\
+		& \le \left( \frac{\num{\IkLeder}}{\num{\IkTreFase}} \right)^2 - \num{\egentid}\\
+		& \le \SI{\FinalResLeder}{s}
+	\end{split}
+\end{equation}
+}
+&
+\vbox{
+\begin{equation}
+	\begin{split}
+		\tHakHak & \le \left( \frac{I_{k,1s,skærm}}{I_{k2,max}} \right)^2 - t_e \myspace [\si{\second}]\\
+		& \le \left( \frac{\num{\IkSkerm}}{\num{\IkToFase}} \right)^2 - \num{\egentid}\\
+		& \le \SI{\FinalResSkerm}{\si{\second}}
+	\end{split}
+\end{equation}
+}
+\end{tabu}
+
+}
+
+%--------------------------------------------------
+
