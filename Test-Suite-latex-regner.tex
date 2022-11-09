@@ -8,7 +8,7 @@ Her kan man teste sine formler
 
  
 Fra Sk til Z
-\begin{FraSkTilZ}{min}{max}{115}{6}{0,2}{10000}
+\begin{FraSkTilZ}{max}{min}{37}{6}{0,168}{10000}
 \end{FraSkTilZ}
 
 Kabel dimensionering strøm
@@ -21,7 +21,7 @@ Kabel dimensionering strøm
 \end{Ztrafo}
 
 %{L(km)}{r}{x}{Un}{kabelNavn}
-\begin{Zkabel}{1}{0,125}{0,087}{1000}{W1}
+\begin{Zkabel}{2,3}{0,206}{0,081}{10000}{Wtot}
 \end{Zkabel}
 
 %\begin{Stringtest}{1fx,1f.max.T1,net.min,trafo.T1,W1,6,7,8,1fx,10,11,12,13,14}{3}
@@ -39,9 +39,13 @@ Kabel dimensionering strøm
 %{Sn}{U_trafo}{trafoNavn,prim/sek}
 \end{TrafoFuldlast}
 
-\begin{faseKOMP-Iny}{540,8}{0,81}{0,9}{10}{A1}
+\begin{HV-ZtilIk2f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik2f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
+%{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
+\end{HV-ZtilIk2f}
+
+%\begin{faseKOMP-Iny}{540,8}{0,81}{0,9}{10}{A1}
 %{I_belastning}{cosphi_før}{cosphi_ønsket}{Q_batteristørrelse[kVAR]}{Tavlenavn}
-\end{faseKOMP-Iny}
+%\end{faseKOMP-Iny}
 
 
 \end{document}

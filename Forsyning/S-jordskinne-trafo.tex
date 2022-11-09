@@ -1,0 +1,49 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{S-skinnejord-trafo}[7]%{Ik}{udløsningstid}{start temp}{1/2 = relæ/sikring}{Ik,navn}{tid navn}{tværsnit navn}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken.
+% Fx er SK værdien variabel nummer 3
+\StrSubstitute{#1}{,}{.}[\Ik]%
+\StrSubstitute{#2}{,}{.}[\Tu]%
+\StrSubstitute{#3}{,}{.}[\temp]%
+\StrSubstitute{#4}{,}{.}[\type]%
+
+%Først regnes den første del ik/K
+\FPeval\ikK{\Ik / 226}
+
+%Udregn logarytme delen
+\FPeval\tempUdr{(300+234.5)/(\temp + 234.5)}
+\FPeval\LNtemp{ln(\tempUdr)}
+
+%Udregn den samlede tid efter om det er relæ eller sikring
+\ifthenelse{\equal{\type}{1}}{
+	\FPeval\tottid{\Tu + 0.1}
+}{
+%brug den tid der er inputtet
+\FPeval\tottid{\Tu}
+}
+
+%udregn kvadratroden
+\FPeval\sqrtempT{root(2,\tottid / \LNtemp)}
+
+%Udregn kvardatet
+\FPeval\Sskin{round(\ikK * \sqrtempT:2)}
+
+\ifthenelse{\equal{\type}{1}}{
+	\begin{align*}
+		S_{#7} &\geq \frac{I_{#5}}{K} \cdot \sqrt{\frac{t_{#6} + t_{e}}{\left(ln\left(\frac{\Theta_{f} + \beta}{\Theta_{i} + \beta}\right)\right)}}\\
+		&\geq \frac{\Ik}{226} \cdot \sqrt{\frac{\Tu + 0,1}{\left(ln\left(\frac{300 + 234,5}{\temp + 234,5}\right)\right)}}\\
+		&\geq \Sskin \unit{mm^2}
+	\end{align*}
+}{
+	\begin{align*}
+		S_{#7} &\geq \frac{I_{#5}}{K} \cdot \sqrt{\frac{t_{6}}{\left(ln\left(\frac{\Theta_{f} + \beta}{\Theta_{i} + \beta}\right)\right)}}\\
+		&\geq \frac{\Ik}{226} \cdot \sqrt{\frac{\Tu}{\left(ln\left(\frac{300 + 234,5}{\temp + 234,5}\right)\right)}}\\
+		&\geq \Sskin \unit{mm^2}
+	\end{align*}
+}
+}
+
+
