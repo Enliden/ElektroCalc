@@ -1,0 +1,100 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{LV-Ztotal-max}[3]
+%{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
+{
+%bestemmer seperator samt læser lister
+\setsepchar{ | }
+\readlist\Zv{#1}
+\readlist\Nam{#3}
+%Her udskiftes komma med punktum
+\StrSubstitute{\Zv[1]}{,}{.}[\Ret]%
+\StrSubstitute{\Zv[2]}{,}{.}[\Xet]%
+\StrSubstitute{\Zv[3]}{,}{.}[\Rto]%
+\StrSubstitute{\Zv[4]}{,}{.}[\Xto]%
+\StrSubstitute{\Zv[5]}{,}{.}[\Rtre]%
+\StrSubstitute{\Zv[6]}{,}{.}[\Xtre]%
+\StrSubstitute{\Zv[7]}{,}{.}[\Rfi]%
+\StrSubstitute{\Zv[8]}{,}{.}[\Xfi]%
+\StrSubstitute{\Zv[9]}{,}{.}[\Rfe]%
+\StrSubstitute{\Zv[10]}{,}{.}[\Xfe]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+	
+%Udregn samlede R og X (ganger 1,8 med R for at få max værdi)
+\FPeval\Rtot{round(1.8 * (\Ret + \Rto + \Rtre + \Rfi + \Rfe):2)}
+\FPeval\Xtot{round(\Xet + \Xto + \Xtre + \Xfi + \Xfe:2)}
+	
+%udregn samlede impedans
+\FPeval\Ztot{root(2,pow(2,\Rtot)+pow(2,\Xtot))}
+
+%tests "flag" til hvor mange impedanser der er.
+\FPeval\yepET{1}
+\FPeval\yepTO{1}
+\FPeval\yepTRE{1}
+\FPeval\yepFI{1}
+\FPeval\yepFE{1}
+
+\FPeval\Zettest{\Ret + \Xet}
+\FPifzero{\Zettest}
+\begin{centering}
+	Ingen impedans, prøv igen\\
+\end{centering}
+\else
+\FPeval\yepET{0}
+\fi
+
+\FPeval\Ztotest{\Rto + \Xto + \yepET}
+\FPifzero{\Ztotest}
+\begin{centering}
+	En impedans... hvad regnede du med?\\
+\end{centering}
+\else
+\FPeval\yepTO{0}
+\fi
+
+\FPeval\Ztretest{\Rtre + \Xtre + \yepET + \yepTO}
+\FPifzero{\Ztretest}
+\begin{align*}
+Z_{#2} 	&= Z_{\Nam[1]} + Z_{\Nam[2]}\\
+		&= (1,8 * \Ret + j \Xet) + (1,8 * \Rto + j \Xto)\\
+		&=\Rtot + j\Xtot \Omega
+\end{align*}
+\else
+\FPeval\yepTRE{0}
+\fi
+
+\FPeval\Ztretest{\Rfi + \Xfi + \yepET + \yepTO + \yepTRE}
+\FPifzero{\Ztretest}
+\begin{align*}
+Z_{#2} 	&= Z_{\Nam[1]} + Z_{\Nam[2]} + Z_{\Nam[3]}\\
+		&= (1,8 * \Ret + j \Xet) + (1,8 * \Rto + j \Xto) + (1,8 * \Rtre + j \Xtre)\\
+		&=\Rtot + j\Xtot \Omega
+\end{align*}
+\else
+\FPeval\yepFI{0}
+\fi
+
+\FPeval\Ztretest{\Rfe + \Xfe + \yepET + \yepTO + \yepTRE + \yepFI}
+\FPifzero{\Ztretest}
+\begin{align*}
+Z_{#2} 	&= Z_{\Nam[1]} + Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]}\\
+		&= (1,8 * \Ret + j \Xet) + (1,8 * \Rto + j \Xto) + (1,8 * \Rtre + j \Xtre) + (1,8 * \Rfi + j \Xfi)\\
+		&=\Rtot + j\Xtot \Omega
+\end{align*}
+\else
+\FPeval\yepFE{0}
+\fi
+
+\FPeval\all{\yepET + \yepTO + \yepTRE + \yepFI + \yepFE}
+\FPifzero{\all}
+\begin{align*}
+Z_{#2} 	&= Z_{\Nam[1]} + Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_{\Nam[5]}\\
+		&= (1,8 * \Ret + j \Xet) + (1,8 * \Rto + j \Xto) + (1,8 * \Rtre + j \Xtre) + (1,8 * \Rfi + j \Xfi) + (1,8 * \Rfe + j \Xfe)\\
+		&=\Rtot + j\Xtot \Omega
+\end{align*}
+\else
+\fi
+}
+
+
