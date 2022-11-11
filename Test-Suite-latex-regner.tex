@@ -43,17 +43,36 @@ Kabel dimensionering strøm
 %{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
 \end{HV-ZtilIk2f}
 
-\begin{Ztotal}{ 1 | 0 | 2 | 0 | 3 | 0 | 4 | 0 | 5 | 0 }{Z-resultat-navn}{Z1-navn | Z2-navn | Z3-navn | Z4-navn | Z5-navn}{1 | 2 | 3 | 4 | 5}
+\begin{Ztotal}{ 0,2 | 1,88 | 4.5 | 1,6 | 0 | 0 | 0 | 0 | 0 | 0 }{NT}{Net | Trafo | Z3-navn | Z4-navn | Z5-navn}{1 | 1 | 1 | 1 | 1}
 	%{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
 \end{Ztotal}
 
-\begin{LV-Ztotal-max}{ 2 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 }{Z-resultat-navn}{Z1-navn | Z2-navn | Z3-navn | Z4-navn | Z5-navn}{2 | 2 | 1 | 1 | 1}
+\begin{LV-Ztotal-max}{ 0,88 | 1,34 | 2,45 | 2.1 | 0 | 0 | 0 | 0 | 0 | 0 }{tot,kabel,max}{W1 | W2 | Z3-navn | Z4-navn | Z5-navn}{2 | 1 | 1 | 1 | 1}
 	%{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
 \end{LV-Ztotal-max}
 
-\begin{faseKOMP-Iny}{540,8}{0,81}{0,9}{10}{A1}
-%{I_belastning}{cosphi_før}{cosphi_ønsket}{Q_batteristørrelse[kVAR]}{Tavlenavn}
-\end{faseKOMP-Iny}
+\begin{LV-Ik1f-kA}{ 4,55 | 3,48 | 5,20 | 2,77 }{1f,min | NT | tot,kabel}
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{Ik,navn | net-trafo-navn | kabel-navn}
+	%impedanser i milliohm
+\end{LV-Ik1f-kA}
 
+\begin{LV-Ik2f-kA}{ 4,55 | 3,48 | 5,20 | 2,77 }{2f,min | NT | tot,kabel}
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{Ik,navn | net-trafo-navn | kabel-navn}
+	%impedanser i milliohm
+\end{LV-Ik2f-kA}
+
+\begin{LV-Ik2f,parSikr-kA}{ 4,55 | 3,48 | 5,20 | 2,77 }{3}{2f,par,min | NT | tot,kabel}
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{Ik,navn | net-trafo-navn | kabel-navn}
+	%impedanser i milliohm
+\end{LV-Ik2f,parSikr-kA}
+
+\begin{LV-Ik3f-kA}{ 4,55 | 3,48 | 5,20 | 2,77 }{3f,min | NT | tot,kabel}
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{Ik,navn | net-trafo-navn | kabel-navn}
+	%impedanser i milliohm. Min/max efter impedanser
+\end{LV-Ik3f-kA}
+
+%\begin{faseKOMP-Iny}{540,8}{0,81}{0,9}{10}{A1}
+%{I_belastning}{cosphi_før}{cosphi_ønsket}{Q_batteristørrelse[kVAR]}{Tavlenavn}
+%\end{faseKOMP-Iny}
 
 \end{document}
