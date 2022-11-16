@@ -1,0 +1,36 @@
+%Packages
+\usepackage[utf8]{inputenc}%https://ctan.org/pkg/inputenc (Accept different input encodings)
+\usepackage{amsmath}%https://ctan.org/pkg/amsmath (AMS mathematical facilities for LATEX)
+\usepackage{mathtools}%https://ctan.org/pkg/mathtools (Mathematical tools to use with amsmath)
+\usepackage{icomma}%https://ctan.org/pkg/icomma (Intelligent commas for decimal numbers)
+\usepackage{siunitx}%https://ctan.org/pkg/siunitx (A comprehensive (SI) units package)
+\usepackage{fp}% https://ctan.org/pkg/fp?lang=en (Fixed point arithmetic)
+\usepackage{xstring}%https://ctan.org/pkg/xstring?lang=en (String manipulation for (LA)TEX)
+%\usepackage{import}
+\usepackage{listofitems}
+\usepackage{ifthen}
+\usepackage{gensymb} %bl.a. til \degree kommando
+\usepackage{import} % bruges til subimport. Kan godt give problemer og skal måske placeres ude i main.tex
+
+\subimport{TeXElektroCalc/Formler/Common/}{fra-Sk-til-Z.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{Iz-min-kabeldim.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{Iz-min-kabeldim-par.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{Z-trafo.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{Z-kabel.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{String-test.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{TrafoFuldlast.tex}
+\subimport{TeXElektroCalc/Formler/Common/}{Z-total.tex}
+
+\subimport{TeXElektroCalc/Formler/Forsyning/}{Z-til-ik-HV.tex}
+\subimport{TeXElektroCalc/Formler/Forsyning/}{HV-ZtilIk2f.tex}
+\subimport{TeXElektroCalc/Formler/Forsyning/}{Ik1-min-prim-trafo.tex}
+\subimport{TeXElektroCalc/Formler/Forsyning/}{HV-ZtilIk1f-prim.tex}
+\subimport{TeXElektroCalc/Formler/Forsyning/}{S-jordskinne-trafo.tex}
+
+\subimport{TeXElektroCalc/Formler/Installation/}{Fasekompensering_med_result_I.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-ZtilIk1f-min.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-Z-total-max.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-Ik1f.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-Ik2f.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-Ik2f-par-sikr.tex}
+\subimport{TeXElektroCalc/Formler/Installation/}{LV-Ik3f.tex}

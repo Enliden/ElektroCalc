@@ -1,0 +1,39 @@
+%Udarbejdet af Magnus
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{Iz,min}[7]%{I-b}{Kt}{Ks}{Ktm}{Kd}{Kn}{Un}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken.
+% Fx er SK værdien variabel nummer 3
+\StrSubstitute{#1}{,}{.}[\Ib]%
+\StrSubstitute{#2}{,}{.}[\Kt]%
+\StrSubstitute{#3}{,}{.}[\Ks]%
+\StrSubstitute{#4}{,}{.}[\Ktm]%
+\StrSubstitute{#5}{,}{.}[\Kd]%
+\StrSubstitute{#6}{,}{.}[\Kn]%
+\StrSubstitute{#7}{,}{.}[\Un]%
+
+%Gang alle korrektionsfaktorer
+\FPeval\KorrektionsF{\Kt * \Ks * \Ktm * \Kd * \Kn}
+
+%Del Belastningen med korrektionsfaktor
+\FPeval\Iz{clip(round(\Ib / \KorrektionsF:2))}
+
+
+% Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V, Regner vi med Kd (dybden i jorden). Er den under kan det være at vi regner på overharmoniske strømme
+\FPifgt{\Un}{500}%
+\begin{align*}
+        I_{z,min} 	&= \frac{I_{B}}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{d}}\\
+        			&= \frac{\Ib}{\Kt \cdot \Ks \cdot \Ktm \cdot \Kd} \\
+        			&= \Iz\\
+\end{align*}
+\else
+\begin{align*}
+        I_{z,min} 	&= \frac{I_{B}}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{n}} \\
+        			&= \frac{\Ib}{\Kt \cdot \Ks \cdot \Ktm \cdot \Kn} \\
+        			&= \Iz\\
+\end{align*}
+\fi
+}
+
+

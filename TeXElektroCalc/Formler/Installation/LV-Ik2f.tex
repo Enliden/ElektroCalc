@@ -1,0 +1,35 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{LV-Ik2f-kA}[2]
+%{ R net + trafo | X net + trafo | R kabler | X kabler }{Ik,navn | net-trafo-navn | kabel-navn}
+%impedanser i milliohm
+{
+\setsepchar{ | }
+\readlist\Zv{#1}
+\readlist\Nam{#2}
+%Her udskiftes komma med punktum
+\StrSubstitute{\Zv[1]}{,}{.}[\Rnt]%
+\StrSubstitute{\Zv[2]}{,}{.}[\Xnt]%
+\StrSubstitute{\Zv[3]}{,}{.}[\Rk]%
+\StrSubstitute{\Zv[4]}{,}{.}[\Xk]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn R og X
+\FPeval\Rtot{ 2 *(\Rnt + \Rk)}
+\FPeval\Xtot{ 2 *(\Xnt + \Xk)}
+
+%udregn samlede net og trafo impedans
+\FPeval\Ztot{root(2,pow(2,\Rtot)+pow(2,\Xtot))}
+
+%udregn kortslutningen 1f
+\FPeval\Ikf{round(400 / (\Ztot):2)}
+
+\begin{align*}
+Ik_{\Nam[1]}	&= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]})}\\
+				&= \frac{400}{2 \cdot ((\Rnt + j\Xnt) + (\Rk + j\Xk))}\\
+				&= \Ikf kA
+\end{align*}
+}
+
+

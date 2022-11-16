@@ -1,0 +1,39 @@
+%Udarbejdet af Magnus Overby
+
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{Zkabel}[5]%{L(km)}{r}{x}{Un}{KabelNavn}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken. Og så hvilket navn de får videre hen.
+\StrSubstitute{#1}{,}{.}[\l]%
+\StrSubstitute{#2}{,}{.}[\r]%
+\StrSubstitute{#3}{,}{.}[\x]%
+\StrSubstitute{#4}{,}{.}[\Un]%
+
+%R værdi
+\FPeval\R{\l * \r}
+
+%X værdi
+\FPeval\X{\l * \x}
+
+
+\def\enhed{}%
+% Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
+\FPifgt{\Un}{500}%
+\FPeval\Rrounded{clip(round(\R * 1:2))}
+\FPeval\Xrounded{clip(round(\X * 1:2))}
+\renewcommand\enhed{\ohm}%
+\else
+ %Lav til milli
+\FPeval\Rrounded{clip(round(\R * 1000:2))}
+\FPeval\Xrounded{clip(round(\X * 1000:2))}
+\renewcommand\enhed{\milli \ohm}%
+\fi
+
+
+\begin{align*}
+Z_{kabel,#5} = l \cdot (r + jx) = \l \cdot (\r + j\x) = \Rrounded + j\Xrounded \unit{\enhed}
+\end{align*}
+}
+
+
