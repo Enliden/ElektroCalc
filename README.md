@@ -22,3 +22,5 @@ OPstil KB skabelon se december 2020
 Selektivitet?
 
 fraSktilZ med cosphi
+
+Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f)
