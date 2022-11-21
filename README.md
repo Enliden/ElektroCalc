@@ -8,7 +8,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ] HV 3f kortslutning
 
-- [ ] HV 2f kortslutning
+- [ ] HV 1f kortslutning
 
 - [ ] Spændingsfald
 	-Regnes et sted af gangen
