@@ -4,6 +4,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ] Seperat PE leder?
 
+- [ ] Oversigt of formler og kommandoer
 
 - [ ] HV 3f kortslutning
 
