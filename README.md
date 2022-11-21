@@ -35,3 +35,5 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 
 - [ ] Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f)
+
+- [ ] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
