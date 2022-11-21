@@ -4,8 +4,6 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ] Seperat PE leder?
 
-- [ ] Oversigt of formler og kommandoer
-
 - [ ] HV 3f kortslutning
 
 - [ ] HV 2f kortslutning
@@ -28,14 +26,17 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ]  OPstil KB skabelon se december 2020
 
+
 - [ ] HV relæ skabelon
 
 
 - [ ] Selektivitet?
 
+
 - [x] fraSktilZ med cosphi
 
 
 - [ ] Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f)
+
 
 - [ ] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
