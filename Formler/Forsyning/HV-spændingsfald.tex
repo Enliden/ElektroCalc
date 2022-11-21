@@ -1,0 +1,32 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{HV-deltaUnet}[5]
+%{Ib}{R}{X}{cosPhi}{U navn | Ib navn}
+{
+\setsepchar{ | }
+\readlist\Nam{#5}
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\Ib]%
+\StrSubstitute{#2}{,}{.}[\R]%
+\StrSubstitute{#3}{,}{.}[\X]%
+\StrSubstitute{#4}{,}{.}[\cosPhi]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn sinPhi
+\FParccos\phiB{\cosPhi}
+\FPsin\sinPhi{\phiB}
+
+%Udregn spændingsfaldet
+\FPeval\deltaU{\Ib * (R * \cosPhi + X * \sinPhi) * \sqTre}
+%I procent
+
+\begin{align*}
+	\Delta U_{\Nam[1]} &= I_{b,\Nam[2]} \cdot (R \cdot cos\varphi_{\Nam[2]} + X \cdot sin\varphi_{\Nam[2]}) \cdot \sqrt[]{3}\\
+						&= \Ib \cdot (\R \cdot \cosPhi + \X \cdot sin(cos^{-1}(\cosPhi))) \cdot \sqrt[]{3}\\
+						&= \deltaU
+\end{align*}
+}
+
+
+
