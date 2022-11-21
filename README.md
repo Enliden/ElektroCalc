@@ -14,6 +14,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 	-1f 2f 3f: resultat både i volt og procent
 	-læg så tallene sammen selv?
 	-Er det samme udregninger til HV og LV
+	- [x] HV spændingsfald
 
 
 - [ ]  tLeder og tSkærm HV
