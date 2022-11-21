@@ -103,9 +103,9 @@
 \FPeval\Ztretest{\Rtre + \Xtre + \yepET + \yepTO}
 \FPifzero{\Ztretest}
 \begin{align*}
-Z_{#2} 	&= \Zet + \Zto\\
+Z_{#2,max} 	&= \Zet + \Zto\\
 		&= \RXet + \RXto\\
-		&=\Rtot + j\Xtot \Omega
+		&=\Rtot + j\Xtot m\Omega
 \end{align*}
 \else
 \FPeval\yepTRE{0}
@@ -114,9 +114,9 @@ Z_{#2} 	&= \Zet + \Zto\\
 \FPeval\Ztretest{\Rfi + \Xfi + \yepET + \yepTO + \yepTRE}
 \FPifzero{\Ztretest}
 \begin{align*}
-Z_{#2} 	&= \Zet + \Zto + \Ztre\\
+Z_{#2,max} 	&= \Zet + \Zto + \Ztre\\
 		&= \RXet + \RXto + \RXtre\\
-		&=\Rtot + j\Xtot \Omega
+		&=\Rtot + j\Xtot m\Omega
 \end{align*}
 \else
 \FPeval\yepFI{0}
@@ -125,9 +125,9 @@ Z_{#2} 	&= \Zet + \Zto + \Ztre\\
 \FPeval\Ztretest{\Rfe + \Xfe + \yepET + \yepTO + \yepTRE + \yepFI}
 \FPifzero{\Ztretest}
 \begin{align*}
-Z_{#2} 	&= \Zet + \Zto + \Ztre + \Zfi\\
+Z_{#2,max} 	&= \Zet + \Zto + \Ztre + \Zfi\\
 		&= \RXet + \RXto + \RXtre + \RXfi\\
-		&=\Rtot + j\Xtot \Omega
+		&=\Rtot + j\Xtot m\Omega
 \end{align*}
 \else
 \FPeval\yepFE{0}
@@ -136,9 +136,9 @@ Z_{#2} 	&= \Zet + \Zto + \Ztre + \Zfi\\
 \FPeval\all{\yepET + \yepTO + \yepTRE + \yepFI + \yepFE}
 \FPifzero{\all}
 \begin{align*}
-Z_{#2} 	&= \Zet + \Zto + \Ztre + \Zfi + \Zfe\\
+Z_{#2,max} 	&= \Zet + \Zto + \Ztre + \Zfi + \Zfe\\
 		&= \RXet + \RXto + \RXtre + \RXfi + \RXfe\\
-		&=\Rtot + j\Xtot \Omega
+		&=\Rtot + j\Xtot m\Omega
 \end{align*}
 \else
 \fi
