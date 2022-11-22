@@ -4,7 +4,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ] Seperat PE leder?
 
-- [ ] HV 3f kortslutning
+- [X] HV 3f kortslutning
 
 - [ ] HV 1f kortslutning
 
@@ -40,3 +40,6 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 
 - [ ] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
+
+
+- [ ] KB kontrol HV? skabelon eller udregner.
