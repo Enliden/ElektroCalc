@@ -10,7 +10,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [ ] HV 1f kortslutning
 
-- [ ] Spændingsfald
+- [X] Spændingsfald
 	-Regnes et sted af gangen
 	-1f 2f 3f: resultat både i volt og procent
 	-læg så tallene sammen selv?
