@@ -43,3 +43,9 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 
 - [ ] KB kontrol HV? skabelon eller udregner.
+
+
+- [ ] Lav om på layout af Zkabel?
+
+
+- [ ] beregner/skabelon til indstilling af HV konstantids relæ.
