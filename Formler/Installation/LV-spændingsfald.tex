@@ -1,0 +1,67 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{LV-deltaU}[6]
+%{Ib}{R}{X}{cosPhi}{1,2,3f}{U navn | Ib navn}
+{
+\setsepchar{ | }
+\readlist\Nam{#6}
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\Ib]%
+\StrSubstitute{#2}{,}{.}[\R]%
+\StrSubstitute{#3}{,}{.}[\X]%
+\StrSubstitute{#4}{,}{.}[\cosPhi]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn sinPhi
+\FParccos\phiB{\cosPhi}
+\FPsin\sinPhi{\phiB}
+
+%1 faset
+\ifthenelse{\equal{#5}{1}}{
+%Udregn spændingsfaldet
+\FPeval\deltaU{round(\Ib * 2 * (1.25 * R * \cosPhi + X * \sinPhi):2)}
+%I procent
+\FPeval\deltaUproc{round((\deltaU / 230) * 100:2)}
+
+\begin{align*}
+	\Delta U_{1f,\Nam[1]} &= I_{b,\Nam[2]} \cdot 2 \cdot (1.25 \cdot R \cdot cos\varphi_{\Nam[2]} + X \cdot sin\varphi_{\Nam[2]})\\
+	&= \Ib \cdot 2 \cdot (1.25 \cdot \R \cdot \cosPhi + \X \cdot sin(cos^{-1}(\cosPhi)))\\
+	&= \deltaU V\\
+	&= \deltaUproc \%
+\end{align*}
+}{}
+
+%2 faset
+\ifthenelse{\equal{#5}{2}}{
+	%Udregn spændingsfaldet
+	\FPeval\deltaU{round(\Ib * 2 * (1.25 * R * \cosPhi + X * \sinPhi):2)}
+	%I procent
+	\FPeval\deltaUproc{round((\deltaU / 400) * 100:2)}
+	
+	\begin{align*}
+		\Delta U_{2f,\Nam[1]} &= I_{b,\Nam[2]} \cdot 2 \cdot (1.25 \cdot R \cdot cos\varphi_{\Nam[2]} + X \cdot sin\varphi_{\Nam[2]})\\
+		&= \Ib \cdot 2 \cdot (1.25 \cdot \R \cdot \cosPhi + \X \cdot sin(cos^{-1}(\cosPhi)))\\
+		&= \deltaU V\\
+		&= \deltaUproc \%
+	\end{align*}
+}{}
+
+%3 faset
+\ifthenelse{\equal{#5}{3}}{
+	%Udregn spændingsfaldet
+	\FPeval\deltaU{round(\Ib * (1.25 * R * \cosPhi + X * \sinPhi):2)}
+	%I procent
+	\FPeval\deltaUproc{round((\deltaU / 230) * 100:2)}
+	
+	\begin{align*}
+		\Delta U_{3f,\Nam[1]} &= I_{b,\Nam[2]} \cdot (1.25 \cdot R \cdot cos\varphi_{\Nam[2]} + X \cdot sin\varphi_{\Nam[2]})\\
+		&= \Ib \cdot (1.25 \cdot \R \cdot \cosPhi + \X \cdot sin(cos^{-1}(\cosPhi)))\\
+		&= \deltaU V\\
+		&= \deltaUproc \%
+	\end{align*}
+}{}
+}
+
+
+
