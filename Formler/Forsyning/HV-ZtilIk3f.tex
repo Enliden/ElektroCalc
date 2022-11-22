@@ -1,6 +1,6 @@
 %Udarbejdet af Magnus Overby
 % Her definerer jeg min "makro" som laver en udregning for mig
-\newenvironment{HV-ZtilIk2f}[3]
+\newenvironment{HV-ZtilIk3f}[3]
 %{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
 {
 \setsepchar{ | }
@@ -29,7 +29,7 @@
 \FPeval\Ztot{root(2,pow(2,\Rtot)+pow(2,\Xtot))}
 
 %udregn kortslutningen 1f
-\FPeval\IktoF{round(\Un / (2 * \Ztot):2)}
+\FPeval\IktreF{round(\Un / (\sqTre * \Ztot):2)}
 
 \FPeval\yepET{1}
 \FPeval\yepTO{1}
@@ -49,9 +49,9 @@
 \FPeval\Ztotest{\Rto + \Xto + \yepET}
 \FPifzero{\Ztotest}
 \begin{align*}
-I_{k\Nam[1]} &= \frac{U_n}{2 \cdot Z_{\Nam[2]}} \\
-	&= \frac{\Un}{2 \cdot (\Ret + j\Xet)}\\
-	&= \IktoF \unit{A}
+I_{k\Nam[1]} &= \frac{U_n}{\sqrt{3} \cdot Z_{\Nam[2]}} \\
+	&= \frac{\Un}{\sqrt{3} \cdot (\Ret + j\Xet)}\\
+	&= \IktreF \unit{A}
 \end{align*}
 \else
 \FPeval\yepTO{0}
@@ -60,9 +60,9 @@ I_{k\Nam[1]} &= \frac{U_n}{2 \cdot Z_{\Nam[2]}} \\
 \FPeval\Ztretest{\Rtre + \Xtre + \yepET + \yepTO}
 \FPifzero{\Ztretest}
 \begin{align*}
-I_{k\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]})} \\
-	&= \frac{\Un}{2 \cdot ((\Ret + j\Xet) + (\Rto + j\Xto))}\\
-	&= \IktoF \unit{A}
+I_{k\Nam[1]} &= \frac{U_n}{\sqrt{3}\cdot (Z_{\Nam[2]} + Z_{\Nam[3]})} \\
+	&= \frac{\Un}{\sqrt{3}\cdot ((\Ret + j\Xet) + (\Rto + j\Xto))}\\
+	&= \IktreF \unit{A}
 \end{align*}
 \else
 \FPeval\yepTRE{0}
@@ -71,9 +71,9 @@ I_{k\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]})} \\
 \FPeval\Ztretest{\Rfi + \Xfi + \yepET + \yepTO + \yepTRE}
 \FPifzero{\Ztretest}
 \begin{align*}
-I_{k\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]})} \\
-	&= \frac{\Un}{2 \cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre))}\\
-	&= \IktoF \unit{A}
+I_{k\Nam[1]} &= \frac{U_n}{\sqrt{3}\cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]})} \\
+	&= \frac{\Un}{\sqrt{3}\cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre))}\\
+	&= \IktreF \unit{A}
 \end{align*}
 \else
 \FPeval\yepFI{0}
@@ -82,9 +82,9 @@ I_{k\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]})} \\
 \FPeval\Ztretest{\Rfe + \Xfe + \yepET + \yepTO + \yepTRE + \yepFI}
 \FPifzero{\Ztretest}
 \begin{align*}
-Ik_{\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_{\Nam[5]})} \\
-	&= \frac{\Un}{2 \cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre) + (\Rfi + j\Xfi))}\\
-	&= \IktoF \unit{A}
+Ik_{\Nam[1]} &= \frac{U_n}{\sqrt{3}\cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_{\Nam[5]})} \\
+	&= \frac{\Un}{\sqrt{3}\cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre) + (\Rfi + j\Xfi))}\\
+	&= \IktreF \unit{A}
 \end{align*}
 \else
 \FPeval\yepFE{0}
@@ -93,9 +93,9 @@ Ik_{\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_
 \FPeval\all{\yepET + \yepTO + \yepTRE + \yepFI + \yepFE}
 \FPifzero{\all}
 \begin{align*}
-Ik_{\Nam[1]} &= \frac{U_n}{2 \cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_{\Nam[5]} + Z_{\Nam[6]})} \\
-	&= \frac{\Un}{2 \cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre) + (\Rfi + j\Xfi) + (\Rfe + j\Xfe))}\\
-	&= \IktoF \unit{A}
+Ik_{\Nam[1]} &= \frac{U_n}{\sqrt{3}\cdot (Z_{\Nam[2]} + Z_{\Nam[3]} + Z_{\Nam[4]} + Z_{\Nam[5]} + Z_{\Nam[6]})} \\
+	&= \frac{\Un}{\sqrt{3}\cdot ((\Ret + j\Xet) + (\Rto + j\Xto) + (\Rtre + j\Xtre) + (\Rfi + j\Xfi) + (\Rfe + j\Xfe))}\\
+	&= \IktreF \unit{A}
 \end{align*}
 \else
 \fi
