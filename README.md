@@ -16,7 +16,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 	- [x] HV spændingsfald
 
 
-- [ ]  tLeder og tSkærm HV
+- [X]  tLeder og tSkærm HV
 
 
 - [ ]  ik3 til ik2 HV
