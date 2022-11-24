@@ -6,7 +6,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [X] HV 3f kortslutning
 
-- [ ] HV 1f kortslutning
+- [x] HV 1f kortslutning
 
 - [X] Spændingsfald
 	-Regnes et sted af gangen
@@ -36,7 +36,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] fraSktilZ med cosphi
 
 
-- [ ] Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f)
+- [ ] Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f) VIGTIG!
 
 
 - [ ] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
@@ -49,3 +49,6 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
+
+
+- [ ] Variable til overlast i transformer fuldlast og til navn af strømmen
