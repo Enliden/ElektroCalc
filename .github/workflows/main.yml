@@ -9,6 +9,6 @@ jobs:
       - uses: yegor256/latexmk-action@0.5.0
         with:
           cmd: latexmk
-          path: foo
+          path: main.tex
           opts: -pdf
           packages: acmart tikz
