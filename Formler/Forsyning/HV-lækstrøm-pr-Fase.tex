@@ -1,0 +1,36 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{HV-lækstrøm-pr-fase}[5]
+%{Un}{længde af kabler}{Kapitans pr km}{frekvens}{kabel navn | Z1 navn | Z2 navn | Z3 navn}
+{
+\setsepchar{ | }
+\readlist\Nam{#5}
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\Un]%
+\StrSubstitute{#2}{,}{.}[\Lk]%
+\StrSubstitute{#3}{,}{.}[\Ck]%
+\StrSubstitute{#4}{,}{.}[\fr]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+%først udregnes den samlede kapacitans
+\FPeval\Co{round(\Lk * \Ck:2)}
+%Så regnes den kapacitive reaktans for kablet
+\FPeval\Xk{round(1/((2 * pi * \fr * \Co)/1000000):2)}
+%Udregn så lækstrømmen
+\FPeval\ICo{round(\Un / (\sqTre * \Xk):2)}
+%
+\begin{align*}
+	C_0 &= l_{\Nam[1]} \cdot c_0\\
+		&= \Lk \cdot \Ck\\
+		&= \Co \mu f\\
+	X_C &= \frac{1}{2\pi \cdot f \cdot C_0 \cdot 10^{-6}}\\
+		&= \frac{1}{2\pi \cdot \fr \cdot \Co \cdot 10^{-6}}\\
+		&= \Xk \Omega\\
+	I_{C0}	&= \frac{U_n}{\sqrt[]{3} \cdot X_C}\\
+			&= \frac{\Un}{\sqrt[]{3} \cdot \Xk}\\
+			&=\ICo A
+\end{align*}
+}
+
+
+

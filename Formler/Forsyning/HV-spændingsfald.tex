@@ -18,13 +18,13 @@
 \FPsin\sinPhi{\phiB}
 
 %Udregn spændingsfaldet
-\FPeval\deltaU{\Ib * (R * \cosPhi + X * \sinPhi) * \sqTre}
+\FPeval\deltaU{round(\Ib * (R * \cosPhi + X * \sinPhi) * \sqTre:2)}
 %I procent
 
 \begin{align*}
 	\Delta U_{\Nam[1]} &= I_{b,\Nam[2]} \cdot (R \cdot cos\varphi_{\Nam[2]} + X \cdot sin\varphi_{\Nam[2]}) \cdot \sqrt[]{3}\\
 						&= \Ib \cdot (\R \cdot \cosPhi + \X \cdot sin(cos^{-1}(\cosPhi))) \cdot \sqrt[]{3}\\
-						&= \deltaU
+						&= \deltaU V
 \end{align*}
 }
 

@@ -22,24 +22,6 @@ Her kan man teste sine formler
 	\end{LV-Ik2f,parSikr-kA} 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 Fra Sk til Z
 \begin{FraSkTilZ}{min}{max}{50}{6}{0,58}{400}
 \end{FraSkTilZ}
@@ -56,6 +38,9 @@ Kabel dimensionering strøm
 %{L(km)}{r}{x}{Un}{kabelNavn}
 \begin{Zkabel}{2,3}{0,206}{0,081}{10000}{Wtot}
 \end{Zkabel}
+\begin{Zkabel-max}{0,108}{0,207}{0,078}{400}{W3,150,max}{1,8}
+	%{L(km)}{r}{x}{Un}{KabelNavn}{1,8/1,5}
+\end{Zkabel-max}
 
 %\begin{Stringtest}{1fx,1f.max.T1,net.min,trafo.T1,W1,6,7,8,1fx,10,11,12,13,14}{3}
 %\end{Stringtest}
@@ -72,6 +57,10 @@ Kabel dimensionering strøm
 \begin{HV-ZtilIk2f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik2f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
 %{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
 \end{HV-ZtilIk2f}
+
+\begin{HV-ZtilIk3f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik2f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
+	%{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
+\end{HV-ZtilIk3f}
 
 \begin{Ztotal}{ 0,2 | 1,88 | 4.5 | 1,6 | 0 | 0 | 0 | 0 | 0 | 0 }{NT}{Net | Trafo | Z3-navn | Z4-navn | Z5-navn}{1 | 1 | 1 | 1 | 1}
 	%{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
@@ -109,4 +98,29 @@ Kabel dimensionering strøm
 	%{Ib}{R}{X}{cosPhi}{U navn | Ib navn}
 \end{HV-deltaUnet}
 
+\begin{LV-deltaU}{130}{0,206}{0,081}{0,9}{1}{W1 | T2}
+	%{Ib}{R}{X}{cosPhi}{antal faser}{U navn | Ib navn}
+\end{LV-deltaU}
+
+\begin{HV-KBtid-leder}{13000}{8000}{0.1}{W1 | 3f,max | W1}
+	%{Ik3,max}{ik1s}{t egen}{t navn | ik navn | leder navn}
+\end{HV-KBtid-leder}
+
+\begin{HV-KBtid-skærm}{8000}{9000}{0.1}{W1 | 2f,max | W1}
+	%{Ik3,max}{ik1s}{t egen}{t navn | ik navn | leder navn}
+\end{HV-KBtid-skærm}
+dsdsdsd
+\begin{table}[https]
+	\begin{tabular}{l|l}
+		NSX630F & Micrologic 2.3 \\ \hline
+		IN      & In             \\
+		Icu     & Ir             \\
+		Ics     & Isd            \\
+		& Ii            
+	\end{tabular}
+\end{table}
+
+\begin{HV-lækstrøm-pr-fase}{10000}{20}{0,44}{50}{tot,radial}
+	%{Un}{længde af kabler}{Kapitans pr km}{frekvens}{kabel navn}
+\end{HV-lækstrøm-pr-fase}
 \end{document}
