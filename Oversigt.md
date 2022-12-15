@@ -138,34 +138,25 @@ X kabler }            % Kabelinduktans
 
 
 ## Ik2f
+```latex
 \begin{LV-Ik2f-kA}
-{R net + trafo |  % net+trafo resistans
-X net + trafo |    % net+trafo induktans
-R kabler |            % Kabelresistans
-X kabler }            % Kabelinduktans
-{max}                   % maks eller min
-{N+T,min}            % Net og trafo navn
-{w1}                      % Kabelnavn
-%
-%
-%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
-% impedanser i milliohm
+	{R net + trafo |  % net+trafo resistans
+	X net + trafo |    % net+trafo induktans
+	R kabler |            % Kabelresistans
+	X kabler }            % Kabelinduktans
+	{max}                   % maks eller min
+	{N+T,min}            % Net og trafo navn
+	{w1}                      % Kabelnavn
+	%
+	%
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
+	% impedanser i milliohm
 \end{LV-Ik2f-kA}
+```
 
 ## Ik1f
-\begin{LV-Ik1f-kA}
-{R net + trafo |  % net+trafo resistans
-X net + trafo |    % net+trafo induktans
-R kabler |            % Kabelresistans
-X kabler }            % Kabelinduktans
-{max}                   % maks eller min
-{N+T,min}            % Net og trafo navn
-{w1}                      % Kabelnavn
-%
-%
-%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
-% impedanser i milliohm
-\end{LV-Ik1f-kA}
+
+
 # Anlæg
 ## 1f-kortslutning på sekundærside henført
 \begin{HV-ZtilIk1-prim}

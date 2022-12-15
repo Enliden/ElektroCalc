@@ -2,6 +2,15 @@
 Tools for inputing electrotechnical formulas and calculating the results in latex.
 
 
+- [ ] Ohms lov U = I * Z
+- [ ] Sumstrøm
+- [ ] Henført strøm
+
+- [x] Spændingsfald Geometrisk
+- [ ] Spændingsfald Komplekst
+- [ ] Samlet spændingsfald
+- [ ] Faktiske Spænding
+
 - [ ] Seperat PE leder?
 
 
