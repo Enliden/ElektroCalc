@@ -1,0 +1,49 @@
+%Udarbejdet af Jakob Dupont
+
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{FraIkTilZ}[5]%{Ik}{R/X}{Un}{Z navn}{Ik navn}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken.
+% Fx er SK værdien variabel nummer 3
+\StrSubstitute{#1}{,}{.}[\Ik]%
+\StrSubstitute{#2}{,}{.}[\RX]%
+\StrSubstitute{#3}{,}{.}[\Un]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+% Resultat i radianer
+\FParccot\InverseCot{\RX}
+%Først skal vi udregne R
+\FPcos\cosPhi{\InverseCot}
+\FPeval\R{\Un / \Ik * \cosPhi}
+%Udregn X
+\FPsin\sinPhi{\InverseCot}
+\FPeval\X{\Un / \Ik * \sinPhi}
+
+\def\enhed{}%
+
+% Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
+\FPifgt{\Un}{500}%
+\renewcommand\enhed{\ohm}%
+\FPeval\Rrounded{clip(round(\R:2))}
+\FPeval\Xrounded{clip(round(\X:2))}
+\else
+ %Lav til milli
+\FPeval\R{clip(\R * 1000)}
+\FPeval\Rrounded{clip(round(\R:2))}
+\FPeval\X{clip(\X * 1000)}
+\FPeval\Xrounded{clip(round(\X:2))}
+\renewcommand\enhed{\milli \ohm}%
+\fi
+
+\begin{equation*}
+	\begin{split}
+		Z_{#4} 	&= \frac{U_{n}}{I_{k,#5}} \angle cot^{-1}(R/X)\\
+				&= \frac{\Un}{\Ik} \angle cot^{-1}(\RX)\\
+				&= \Rrounded + j\Xrounded \unit[]{\enhed}
+	\end{split}
+\end{equation*}
+}
+
+
