@@ -1,0 +1,42 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{I-henført}[5]
+%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
+{
+%bestemmer seperator samt læser lister
+\setsepchar{ | }
+%\readlist\Nam{#3}
+%Her udskiftes komma med punktum
+\StrSubstitute{#1}{,}{.}[\I]%
+\StrSubstitute{#2}{,}{.}[\Up]%
+\StrSubstitute{#3}{,}{.}[\Us]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn strømmen henført fra primær til sekundær
+\FPeval\ISP{round(\I * \Up / \Us:2)}
+
+%Udregn strømmen henført fra sekundær til primær
+\FPeval\IPS{round(\I / (\Up / \Us):2)}
+
+
+\FPifzero{#5}
+\begin{equation*}
+	\begin{split}
+		I'_{#4} 	&= I_{#4} \cdot \frac{U_{prim}}{U_{sek}}\\
+					&= \I \cdot \frac{\Up}{\Us}\\
+					&= \ISP A
+	\end{split}
+\end{equation*}
+\else
+\begin{equation*}
+	\begin{split}
+		I'_{#4} 	&=\frac{I_{#4}}{\frac{U_{prim}}{U_{sek}}}\\
+					&= \frac{\I}{\frac{\Up}{\Us}}\\
+					&= \IPS A
+	\end{split}
+\end{equation*}
+\fi
+}
+
+

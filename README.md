@@ -10,7 +10,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 ### Strømme og strømværdier
 - [ ] Sumstrøm
-- [ ] Henført strøm
+- [x] Henført strøm
 - [x] Trafo Fuldlast
 
 - [x] Strømværdi Izmin
@@ -58,7 +58,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] Netimpedans (kortslutningseffekt) fra Cosinus 
 - [x] Netimpedans (kortslutningseffekt) for RX
 - [x] Netimpedans fra kortslutningsstrøm med cosphi fx 20ka ved en tavle (1f og 3f) VIGTIG!
-- [ ] Netimpendans fra kortslutningsstrøm med RX
+- [x] Netimpendans fra kortslutningsstrøm med RX
 - [x] Transformerimpedans
 - [x] Kabelimpedans
 - [x] Totalimpedans

@@ -114,7 +114,12 @@
 	%{Sn}{U_trafo}{typisk T1,prim}
 \end{TrafoFuldlast}
 ```
-
+## Strøm henført
+```latex
+\begin{I-henført}{I}{10,5}{0,42}{Inavn}{0}
+	%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
+\end{I-henført}
+```
 # Installation
 ## Ztotal-max
 

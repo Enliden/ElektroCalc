@@ -7,3 +7,12 @@ $$
 	\end{split}
 \end{equation*}
 $$
+
+$$
+\begin{equation*}
+	\begin{split}
+		I'_{navn} &= I_{navn} \cdot \frac{U_{prim}}{U_{sek}}\\
+					&= I_{navn} \cdot \frac{U_{prim}}{U_{sek}}\\
+	\end{split}
+\end{equation*}
+$$
