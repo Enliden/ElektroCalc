@@ -76,6 +76,14 @@
 	%{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
 \end{Ztotal}
 ```
+
+### ImpedansFraKortslutningseffekt
+```latex
+\begin{FraIkTilZcos}
+	{20}{0.8}{400}{kn,min}{3f,max}
+	%{Ik i A}{cosPhi}{Un}{Z navn}{Ik navn}
+\end{FraIkTilZcos}
+```
 ## Strømværdi
 ```latex
 \begin{Iz,min}% 7 inputs

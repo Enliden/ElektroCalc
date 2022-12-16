@@ -57,7 +57,8 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 ### Impedansberegninger
 - [x] Netimpedans (kortslutningseffekt) fra Cosinus 
 - [x] Netimpedans (kortslutningseffekt) for RX
-- [ ] Netimpedans fra kortslutningsstrøm fx 20ka ved en tavle (1f og 3f) VIGTIG!
+- [x] Netimpedans fra kortslutningsstrøm med cosphi fx 20ka ved en tavle (1f og 3f) VIGTIG!
+- [ ] Netimpendans fra kortslutningsstrøm med RX
 - [x] Transformerimpedans
 - [x] Kabelimpedans
 - [x] Totalimpedans
