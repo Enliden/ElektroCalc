@@ -111,13 +111,18 @@
 ## Ztotal-max
 
 ```latex
+## Ztotal-maks
+```latex
 \begin{LV-Ztotal-max}
-	{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
+	{ 1 | 2 | 3 | 4| 5 | 0 | 0 | 0 | 0 | 0 }
+	{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn} 
+	{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
 	% { R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }
 	% {Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
 	% {Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
 \end{LV-Ztotal-max}
 ```
+
 ## Fasekompensering
 ```latex
 \begin{faseKOMP-Iny}
@@ -156,23 +161,11 @@
 
 ## Ik1f
 
-
-
-# Anlæg
-## 1f-kortslutning på sekundærside henført
 ```latex
 \begin{LV-Ik1f-kA}
-{R net + trafo |  % net+trafo resistans
-X net + trafo |    % net+trafo induktans
-R kabler |            % Kabelresistans
-X kabler }            % Kabelinduktans
-{max}                   % maks eller min
-{N+T,min}            % Net og trafo navn
-{w1}                      % Kabelnavn
-%
-%
-%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
-% impedanser i milliohm
+	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
+	% impedanser i milliohm
 \end{LV-Ik1f-kA}
 ```
 
@@ -182,35 +175,14 @@ X kabler }            % Kabelinduktans
 
 ```latex
 \begin{LV-ZtilIk1f-min}
-{ Rnet 
-| Xnet 
-| Rtrafo 
-| Xtrafo 
-|Rkab1 
-| Xkab1 
-| Rkab2 
-| Xkab2 
-| Rkab3 
-| Xkab3 }
-{Ik,navn 
-| netnavn 
-| trafonavn 
-| kabel1navn 
-| kabel2navn 
-| kabel3navn}
-%{ Rnet | Xnet | Rtrafo | Xtrafo | Rkab1 | Xkab1 | Rkab2 | Xkab2 | Rkab3 | Xkab3 }{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn | kabel3navn}
+{ Rnet | Xnet | Rtrafo | Xtrafo |Rkab1 | Xkab1 | Rkab2 | Xkab2 | Rkab3 | Xkab3 }{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn| kabel3navn}
+%{ Rnet | Xnet | Rtrafo | Xtrafo | Rkab1 | Xkab1 | Rkab2 | Xkab2 | Rkab3 | Xkab3 }
+%{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn | kabel3navn}
 \end{LV-ZtilIk1f-min}
 ```
 
-## Ztotal-maks
-```latex
-\begin{LV-Ztotal-max}
-	{ 1 | 2 | 3 | 4| 5 | 0 | 0 | 0 | 0 | 0 }{Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}{Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
-	% { R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }
-	% {Z resultat navn}{Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
-	% {Antal_kab 1 | Antal kabler 2 | Antal kabler 3 | Antal kabler 4 | Antal kabler 5}
-			\end{LV-Ztotal-max}
-```
+
+
 ## Impedans fra kortslutningsniveau
 
 # Forsyning
