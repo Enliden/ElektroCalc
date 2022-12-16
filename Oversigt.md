@@ -22,7 +22,8 @@
 	4. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
 	5. [Kortslutning](#kortslutning): ZtilIkHV
 # Common
-## Netimpedans
+## Impendansberegninger
+### Netimpedans
 ```latex
 \begin{FraSkTilZ}
 	{net,min}{max}{Sk}{6}{0,58}{400}
@@ -35,7 +36,7 @@
 \end{FraSkTilZ}
 ```
 
-## NetimpedansCosinus
+### NetimpedansCosinus
 ```latex
 \begin{FraSkTilZcos}
 	{net,min}{max}{Sk}{6}{0,58}{400}
@@ -48,14 +49,14 @@
 \end{FraSkTilZcos}
 ```
 
-## Transformerimpedans
+### Transformerimpedans
 ```latex
 \begin{Ztrafo}
 	{Un}{Sn}{ek}{Pcu}{Impedansnavn}
 	%{Un}{Sn}{ek}{Pcu}{Impedansnavn typisk prim/sek, T3.1}
 \end{Ztrafo}
 ```
-## Kabel-impedans
+### Kabel-impedans
 ```latex
 	\begin{Zkabel}
 		{Længde i km}{r}{x}{Un}{kabelNavn}
@@ -67,7 +68,7 @@
 		%{kabelNavn typisk W1}
 	\end{Zkabel}
 ```
-## Z-total
+### Z-total
 ```latex
 \begin{Ztotal}
 	{ 0,2 | 1,88 | 4.5 | 1,6 | 0 | 0 | 0 | 0 | 0 | 0 }{NT}{Net | Trafo | Z3-navn | Z4-navn | Z5-navn}{1 | 1 | 1 | 1 | 1}
@@ -193,10 +194,6 @@
 %{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn | kabel3navn}
 \end{LV-ZtilIk1f-min}
 ```
-
-
-
-## Impedans fra kortslutningsniveau
 
 # Forsyning
 ## Spændingsfald
