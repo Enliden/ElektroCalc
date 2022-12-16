@@ -256,9 +256,82 @@ w}                                     % navn på kabel
 \end{ZtilIkHV}
 ```
 
+# Skabeloner
+## Kabel dim
+```latex
+\textbf{Nedgravet i jord uden samlet fremføring, 15 grader, 2 termiskmodstand}
+Der nedgraves XLPE kabel, men det dimensioneres som PVC for ikke at udtørre jorden.
+\begin{Iz,min}{Ib}{Kt}{Ks}{Ktm}{Kd}{Kn}{Un}
+\end{Iz,min}
 
+\begin{itemize}
+	\item Tabel A.52.3 $\Rightarrow$ 72
+	\item Tabel B.52.1 $\Rightarrow$ 6
+	\item Tabel B.52.4 $\Rightarrow$ 8
+\end{itemize}
+Det er ikke muligt at få et stort nok tværsnit derfor lægges X parralel kabler.
 
+\begin{Iz,min,par}{Ib}{Kt}{Ks}{Ktm}{Kd}{Kn}{Un}{Antal kabler}
+\end{Iz,min,par}
 
+\begin{itemize}
+	\item Tabel A.52.3 $\Rightarrow$ 72
+	\item Tabel B.52.1 $\Rightarrow$ 6
+	\item Tabel B.52.4 $\Rightarrow$ 8
+\end{itemize}
+Dette giver et tværsnit på 3//4x240$mm^2$ $[250A > 220,13A]$
+```
 
+## HV KB skærm og leder
+```latex
+%2faset for skæm, 3 faset for leder
+\textbf{Leder}
+\begin{equation*}
+	\begin{split}
+	I_{k1s,leder} &\geq I_{k3f,T0,max} \cdot \sqrt{t_{>>} + t_{egen}}\\
+	14200 A &\geq 6601A \cdot \sqrt{0.3 + 0.1}\\
+	14200 A &\geq 4175 A \Rightarrow OK!\\	
+	\end{split}
+\end{equation*}
+```
+
+## Figur
+```latex
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth ,height=15cm , keepaspectratio=true]{Figurer/%|}
+    \caption{Figur}
+    \label{fig:fig}
+\end{figure}
+```
+
+## Maksimal afbryder
+```latex
+\begin{table}[H]
+	\begin{tabular}{l|l}
+		NSX630F & Micrologic 2 \\ \hline
+		$I_N$ 		= 630A  	& $I_o$		= 450A              \\
+		$I_{cu}$	= 36kA		& $I_r$		= 405A = $I_{o} \cdot x$        \\
+		$I_{cs}$ 	= ?    		& $I_sd$	= 2500A = $I_{r} \cdot x$            \\
+								& $I_i$     = ?    
+	\end{tabular}
+\end{table}\\
+```
+
+```latex
+
+```
+
+```latex
+
+```
+
+```latex
+
+```
+
+```latex
+
+```
 
 
