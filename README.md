@@ -13,7 +13,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [ ] Henført strøm
 - [x] Trafo Fuldlast
 
-- [ ] Strømværdi Izmin
+- [x] Strømværdi Izmin
 - [ ] Strømværdi Parallele kabler
 
 ### Spændingsfald
@@ -73,3 +73,4 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [ ] Opstil en maksimalafbryder skabelon
 - [ ]  OPstil KB skabelon se december 2020
 - [ ] Ohms Lov (If på U, R eller I.)
+- [ ] Effekttab i (ledning, skinne, sikring)
