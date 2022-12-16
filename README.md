@@ -2,62 +2,74 @@
 Tools for inputing electrotechnical formulas and calculating the results in latex.
 
 
-- [ ] Ohms lov U = I * Z
+
+
+### Tværsnit
+- [x] Kabel tværsnit S til jordskinne Trafo
+- [ ] 
+
+### Strømme og strømværdier
 - [ ] Sumstrøm
 - [ ] Henført strøm
+- [x] Trafo Fuldlast
 
-- [x] Spændingsfald Geometrisk
+- [ ] Strømværdi Izmin
+- [ ] Strømværdi Parallele kabler
+
+### Spændingsfald
+- [ ] Spændingsfaldsum
+- [ ] Faktisk Spændings
+- [ ]  Spændingsfald Geometrisk
+	- [x] HV-spændingsfald
+	- [ ] LV-spændingsfald
 - [ ] Spændingsfald Komplekst
 - [ ] Samlet spændingsfald
 - [ ] Faktiske Spænding
 
-- [ ] Seperat PE leder?
+### Kortslutningsberegninger
+- [ ] Ik1f
+	- [ ] HV på sekundærside
+	- [ ] LVmin
+	- [ ] LVmax
+- [ ] Ik2f
+	- [ ] HV min
+	- [ ] HV max
+	- [ ] LV min
+	- [ ] LV max
+- [ ] Ik3f
+	- [ ] HV min
+	- [ ] HV max
+	- [ ] LV min
+	- [ ] LV max
+- [ ] Ik3 til ik2 HV
+- [ ] Ik2f Parallele sikringssæt
+- [ ] Ik3f Parallele sikringssæt
 
-- [X] HV 3f kortslutning
+### Tidsberegninger
+- [x]  tLeder og tSkærm HV
 
-- [x] HV 1f kortslutning
+### Selektivitet (Up-down)
+- [ ] Smelte-smelte
+- [ ] Smelte-Maksimalafbryder
+- [ ] Smelte-Automatsikring
+- [ ] Smelte Håndbetjent motorværn
 
-- [X] Spændingsfald
-	-Regnes et sted af gangen
-	-1f 2f 3f: resultat både i volt og procent
-	-læg så tallene sammen selv?
-	-Er det samme udregninger til HV og LV
-	- [x] HV spændingsfald
+### Impedansberegninger
+- [x] Netimpedans (kortslutningseffekt) fra Cosinus 
+- [x] Netimpedans (kortslutningseffekt) for RX
+- [ ] Netimpedans fra kortslutningsstrøm fx 20ka ved en tavle (1f og 3f) VIGTIG!
+- [x] Transformerimpedans
+- [x] Kabelimpedans
+- [x] Totalimpedans
+- [x] Totalimpedans Maks
 
-
-- [X]  tLeder og tSkærm HV
-
-
-- [ ]  ik3 til ik2 HV
-
-
-- [ ]  Opstil en maksimalafbryder skabelon
-
-- [ ]  OPstil KB skabelon se december 2020
-
-
-- [ ] HV relæ skabelon
-
-
-- [ ] Selektivitet?
-
-
-- [x] fraSktilZ med cosphi
-
-
-- [ ] Impedans ud fra kortslutning fx 20ka ved en tavle (1f og 3f) VIGTIG!
-
-
-- [ ] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
-
-
+### Generelt
+- [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
 - [ ] KB kontrol HV? skabelon eller udregner.
-
-
 - [ ] Lav om på layout af Zkabel?
-
-
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
-
-
 - [ ] Variable til overlast i transformer fuldlast og til navn af strømmen
+- [ ] HV relæ skabelon
+- [ ] Opstil en maksimalafbryder skabelon
+- [ ]  OPstil KB skabelon se december 2020
+- [ ] Ohms Lov (If på U, R eller I.)
