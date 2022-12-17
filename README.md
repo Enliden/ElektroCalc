@@ -62,8 +62,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 ### Generelt
 - [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
-- [ ] KB kontrol HV? skabelon eller udregner.
-		![[Pasted image 20221217141918.png]]
+- [x] KB kontrol HV? skabelon eller udregner.
 - [ ] Lav om på layout af Zkabel?
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
 - [ ] Variable til overlast i transformer fuldlast og til navn af strømmen
