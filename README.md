@@ -23,6 +23,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x]  Spændingsfald Geometrisk
 	- [x] HV-spændingsfald
 	- [x] LV-spændingsfald
+	- [ ] Kapacitive spændingsfald
 - [ ] Spændingsfald Komplekst (Ikke nødvendig)
 
 ### Kortslutningsberegninger
