@@ -21,7 +21,9 @@
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
 	3. [2-faset kortslutning](#Ik2f-HV): HV-ZtilIk2f
 	4. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
-	5. [Kortslutning](#kortslutning): ZtilIkHV
+	5. [Tid ved inversrelæ](#### Tidsberegning-ved-inversrelæ)
+	6. [KB kontrol med strøm](#KB-kontrol-strøm)
+
 # Common
 ## Impendansberegninger
 ### Netimpedans
@@ -240,23 +242,23 @@ begin{S-skinnejord-trafo}
 \end{S-skinnejord-trafo}
 ```
 
-## Kortslutning
+### Tidsberegning-ved-inversrelæ
 ```latex
-\begin{ZtilIkHV}
-{}                                    %{Rnet}
-{}                                    %{Xnet}
-{}                                    %{Rkab}
-{}                                    %{Xkab}
-{}                                    %{Rtra}
-{}                                     %{Xtra}
-{10000}                         %{Un}
-{1fk,                               % k1f, k2f eller k3f
-1fk,                                 % strømnav
-net,                                 %Navn på første dvs. netimpedans
-t,                                      % navn på trafo
-w}                                     % navn på kabel
-\end{ZtilIkHV}
+\begin{tid-inversrelæ}
+	{0.5}{0.14}{50}{75}{0,02}{ Q1 | b }
+	%{K} {C} {I} {I-hak} {a } { tidnavn | strømnavn }
+\end{tid-inversrelæ}
 ```
+
+### KB-kontrol-strøm
+```latex
+\begin{KB-kontrol-strøm}
+	{600}{5000}{1}{0.1}{k,1s,skærm | k3,max | >> | e }
+	%{Ik1s,leder}{ik3max}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+	%{Ik1s,skærm}{ik2max}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+\end{KB-kontrol-strøm}
+```
+
 
 # Skabeloner
 ## Kabel dim
@@ -314,10 +316,10 @@ Dette giver et tværsnit på 3//4x240$mm^2$ $[250A > 220,13A]$
 		NSX630F & Micrologic 2 \\ \hline
 		$I_N$ 		= 630A  	& $I_o$		= 450A              \\
 		$I_{cu}$	= 36kA		& $I_r$		= 405A = $I_{o} \cdot x$        \\
-		$I_{cs}$ 	= ?    		& $I_sd$	= 2500A = $I_{r} \cdot x$            \\
+		$I_{cs}$ 	= ?    		& $I_{sd}$	= 2500A = $I_{r} \cdot x$            \\
 								& $I_i$     = ?    
 	\end{tabular}
-\end{table}\\
+\end{table}
 ```
 
 ```latex

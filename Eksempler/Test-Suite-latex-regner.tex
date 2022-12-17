@@ -1,6 +1,7 @@
 \documentclass[a4paper,oneside,10pt,danish]{report}
 \usepackage{import}
 \subimport{../}{main.tex}
+\usepackage{float}
 %\input{../main.tex}
 
 \begin{document}
@@ -122,13 +123,13 @@ Kabel dimensionering strøm
 \end{HV-KBtid-leder}
 
 
-\begin{table}
+\begin{table}[H]
 	\begin{tabular}{l|l}
-		NSX630F & Micrologic 2.3 \\ \hline
-		IN      & In             \\
-		Icu     & Ir             \\
-		Ics     & Isd            \\
-		& Ii            
+		NSX630F & Micrologic 2 \\ \hline
+		$I_N$ 		= 630A  	& $I_o$		= 450A              \\
+		$I_{cu}$	= 36kA		& $I_r$		= 405A = $I_{o} \cdot x$        \\
+		$I_{cs}$ 	= ?    		& $I_sd$	= 2500A = $I_{r} \cdot x$            \\
+		& $I_i$     = ?    
 	\end{tabular}
 \end{table}
 
