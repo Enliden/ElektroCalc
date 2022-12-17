@@ -77,4 +77,4 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [ ]  OPstil KB skabelon se december 2020
 - [ ] Ohms Lov (If på U, R eller I.)
 - [ ] Effekttab i (ledning, skinne, sikring)
-- [ ] Belastningskema 9001 (2 fasede belastninger)
+- [x] Belastningskema 9001 (2 fasede belastninger)
