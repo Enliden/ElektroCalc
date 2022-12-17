@@ -45,9 +45,7 @@ Kabel dimensionering strøm
 %\begin{Stringtest}{1fx,1f.max.T1,net.min,trafo.T1,W1,6,7,8,1fx,10,11,12,13,14}{3}
 %\end{Stringtest}
 
-\begin{ZtilIkHV}{0,5}{0,2}{0,206}{0,075}{0,175}{0,88}{10000}{3fx,1f.max.T1,net.min,trafo.T1,W1}
-%{Rnet}{Xnet}{Rkab}{Xkab}{Rtra}{Xtra}{Un}{IkType,IkNavn,NetNavn,TrafoNavn,kabelNavn}
-\end{ZtilIkHV}
+
 
 
 \begin{TrafoFuldlast}{315000}{10500}{T3.1,prim}
@@ -135,4 +133,9 @@ Kabel dimensionering strøm
 \begin{HV-lækstrøm-pr-fase}{10000}{20}{0,44}{50}{tot,radial}
 	%{Un}{længde af kabler}{Kapitans pr km}{frekvens}{kabel navn}
 \end{HV-lækstrøm-pr-fase}
+
+
+\begin{KB-kontrol-strøm}{600}{5000}{1}{0.1}{k,1s,skærm | k3,max | >> | e }
+	%{Ik3,max}{ik1s}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+\end{KB-kontrol-strøm}
 \end{document}

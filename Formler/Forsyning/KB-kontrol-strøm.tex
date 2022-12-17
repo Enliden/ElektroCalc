@@ -1,0 +1,35 @@
+%Udarbejdet af Malthe Mikjær
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{KB-kontrol-strøm}[5]
+%{Ik3,max}{ik1s}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+{
+	\setsepchar{ | }
+	\readlist\Nam{#5}
+	%Her udskiftes komma med punktum
+	\StrSubstitute{#1}{,}{.}[\iklim]%
+	\StrSubstitute{#2}{,}{.}[\ikmax]%
+	\StrSubstitute{#3}{,}{.}[\thak]
+	\StrSubstitute{#4}{,}{.}[\tEgen]%
+	%Da kvadratrod 3 bruges ofte defineres den her.
+	\FPeval\sqTre{root(2,3)}
+	
+	%Udregn tiden
+	\FPeval\gennemslip{round(\ikmax * root(2,(\thak-\tEgen)):0)}
+	
+	\def\truefalse{}
+	
+	\FPifgt{\iklim}{\gennemslip} 
+	\renewcommand\truefalse{OK}
+	\else
+	\renewcommand\truefalse{Ikke \hspace{4pt} OK}
+	\fi
+	
+	\begin{align*}
+	I_{\Nam[1]} &\ge I_{\Nam[2]} \cdot \sqrt{t_{\Nam[3]} + t_{\Nam[4]}} \\
+	\iklim		&\ge \ikmax \cdot \sqrt{\thak + \tEgen} \\
+	\iklim		&\ge \gennemslip   \longrightarrow  \truefalse
+	\end{align*}
+}
+
+
+

@@ -37,10 +37,11 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 	- [x] LV (Min og Maks)
 - [ ] Ik3 til ik2 HV
 - [x] Ik2f Parallele sikringssæt
-- [ ] Ik3f Parallele sikringssæt
 
 ### Tidsberegninger
 - [x]  tLeder og tSkærm HV
+- [ ] tid ved inversrelæ
+- [ ] 
 
 ### Selektivitet (Up-down)
 - [ ] Smelte-smelte
@@ -62,6 +63,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 ### Generelt
 - [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
 - [ ] KB kontrol HV? skabelon eller udregner.
+		![[Pasted image 20221217141918.png]]
 - [ ] Lav om på layout af Zkabel?
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
 - [ ] Variable til overlast i transformer fuldlast og til navn af strømmen
