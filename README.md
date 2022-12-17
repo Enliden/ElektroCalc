@@ -25,18 +25,15 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [ ] Spændingsfald Komplekst (Ikke nødvendig)
 
 ### Kortslutningsberegninger
-- [ ] Ikxf
 - [x] Ik1f
 	- [x] HV på sekundærside
 	- [x] LV min og max
 	- [x] LV min (ZtilIk1fmin)
-- [ ] Ik2f
-	- [ ] HV min
-	- [ ] HV max
+- [x] Ik2f
+	- [x] HV (min og max)
 	- [x] LV (min og Maks)
-- [ ] Ik3f
-	- [ ] HV min
-	- [ ] HV max
+- [x] Ik3f
+	- [x] HV min og max
 	- [x] LV (Min og Maks)
 - [ ] Ik3 til ik2 HV
 - [x] Ik2f Parallele sikringssæt
