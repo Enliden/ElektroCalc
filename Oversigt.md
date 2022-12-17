@@ -8,6 +8,7 @@
 	6. [Strømværdi Parallelle kabler](#Strømværdi-parallele-kabler): Iz,min,par
 	7. [Transformerimpedans](#Transformerimpedans): Ztrafo
 	8. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
+	9. [Strøm henført](#Strøm-henført): I henført
 2. [Installation](#Installation) (5/7)
 	1. [Fasekompensering](#Fasekompensering): faseKOMP-Iny
 	2. [1-faset kortslutning](#Ik1f): LV-Ik1f-kA    og  LV-ZtilIk1f-min
@@ -112,12 +113,11 @@
 ```
 ## Fuldlaststrøm-fra-Trafo
 ```latex
-\begin{TrafoFuldlast}
-	{600000}{420}{T1, sek}
-	%{Sn}{U_trafo}{typisk T1,prim}
+\begin{TrafoFuldlast}{315000}{10500}{1.2}{T3.1 | prim}
+%{Sn}{U_trafo}{overlast}{Unavn | I navn}
 \end{TrafoFuldlast}
 ```
-## Strøm henført
+## Strøm-henført
 ```latex
 \begin{I-henført}{I}{10,5}{0,42}{Inavn}{0}
 	%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
