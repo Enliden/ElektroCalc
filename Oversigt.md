@@ -180,6 +180,8 @@
 	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      
 	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
 	% impedanser i milliohm
+	% Ved separat PE-leder: Beregn Z-total = Znet + Ztrafo + Zw1 + ... + Zpe
+	%     og sæt det ind i første paramter Rnet + trafo osv.
 \end{LV-Ik1f-kA}
 ```
 
@@ -335,3 +337,77 @@ Dette giver et tværsnit på 3//4x240$mm^2$ $[250A > 220,13A]$
 ```
 
 
+## Selektivtet
+
+### Smelte-smelte
+s. 174. Ligning 4.1
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \ge I^2 t_{down, lysbue+smelte}
+$$
+```
+
+### ParallelSmelte-Smelte
+s. 176, ligning 4.2
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \cdot n^2 \ge I^2 t_{down, lysbue+smelte}
+$$
+```
+
+### MA(A)-MA(B)
+Bog 6, s 181.
+- Strømselektivitet (naturlig selektivitet)
+- Tidsselektivtet
+
+Qup --> Qdown --> Appliance
+	A --> B           --> C
+```latex
+\begin{align}
+		I_{k,maks(C)} &< I_{m,up} \le \frac{I_{k,min(B)} }{1,2} \\
+	2\cdot I_{m,down} &< I_{m,up} \\
+			I_{sd,up} &< I_{m,up} 
+\end{align}
+```
+
+Ikke-strømbegrænsende lader sig gøre. S. 182
+
+### MA - Smelte
+s.194
+
+```latex
+$$
+	I_{eff,cut-off,F,down} < I_{m,up} < \frac{I_{k,min(B)} }{1,2}
+$$
+```
+
+### Smelte - MA
+s. 196
+**Selektivitet ved Overbelastning:** Afstand på 1 sekund på strøm-tidskurven mellem $I_{r,down}$-udløserens *øvre* grænsekurve og smeltesikringskurven.
+
+**Selektivtet ved kortslutning:**
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \ge I^2 t_{maksimalafrbryder,down}
+$$
+```
+
+### Smelte-HåndbetjentMotorværn(m.kortslutningsudløser)
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \ge I_{kmaks(B),down}^2 t_{down, HMV} \longrightarrow \mathbb{OK: Total selektivitet}
+$$
+```
+Gennemslipsenergien for down findes i datablad ved $I_{k,maks(B)}$
+Der kan opnås delvis selektivtet ved
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \ge I_{kmaks(C),down}^2 t_{down, HMV} \longrightarrow \mathbb{OK: Total selektivitet}
+$$
+```
+### Smelte-Automatsikring
+```latex
+$$
+	I^2t_{up,smelte} \cdot 0,8 \ge I_{kmaksB}^2 t_{down}
+$$
+```
