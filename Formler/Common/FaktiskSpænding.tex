@@ -1,0 +1,22 @@
+%Udarbejdet af Magnus
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{TrafoFuldlast}[4]%{Sn}{U_trafo}{overlast}{trafoNavn | prim/sek}
+{
+% I følgende udskifter jeg kommaer med punktum i mine variabler. FP-pakken regner med punktum.
+% Hver variabel starter med # og derefter nummeret i rækken.
+\StrSubstitute{#1}{,}{.}[\Sn]%
+\StrSubstitute{#2}{,}{.}[\Ut]%
+\StrSubstitute{#3}{,}{.}[\Over]%
+\setsepchar{ | }
+\readlist\arg{#4}
+
+%Udregn strømmen
+\FPeval\fuld{clip(round(\Sn * \Over / (\Ut * root(2,3)):2))}
+\begin{align*}
+	I_{1/1,\arg[2]} &= \frac{S_{n} \cdot Overlast}{U_{N,\arg[1],\arg[2]} \cdot \sqrt{3}}\\
+				&=\frac{\Sn \cdot \Over}{\Ut \cdot \sqrt{3}}\\
+				&= \fuld A
+\end{align*}
+}
+
+
