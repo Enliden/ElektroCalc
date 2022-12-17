@@ -9,9 +9,10 @@
 	7. [Transformerimpedans](#Transformerimpedans): Ztrafo
 	8. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
 	9. [Strøm henført](#Strøm-henført): I henført
+	10. [Sum af Spændingsfald](#Spændingsfaldsum)
 2. [Installation](#Installation) (5/7)
 	1. [Fasekompensering](#Fasekompensering): faseKOMP-Iny
-	2. [1-faset kortslutning](#Ik1f): LV-Ik1f-kA    og  LV-ZtilIk1f-min
+	2. [1-faset kortslutning](#Ik1f): LV-Ik1f-kA 
 	3. [2-faset kortslutning](#Ik2f): LV-Ik2f-kA
 	4. [3-faset kortslutning](#Ik3f): LV-Ik3f-kA
 	5. [2-faset kortslutning Parallelle sikringssæt](#Kortslutning-Parallele-Sikringssæt): LV-Ik2f,parSikr-kA
@@ -21,7 +22,7 @@
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
 	3. [2-faset kortslutning](#Ik2f-HV): HV-ZtilIk2f
 	4. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
-	5. [Tid ved inversrelæ](#### Tidsberegning-ved-inversrelæ)
+	5. [Tid ved inversrelæ](#Tidsberegning-ved-inversrelæ)
 	6. [KB kontrol med strøm](#KB-kontrol-strøm)
 
 # Common
@@ -123,6 +124,17 @@
 	%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
 \end{I-henført}
 ```
+
+# Spændingsfaldsum
+```latex
+\begin{spændingsfaldsum}
+	{ 0.01 | 0.02 | 0 | 0 | 0 }{ samlet }{1 | 2 | 3 | 4 | 5}
+	%{ dU1 | dU2 | dU3 | dU4 | dU5 }
+	%{dU-resultat navn}
+	%{dU1 navn | dU2 navn | dU3 navn | dU4 navn | dU5 navn}
+\end{spændingsfaldsum}
+```
+
 # Installation
 ## Ztotal-max
 
@@ -162,6 +174,7 @@
 	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      
 	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
 	% impedanser i milliohm
+	% Ved minimum-kortslutning: Brug maks impedanser
 \end{LV-Ik3f-kA}
 ```
 
@@ -172,6 +185,7 @@
 	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      	
 	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
 	% impedanser i milliohm
+	% Ved minimum-kortslutning: Brug maks impedanser
 \end{LV-Ik2f-kA}
 ```
 
@@ -184,6 +198,7 @@
 	% impedanser i milliohm
 	% Ved separat PE-leder: Beregn Z-total = Znet + Ztrafo + Zw1 + ... + Zpe
 	%     og sæt det ind i første paramter Rnet + trafo osv.
+	% Ved minimum-kortslutning: Brug maks impedanser
 \end{LV-Ik1f-kA}
 ```
 

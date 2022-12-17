@@ -6,44 +6,59 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 ### Tværsnit
 - [x] Kabel tværsnit S til jordskinne Trafo
-- [ ] 
+	- [x] Oversigt
 
 ### Strømme og strømværdier
-- [ ] Sumstrøm
+- [ ] Sumstrøm (Voldede meget besvær for Malthe)
 - [x] Henført strøm
+	- [x] Oversigt
 - [x] Trafo Fuldlast
-
-- [x] Strømværdi Izmin
-- [x] Strømværdi Parallele kabler
+	- [x] Oversigt
+- [x] Strømværdi Izmin'
+	- [x] Oversigt
+- [x] Strømværdi Parallele kabler'
+	- [x] Oversigt
 - [ ] Effekt til strøm
+	- [ ] Oversigt
 
 ### Spændingsfald
-- [ ] Spændingsfaldsum
-- [ ] Faktisk Spændings
+- [x] Spændingsfaldsum
+	- [x] Oversigt
+- [ ] Faktisk Spændingsfald
+	- [ ] Oversigt
 - [x]  Spændingsfald Geometrisk
 	- [x] HV-spændingsfald
+		- [ ] Oversigt
 	- [x] LV-spændingsfald
+		- [ ] Oversigt
 	- [ ] Kapacitive spændingsfald
-- [ ] Spændingsfald Komplekst (Ikke nødvendig)
 
 ### Kortslutningsberegninger
 - [x] Ik1f
-	- [x] HV på sekundærside
+	- [x] HV henført fra sekundærside
+		- [x] Oversigt
 	- [x] LV min og max
-	- [x] LV min (ZtilIk1fmin)
+		- [x] Oversigt
 - [x] Ik2f
 	- [x] HV (min og max)
+		- [x] Oversigt
 	- [x] LV (min og Maks)
+		- [x] Oversigt
 - [x] Ik3f
 	- [x] HV min og max
+		- [ ] Oversigt
 	- [x] LV (Min og Maks)
+		- [x] Oversigt
 - [ ] Ik3 til ik2 HV
+	- [ ] Oversigt
 - [x] Ik2f Parallele sikringssæt
+	- [x] Oversigt
 
 ### Tidsberegninger
 - [x]  tLeder og tSkærm HV
+	- [ ] Oversigt
 - [x] tid ved inversrelæ
-- [ ] 
+	- [x] Oversigt
 
 ### Selektivitet (Up-down)
 - [ ] Smelte-smelte
@@ -53,28 +68,39 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 ### Impedansberegninger
 - [x] Netimpedans (kortslutningseffekt) fra Cosinus 
+	- [x] Oversigt
 - [x] Netimpedans (kortslutningseffekt) for RX
+	- [x] Oversigt
 - [x] Netimpedans fra kortslutningsstrøm med cosphi fx 20ka ved en tavle (1f og 3f) VIGTIG!
+	- [ ] Oversigt
 - [x] Netimpendans fra kortslutningsstrøm med RX
+	- [ ] Oversigt
 - [x] Transformerimpedans
+	- [x] Oversigt
 - [x] KabelimpedansMin
+	- [x] Oversigt
 - [x] KabelimpedansMaks
+	- [ ] Oversigt
 - [x] TotalimpedansMin
+	- [x] Oversigt
 - [x] TotalimpedansMaks
-- [ ] paralelle forskellige impedanser
+	- [x] Oversigt
+- [ ] Paralelle forskellige impedanser
 
 ### Generelt
 - [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
-- [ ] KB kontrol HV? skabelon eller udregner.
-		![[Pasted image 20221217141918.png]]
 - [x] Lav om på layout af Zkabel?
 - [x] KB kontrol HV? skabelon eller udregner.
+	- [ ] Oversigt
 - [x] Lav om på layout af Zkabel?
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
 - [x] Variable til overlast i transformer fuldlast og til navn af strømmen
 - [ ] HV relæ skabelon
 - [x] Opstil en maksimalafbryder skabelon
 - [ ]  OPstil KB skabelon se december 2020
-- [ ] Ohms Lov (If på U, R eller I.)
 - [ ] Effekttab i (ledning, skinne, sikring)
 - [x] Belastningskema 9001 (2 fasede belastninger)
+
+## Droppet
+- Spændingsfald Komplekst (Ikke nødvendig)
+- Ohms Lov (If på U, R eller I.)
