@@ -46,7 +46,7 @@ Kabel dimensionering strøm
 %\end{Stringtest}
 
 \begin{TrafoFuldlast}{315000}{10500}{1.2}{T3.1 | prim}
-%{Sn}{U_trafo}{trafoNavn,prim/sek}
+%{Sn}{U_trafo}{overlast}{Unavn | I navn}
 \end{TrafoFuldlast}
 
 \begin{HV-ZtilIk2f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik2f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
@@ -141,9 +141,7 @@ Kabel dimensionering strøm
 	%{Ik3,max}{ik1s}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
 \end{KB-kontrol-strøm}
 
-\begin{tid-inversrelæ}
-	{0.5}{0.14}{50}{75}{0,02}{ Q1 | b }
-	%{K} {C} {I} {I-hak} {a } { tidnavn | strømnavn }
-\end{tid-inversrelæ}
-	
+\begin{KB-kontrol-energi}{2,6}{3}{243}{13}{  | X | W1 }
+	%{aflæst energi}{eksponent}{k-værdi}{tværsnit}{I^2t navn | k navn | tværsnit navn}
+\end{KB-kontrol-energi}
 \end{document}

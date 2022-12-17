@@ -15,6 +15,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 - [x] Strømværdi Izmin
 - [x] Strømværdi Parallele kabler
+- [ ] Effekt til strøm
 
 ### Spændingsfald
 - [ ] Spændingsfaldsum
@@ -59,6 +60,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] KabelimpedansMaks
 - [x] TotalimpedansMin
 - [x] TotalimpedansMaks
+- [ ] paralelle forskellige impedanser
 
 ### Generelt
 - [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
@@ -70,7 +72,8 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [ ] beregner/skabelon til indstilling af HV konstantids relæ.
 - [x] Variable til overlast i transformer fuldlast og til navn af strømmen
 - [ ] HV relæ skabelon
-- [ ] Opstil en maksimalafbryder skabelon
+- [x] Opstil en maksimalafbryder skabelon
 - [ ]  OPstil KB skabelon se december 2020
 - [ ] Ohms Lov (If på U, R eller I.)
 - [ ] Effekttab i (ledning, skinne, sikring)
+- [ ] Belastningskema 9001 (2 fasede belastninger)

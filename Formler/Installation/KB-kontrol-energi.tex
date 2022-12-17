@@ -1,0 +1,38 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{KB-kontrol-energi}[5]
+%{aflæst energi}{eksponent}{k-værdi}{tværsnit}{I^2t navn | k navn | tværsnit navn}
+{
+	\setsepchar{ | }
+	\readlist\Nam{#5}
+	%Her udskiftes komma med punktum
+	\StrSubstitute{#1}{,}{.}[\Energi]%
+	\StrSubstitute{#2}{,}{.}[\eks]%
+	\StrSubstitute{#3}{,}{.}[\K]
+	\StrSubstitute{#4}{,}{.}[\S]%
+	%Da kvadratrod 3 bruges ofte defineres den her.
+	\FPeval\sqTre{root(2,3)}
+	
+	%Udregn eksponenten til tal
+	\FPeval\eksTal{pow(\eks,10)}
+	%Udregn tilladelig gennemslip. Sørger for de har samme eksponent
+	\FPeval\tilGen{round((pow(2,\K) * pow(2,\S)) / \eksTal:2)}
+	
+	
+	\def\truefalse{}
+	
+	\FPifgt{\tilGen}{\Energi} 
+	\renewcommand\truefalse{OK}
+	\else
+	\renewcommand\truefalse{Ikke \hspace{4pt} OK}
+	\fi
+	
+	\begin{align*}
+	I^2t_{\Nam[1]} 			&\le k^2_{\Nam[2]} \cdot S^2_{\Nam[3]} \\
+	\Energi \cdot 10^{\eks}	&\le \K ^2 \cdot \S ^2 \\
+	\Energi \cdot 10^{\eks}	&\le \tilGen \cdot 10^{\eks}   \longrightarrow  \truefalse
+	\end{align*}
+}
+
+
+
