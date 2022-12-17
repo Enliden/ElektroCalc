@@ -25,11 +25,21 @@
 %udregn kortslutningen 1f
 \FPeval\Ikf{round(400 / (\sqTre * \Ztot):2)}
 
+
+\FPeval\Ztest{\Rk + \Xk}
+\FPifzero{\Ztest}%
 \begin{align*}
-I_{k3f,\Nam[1]}	&= \frac{U_n}{\sqrt{3} \cdot (Z_{\Nam[2]} + Z_{\Nam[3]})}\\
-				&= \frac{400}{\sqrt{3} \cdot ((\Rnt + j\Xnt) + (\Rk + j\Xk))}\\
-				&= \Ikf kA
+	I_{\Nam[1]}	&= \frac{U_n}{\sqrt{3} \cdot Z_{\Nam[2]}}\\
+	&= \frac{400}{\sqrt{3} \cdot (\Rnt + j\Xnt)}\\
+	&= \Ikf kA
 \end{align*}
+\else
+\begin{align*}
+	I_{\Nam[1]}	&= \frac{U_n}{\sqrt{3} \cdot (Z_{\Nam[2]} + Z_{\Nam[3]})}\\
+	&= \frac{400}{\sqrt{3} \cdot ((\Rnt + j\Xnt) + (\Rk + j\Xk))}\\
+	&= \Ikf kA
+\end{align*}
+\fi
 }
 
 
