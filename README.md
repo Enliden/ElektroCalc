@@ -40,7 +40,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 
 ### Tidsberegninger
 - [x]  tLeder og tSkærm HV
-- [ ] tid ved inversrelæ
+- [x] tid ved inversrelæ
 - [ ] 
 
 ### Selektivitet (Up-down)
