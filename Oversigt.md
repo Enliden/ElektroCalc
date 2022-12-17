@@ -125,7 +125,7 @@
 \end{I-henført}
 ```
 
-# Spændingsfaldsum
+## Spændingsfaldsum
 ```latex
 \begin{spændingsfaldsum}
 	{ 0.01 | 0.02 | 0 | 0 | 0 }{ samlet }{1 | 2 | 3 | 4 | 5}
@@ -134,7 +134,13 @@
 	%{dU1 navn | dU2 navn | dU3 navn | dU4 navn | dU5 navn}
 \end{spændingsfaldsum}
 ```
-
+## Faktisk-Spænding
+```latex
+\begin{faktiskspænding}
+	{400}{0.05}{ n1 | n2 | n }
+	%{Spænding}{spændingsfald}{ navn startspænding | navn slutspænding | fase eller netspænding}
+\end{faktiskspænding}
+```
 # Installation
 ## Ztotal-max
 

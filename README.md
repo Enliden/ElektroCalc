@@ -24,8 +24,9 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 ### Spændingsfald
 - [x] Spændingsfaldsum
 	- [x] Oversigt
-- [ ] Faktisk Spændingsfald
-	- [ ] Oversigt
+	- [ ] Procent eller ikke
+- [x] Faktisk Spændingsfald
+	- [x] Oversigt
 - [x]  Spændingsfald Geometrisk
 	- [x] HV-spændingsfald
 		- [ ] Oversigt
