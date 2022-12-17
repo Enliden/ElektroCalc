@@ -14,35 +14,32 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] Trafo Fuldlast
 
 - [x] Strømværdi Izmin
-- [ ] Strømværdi Parallele kabler
+- [x] Strømværdi Parallele kabler
 
 ### Spændingsfald
 - [ ] Spændingsfaldsum
 - [ ] Faktisk Spændings
-- [ ]  Spændingsfald Geometrisk
+- [x]  Spændingsfald Geometrisk
 	- [x] HV-spændingsfald
-	- [ ] LV-spændingsfald
-- [ ] Spændingsfald Komplekst
-- [ ] Samlet spændingsfald
-- [ ] Faktiske Spænding
+	- [x] LV-spændingsfald
+- [ ] Spændingsfald Komplekst (Ikke nødvendig)
 
 ### Kortslutningsberegninger
-- [ ] Ik1f
-	- [ ] HV på sekundærside
-	- [ ] LVmin
-	- [ ] LVmax
+- [ ] Ikxf
+- [x] Ik1f
+	- [x] HV på sekundærside
+	- [x] LV min og max
+	- [x] LV min (ZtilIk1fmin)
 - [ ] Ik2f
 	- [ ] HV min
 	- [ ] HV max
-	- [ ] LV min
-	- [ ] LV max
+	- [x] LV (min og Maks)
 - [ ] Ik3f
 	- [ ] HV min
 	- [ ] HV max
-	- [ ] LV min
-	- [ ] LV max
+	- [x] LV (Min og Maks)
 - [ ] Ik3 til ik2 HV
-- [ ] Ik2f Parallele sikringssæt
+- [x] Ik2f Parallele sikringssæt
 - [ ] Ik3f Parallele sikringssæt
 
 ### Tidsberegninger
@@ -60,9 +57,10 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] Netimpedans fra kortslutningsstrøm med cosphi fx 20ka ved en tavle (1f og 3f) VIGTIG!
 - [x] Netimpendans fra kortslutningsstrøm med RX
 - [x] Transformerimpedans
-- [x] Kabelimpedans
-- [x] Totalimpedans
-- [x] Totalimpedans Maks
+- [x] KabelimpedansMin
+- [x] KabelimpedansMaks
+- [x] TotalimpedansMin
+- [x] TotalimpedansMaks
 
 ### Generelt
 - [x] Oversigt over formler (til kopiering og fastsættelse af væsentlige værdier)
