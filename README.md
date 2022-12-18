@@ -1,7 +1,10 @@
 # ElektroCalc
 Tools for inputing electrotechnical formulas and calculating the results in latex.
 
-
+### Oversigt mangler ud over nedenstående
+- [ ] Faktisk spænding?
+- [ ] HV lækstrøm?
+- [ ] Z kabel max
 
 
 ### Tværsnit
