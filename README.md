@@ -50,7 +50,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 		- [ ] Oversigt
 	- [x] LV (Min og Maks)
 		- [x] Oversigt
-- [ ] Ik3 til ik2 HV
+- [x] Ik3 til ik2 HV
 	- [ ] Oversigt
 - [x] Ik2f Parallele sikringssæt
 	- [x] Oversigt
@@ -98,7 +98,8 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 - [x] Variable til overlast i transformer fuldlast og til navn af strømmen
 - [ ] HV relæ skabelon
 - [x] Opstil en maksimalafbryder skabelon
-- [ ]  OPstil KB skabelon se december 2020
+- [x]  OPstil KB skabelon se december 2020
+	- [ ] Oversigt
 - [ ] Effekttab i (ledning, skinne, sikring)
 - [x] Belastningskema 9001 (2 fasede belastninger)
 
