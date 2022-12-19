@@ -2,14 +2,15 @@
 1. [Common](#Common) (4 skabeloner/ 7 færdige formler / 8 tiltænkte formler)
 	1. [Netimpedans med RX-forhold](#Netimpedans): FraSkTilZ
 	2. [Netimpedans med cosinus](#NetimpedansCosinus): FraSkTilZcos
-	3. [Kabel-impedans](#Kabel-impedans): Zkabel
-	4. [Impedans-sum](#Z-total): Ztotal
-	5. [Strømværdi](#Strømværdi): Iz,min
-	6. [Strømværdi Parallelle kabler](#Strømværdi-parallele-kabler): Iz,min,par
-	7. [Transformerimpedans](#Transformerimpedans): Ztrafo
-	8. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
-	9. [Strøm henført](#Strøm-henført): I henført
-	10. [Sum af Spændingsfald](#Spændingsfaldsum)
+	3. Netimpedans fra Ik
+	4. [Kabel-impedans](#Kabel-impedans): Zkabel
+	5. [Impedans-sum](#Z-total): Ztotal
+	6. [Strømværdi](#Strømværdi): Iz,min
+	7. [Strømværdi Parallelle kabler](#Strømværdi-parallele-kabler): Iz,min,par
+	8. [Transformerimpedans](#Transformerimpedans): Ztrafo
+	9. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
+	10. [Strøm henført](#Strøm-henført): I henført
+	11. [Sum af Spændingsfald](#Spændingsfaldsum)
 2. [Installation](#Installation) (5/7)
 	1. [Fasekompensering](#Fasekompensering): faseKOMP-Iny
 	2. [1-faset kortslutning](#Ik1f): LV-Ik1f-kA 
@@ -17,6 +18,8 @@
 	4. [3-faset kortslutning](#Ik3f): LV-Ik3f-kA
 	5. [2-faset kortslutning Parallelle sikringssæt](#Kortslutning-Parallele-Sikringssæt): LV-Ik2f,parSikr-kA
 	6. [Total maks-impedans](#Ztotal-maks): LV-Ztotal-max
+	7. Spændingsfald
+	8. KB-kontrol
 3. [Forsyning](#Forsyning) (0/5)
 	1. [Spændingsfald](#Spændingsfald) HV: HV-deltaUnet
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
@@ -72,6 +75,7 @@
 		%{kabelNavn typisk W1}
 	\end{Zkabel}
 ```
+fjern indeks fra zkabel.
 ### Z-total
 ```latex
 \begin{Ztotal}
@@ -97,6 +101,7 @@
 	% (spænding bruges tal at bestemme om det er Kd eller Kn} 
 \end{Iz,min}
 ```
+Tilføj enhed
 ## Strømværdi-parallele-kabler
 ```latex
 \begin{Iz,min,par}% 8 inputs
@@ -112,12 +117,18 @@
 	%{antal kabler}
 	\end{Iz,min}
 ```
+Tilføj enhed
 ## Fuldlaststrøm-fra-Trafo
 ```latex
 \begin{TrafoFuldlast}{315000}{10500}{1.2}{T3.1 | prim}
 %{Sn}{U_trafo}{overlast}{Unavn | I navn}
 \end{TrafoFuldlast}
 ```
+
+REPARERES!
+Fjern strømmens navn fra spændingens navn
+Fjern 1/1 fra strømmens navn
+
 ## Strøm-henført
 ```latex
 \begin{I-henført}{I}{10,5}{0,42}{Inavn}{0}
@@ -188,9 +199,11 @@
 ## Ik2f
 ```latex
 \begin{LV-Ik2f-kA}
-	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      	
-	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
+	{ 3.02 | 8.1 | 305.6 | 12.48 }{ k1f,min | NT,max | W26}                      
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{strøm navn maks/min | net-trafo-navn | kabel-navn}
 	% impedanser i milliohm
+	% Ved separat PE-leder: Beregn Z-total = Znet + Ztrafo + Zw1 + ... + Zpe
+	%     og sæt det ind i første paramter Rnet + trafo osv.
 	% Ved minimum-kortslutning: Brug maks impedanser
 \end{LV-Ik2f-kA}
 ```
@@ -199,8 +212,8 @@
 
 ```latex
 \begin{LV-Ik1f-kA}
-	{R net + trafo |X net + trafo |R kabler |X kabler }{max}{N+T,min}{w1}                      
-	%{ R net + trafo | X net + trafo | R kabler | X kabler }{maks/min | net-trafo-navn | kabel-navn}
+	{ 3.02 | 8.1 | 305.6 | 12.48 }{ k1f,min | NT,max | W26}                      
+	%{ R net + trafo | X net + trafo | R kabler | X kabler }{strøm navn maks/min | net-trafo-navn | kabel-navn}
 	% impedanser i milliohm
 	% Ved separat PE-leder: Beregn Z-total = Znet + Ztrafo + Zw1 + ... + Zpe
 	%     og sæt det ind i første paramter Rnet + trafo osv.
@@ -208,17 +221,15 @@
 \end{LV-Ik1f-kA}
 ```
 
+Mangler parenteser, når ledning er nul.
 
-
-
-
+## LV KB kontrol
 ```latex
-\begin{LV-ZtilIk1f-min}
-{ Rnet | Xnet | Rtrafo | Xtrafo |Rkab1 | Xkab1 | Rkab2 | Xkab2 | Rkab3 | Xkab3 }{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn| kabel3navn}
-%{ Rnet | Xnet | Rtrafo | Xtrafo | Rkab1 | Xkab1 | Rkab2 | Xkab2 | Rkab3 | Xkab3 }
-%{Ik,navn | netnavn | trafonavn | kabel1navn | kabel2navn | kabel3navn}
-\end{LV-ZtilIk1f-min}
+\begin{KB-kontrol-energi}{2,6}{3}{243}{13}{  | X | W1 }
+	%{aflæst energi}{eksponent}{k-værdi}{tværsnit}{I^2t navn | k navn | tværsnit navn}
+\end{KB-kontrol-energi}
 ```
+
 
 # Forsyning
 ## Spændingsfald
@@ -240,27 +251,38 @@
 \end{HV-ZtilIk2f}
 ```
 
+fjern prædefineret indeks
+
+## Ik3f-HV
+```latex
+\begin{HV-ZtilIk3f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik3f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
+%{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
+\end{HV-ZtilIk3f}
+```
+Fjern prædefineret indeks
+
 ## 1f-kortslutning-henført
 ```latex
 \begin{HV-ZtilIk1-prim}
-	{10000}{ R1 | X1 | R2 | X2 | R3 | X3 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn}
+	{10000}{ 0,12 | 0,82 | 0,21 | 0,14 | 0 | 0 }{1f-n,sek | KN,max | R2,240 | z3}
 	%{Un} formlen bruges kun ved el-anlæg, så Un=10000
 	%{ Rnet | Xnet | Rkabel | Xkabel | Rtrafo | Xtrafo } 
 	%{Ik,navn | Znet navn | Zkabel navn | Ztrafo navn}
 \end{HV-ZtilIk1-prim}
 ```
 
+grimt gangetegn i første linje
 ## S-jordskinne-trafo
 ```latex
-begin{S-skinnejord-trafo}
-{}       %{Ik}
-{}       %{udløsningstid}
-{}       %{start temp}
-{}       % {1/2 = relæ/sikring}
-{}       % {Ik,navn}
-{}        % {tid navn}
-{}        %{tværsnit navn}
-\end{S-skinnejord-trafo}
+	begin{S-skinnejord-trafo}
+	{}       %{Ik}
+	{}       %{udløsningstid}
+	{}       %{start temp}
+	{}       % {1/2 = relæ/sikring}
+	{}       % {Ik,navn}
+	{}        % {tid navn}
+	{}        %{tværsnit navn}
+	\end{S-skinnejord-trafo}
 ```
 
 ### Tidsberegning-ved-inversrelæ
