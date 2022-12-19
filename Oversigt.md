@@ -2,15 +2,17 @@
 1. [Common](#Common) (4 skabeloner/ 7 færdige formler / 8 tiltænkte formler)
 	1. [Netimpedans med RX-forhold](#Netimpedans): FraSkTilZ
 	2. [Netimpedans med cosinus](#NetimpedansCosinus): FraSkTilZcos
-	3. Netimpedans fra Ik
-	4. [Kabel-impedans](#Kabel-impedans): Zkabel
-	5. [Impedans-sum](#Z-total): Ztotal
-	6. [Strømværdi](#Strømværdi): Iz,min
-	7. [Strømværdi Parallelle kabler](#Strømværdi-parallele-kabler): Iz,min,par
-	8. [Transformerimpedans](#Transformerimpedans): Ztrafo
-	9. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
-	10. [Strøm henført](#Strøm-henført): I henført
-	11. [Sum af Spændingsfald](#Spændingsfaldsum)
+	3. [Netimpedans fra Ik](#NetimpedansFraIk)
+	4. [Netimpedans fra Ik med cosinus](#NetimpedansFraIk-cos)
+	5. [Sumstrøm](#Sumstrøm)
+	6. [Kabel-impedans](#Kabel-impedans): Zkabel
+	7. [Impedans-sum](#Z-total): Ztotal
+	8. [Strømværdi](#Strømværdi): Iz,min
+	9. [Strømværdi Parallelle kabler](#Strømværdi-parallele-kabler): Iz,min,par
+	10. [Transformerimpedans](#Transformerimpedans): Ztrafo
+	11. [Trafo Fuldlaststrøm](#Fuldlaststrøm-fra-Trafo): TrafoFuldlast
+	12. [Strøm henført](#Strøm-henført): I henført
+	13. [Sum af Spændingsfald](#Spændingsfaldsum)
 2. [Installation](#Installation) (5/7)
 	1. [Fasekompensering](#Fasekompensering): faseKOMP-Iny
 	2. [1-faset kortslutning](#Ik1f): LV-Ik1f-kA 
@@ -62,6 +64,32 @@
 	%{cosphi}
 	%{Netspænding}
 \end{FraSkTilZcos}
+```
+
+## NetimpedansFraIk
+```latex
+\begin{FraIkTilZ}{4000}{0.5}{400}{NT}{NT}
+	%{Ik}{cosPhi}{Un}{Z navn}{Ik navn}
+\end{FraIkTilZ}
+```
+## NetimpedansFraIk-cos
+```latex
+\begin{FraIkTilZcos}{4000}{0.5}{400}{NT}{NT}
+	%{Ik}{cosPhi}{Un}{Z navn}{Ik navn}
+\end{FraIkTilZcos}
+```
+
+## Sumstrøm
+```latex
+	\begin{Itotal}
+		{2 | 10 | 4 | 20 | 6 | 30 | 8 | 40 | 10 | 50 }
+		{sum}
+		{ et | to | tre | fire | fem }
+		% { I1 | angle UDEN fortegn| I2 | angle2 | I3 | angle3 | I4 | angle4 | I5 | angle }
+		% {I resultat navn}
+		% {I1 navn | I2 navn | I3 navn | I4 navn | I5 navn}
+		% {Korrektion/start/inrush | samme 2 | samme 3 | samme 4 | samme 5}
+	\end{Itotal}
 ```
 
 ### Transformerimpedans

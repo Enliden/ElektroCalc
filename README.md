@@ -2,9 +2,9 @@
 Tools for inputing electrotechnical formulas and calculating the results in latex.
 
 ### Oversigt mangler ud over nedenstående
-- [ ] Faktisk spænding?
-- [ ] HV lækstrøm?
-- [ ] Z kabel max
+- [x] Faktisk spænding?
+- [x] HV lækstrøm?
+- [x] Z kabel max
 
 
 ### Tværsnit
@@ -12,7 +12,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 	- [x] Oversigt
 
 ### Strømme og strømværdier
-- [ ] Sumstrøm (Voldede meget besvær for Malthe)
+- [x] Sumstrøm (Voldede meget besvær for Malthe)
 - [x] Henført strøm
 	- [ ] Oversigt (Noget galt den gør forkert)
 - [x] Trafo Fuldlast
