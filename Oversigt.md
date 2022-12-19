@@ -18,8 +18,8 @@
 	4. [3-faset kortslutning](#Ik3f): LV-Ik3f-kA
 	5. [2-faset kortslutning Parallelle sikringssæt](#Kortslutning-Parallele-Sikringssæt): LV-Ik2f,parSikr-kA
 	6. [Total maks-impedans](#Ztotal-maks): LV-Ztotal-max
-	7. Spændingsfald
-	8. KB-kontrol
+	7. [KB-kontrol-LV](#LV-KB-kontrol)
+	8. [Spændingsfald](#LV-spændingsfald)
 3. [Forsyning](#Forsyning) (0/5)
 	1. [Spændingsfald](#Spændingsfald) HV: HV-deltaUnet
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
@@ -152,6 +152,8 @@ Fjern 1/1 fra strømmens navn
 	%{Spænding}{spændingsfald}{ navn startspænding | navn slutspænding | fase eller netspænding}
 \end{faktiskspænding}
 ```
+
+
 # Installation
 ## Ztotal-max
 
@@ -221,15 +223,21 @@ Fjern 1/1 fra strømmens navn
 \end{LV-Ik1f-kA}
 ```
 
-Mangler parenteser, når ledning er nul.
-
-## LV KB kontrol
+## LV-KB-kontrol
 ```latex
-\begin{KB-kontrol-energi}{2,6}{3}{243}{13}{  | X | W1 }
+\begin{KB-kontrol-energi}
+	{2,6}{3}{243}{13}{  | X | W1 }
 	%{aflæst energi}{eksponent}{k-værdi}{tværsnit}{I^2t navn | k navn | tværsnit navn}
 \end{KB-kontrol-energi}
 ```
 
+## LV-spændingsfald
+```latex
+\begin{LV-deltaU}
+	{130}{0,206}{0,081}{0,9}{1}{W1 | T2}
+	%{Ib}{R}{X}{cosPhi}{antal faser}{U navn | Ib navn}
+\end{LV-deltaU}
+```
 
 # Forsyning
 ## Spændingsfald
