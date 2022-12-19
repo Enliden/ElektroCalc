@@ -252,7 +252,7 @@
 
 ## S-jordskinne-trafo
 ```latex
-begin{S-skinnejord-trafo}
+\begin{S-skinnejord-trafo}
 {}       %{Ik}
 {}       %{udløsningstid}
 {}       %{start temp}

@@ -14,7 +14,7 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 ### Strømme og strømværdier
 - [ ] Sumstrøm (Voldede meget besvær for Malthe)
 - [x] Henført strøm
-	- [x] Oversigt
+	- [ ] Oversigt (Noget galt den gør forkert)
 - [x] Trafo Fuldlast
 	- [x] Oversigt
 - [x] Strømværdi Izmin'
