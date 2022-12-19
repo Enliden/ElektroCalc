@@ -24,10 +24,17 @@
 	1. [Spændingsfald](#Spændingsfald) HV: HV-deltaUnet
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
 	3. [2-faset kortslutning](#Ik2f-HV): HV-ZtilIk2f
+<<<<<<< HEAD
 	4. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
 	5. [Tid ved inversrelæ](#Tidsberegning-ved-inversrelæ)
 	6. [KB kontrol med strøm](#KB-kontrol-strøm)
 	7. [Lækstrøm per fase](#lækstrøm)
+=======
+	4. 3-faset kortslutning
+	5. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
+	6. [Tid ved inversrelæ](#Tidsberegning-ved-inversrelæ)
+	7. [KB kontrol med strøm](#KB-kontrol-strøm)
+>>>>>>> 4795c100a888b11b7387a746a6ebfd12345ec816
 
 # Common
 ## Impendansberegninger
