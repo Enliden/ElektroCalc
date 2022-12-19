@@ -4,8 +4,21 @@
 \usepackage{float}
 %\input{../main.tex}
 
+
 \begin{document}
 Her kan man teste sine formler
+
+
+	\begin{Itotal}
+	{2 | 10 | 4 | 10 | 6 | 10 | 8 | 10 | 10 | 10 }
+	{sum}
+	{ et | to | tre | fire | fem }
+	%		{1 | 1 | 1 | 1 | 1} 
+	% { I1 | angle m. fortegn| I2 | angle2 | I3 | angle3 | I4 | angle4 | I5 | angle }
+	% {I resultat navn}
+	% {I1 navn | I2 navn | I3 navn | I4 navn | I5 navn}
+	% {Korrektion/start/inrush | samme 2 | samme 3 | samme 4 | samme 5}
+\end{Itotal}
 
 \begin{faktiskspænding}
 	{400}{0.05}{ n1 | n2 | n }
@@ -133,6 +146,20 @@ Kabel dimensionering strøm
 	%{Ik3,max}{ik1s}{t egen}{t navn | ik navn | leder navn}
 \end{HV-KBtid-leder}
 
+\begin{HV-KBtid-leder}{3000}{5000}{0,4}{skærm,>> | k3f | k,1s,skærm, W1 }
+	%{Ik3,max}{ik1s}{t egen}%{leder,>> | k3f | k,1s,leder, W1 }
+\end{HV-KBtid-leder}
+
+\begin{tid-inversrelæ}
+	{1}{2}{10}{20}{15}{>> | k2f}
+%{K} {C} {I} {I-hak} {a } { tidnavn | strømnavn }
+\end{tid-inversrelæ}
+
+\begin{KB-kontrol-strøm}
+	{600}{5000}{1}{0.1}{k,1s,skærm | k3,max | >> | e }
+	%{Ik1s,leder}{ik3max}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+	%{Ik1s,skærm}{ik2max}{t-hak-hak}{t egen}{k,1s,skærm | k3,max | t-hak navn | t-e navn }
+\end{KB-kontrol-strøm}
 
 \begin{table}[H]
 	\begin{tabular}{l|l}
@@ -158,6 +185,6 @@ Kabel dimensionering strøm
 \end{KB-kontrol-energi}
 
 \begin{3f-2f}{540}{1}{T1,max}
-	%{Ik strøm}{hvad du vil have 2f = 0/3f = 1}{Inavn uden ikxf}
+	%{Ik strøm}{2f = 0 , 3f = 1}{Inavn uden ikxf, typisk trafonavn og max}
 \end{3f-2f}
 \end{document}

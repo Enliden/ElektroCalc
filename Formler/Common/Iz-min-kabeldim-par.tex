@@ -20,6 +20,7 @@
 %Del Belastningen med korrektionsfaktor
 \FPeval\Iz{clip(round((\Ib / \Kab) / \KorrektionsF:2))}
 
+\def\enhed{A}%
 
 % Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V, Regner vi med Kd (dybden i jorden). Er den under kan det være at vi regner på overharmoniske strømme
 \FPifgt{\Un}{500}%
@@ -32,7 +33,7 @@
 \begin{align*}
         I_{z,min} 	&= \frac{I_{B} / n}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{n}} \\
         			&= \frac{\Ib / \Kab}{\Kt \cdot \Ks \cdot \Ktm \cdot \Kn} \\
-        			&= \Iz\\
+        			&= \Iz \unit{\enhed{}}\\
 \end{align*}
 \fi
 }

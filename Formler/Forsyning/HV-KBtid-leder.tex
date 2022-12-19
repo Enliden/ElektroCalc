@@ -1,6 +1,7 @@
 %Udarbejdet af Magnus Overby
 % Her definerer jeg min "makro" som laver en udregning for mig
 \newenvironment{HV-KBtid-leder}[4]
+%{leder,>> | k3f | k,1s,leder, W1 }
 %{Ik3,max}{ik1s}{t egen}{t navn | ik navn | leder navn}
 {
 \setsepchar{ | }
@@ -17,7 +18,7 @@
 
 
 \begin{align*}
-t_{leder,\Nam[1]} &= \left(\frac{I_{k,1s,leder,\Nam[3]}}{I_{k,\Nam[2]}}\right)^{2}-t_{egen} \\
+t_{\Nam[1]} &= \left(\frac{I_{\Nam[3]}}{I_{\Nam[2]}}\right)^{2}-t_{eg} \\
 			&= \left(\frac{\iks}{\ikTref}\right)^{2}-\tEgen \\
 			&= \tLeder s
 \end{align*}

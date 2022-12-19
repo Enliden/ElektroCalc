@@ -1,0 +1,116 @@
+
+
+
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{Itotal}[3]
+%{ I1 | angle m. fortegn| I2 | angle2 | I3 | angle3 | I4 | angle4 | I5 | angle }{I resultat navn}{I1 navn | I2 navn | I3 navn | I4 navn | I5 navn}{Korrektion/start/inrush | samme 2 | samme 3 | samme 4 | samme 5}
+{
+%bestemmer seperator samt læser lister
+\setsepchar{ | }
+\readlist\Zv{#1}
+\readlist\Nam{#3}
+%\readlist\nKab{#4}
+%Her udskiftes komma med punktum
+\StrSubstitute{\Zv[1]}{,}{.}[\Iet]%
+\StrSubstitute{\Zv[2]}{,}{.}[\Vet]%
+\StrSubstitute{\Zv[3]}{,}{.}[\Ito]%
+\StrSubstitute{\Zv[4]}{,}{.}[\Vto]%
+\StrSubstitute{\Zv[5]}{,}{.}[\Itre]%
+\StrSubstitute{\Zv[6]}{,}{.}[\Vtre]%
+\StrSubstitute{\Zv[7]}{,}{.}[\Ifi]%
+\StrSubstitute{\Zv[8]}{,}{.}[\Vfi]%
+\StrSubstitute{\Zv[9]}{,}{.}[\Ife]%
+\StrSubstitute{\Zv[10]}{,}{.}[\Vfe]%
+%\StrSubstitute{\nKab[1]}{,}{.}[\nEt]%
+%\StrSubstitute{\nKab[2]}{,}{.}[\nTo]%
+%\StrSubstitute{\nKab[3]}{,}{.}[\nTre]%
+%\StrSubstitute{\nKab[4]}{,}{.}[\nFi]%
+%\StrSubstitute{\nKab[5]}{,}{.}[\nFe]%
+%Da kvadratrod 3 bruges ofte defineres den her.
+\FPeval\sqTre{root(2,3)}
+
+%Udregn samlede R og X (ganger 1,8 med R for at få max værdi)
+\FPeval\Iw{\Iet * cos(\Vet * pi / 180) +  \Ito * cos(\Vto * pi / 180) + \Itre * cos(\Vtre* pi / 180) + \Ifi * cos(\Vfi* pi / 180) + \Ife * cos(\Vfe* pi / 180)}
+\FPeval\Iwl{\Iet * sin(\Vet * pi / 180) + \Ito * sin(\Vto * pi / 180) + \Itre * sin(\Vtre* pi / 180) + \Ifi * sin(\Vfi* pi / 180) + \Ife * sin(\Vfe* pi / 180)}
+
+%udregn samlede impedans
+\FPeval\Itot{ round(root(2,pow(2,\Iw)+pow(2,\Iwl)):2)}
+
+%\FPeval\Vtot(\tan(30 * pi / 180))
+
+%\FPeval\Itot{\Iw}
+\FPeval\Vtot{round(arctan(\Iw/\Iwl)*180/pi:2)}
+
+%tests "flag" til hvor mange impedanser der er.
+\FPeval\yepET{1}
+\FPeval\yepTO{1}
+\FPeval\yepTRE{1}
+\FPeval\yepFI{1}
+\FPeval\yepFE{1}
+
+\FPeval\Zettest{\Iet}
+\FPifzero{\Zettest}
+\begin{centering}
+	Ingen impedans, prøv igen\\
+\end{centering}
+\else
+\FPeval\yepET{0}
+\fi
+
+\FPeval\Ztotest{\Ito + \yepET}
+\FPifzero{\Ztotest}
+\begin{centering}
+	\overline{I_{#2}} 	&= \overline{I_{\Nam[1]}} \\
+						&= (\Iet \angle \Vet) \\
+\end{centering}
+\else
+\FPeval\yepTO{0}
+\fi
+
+\FPeval\Ztretest{\Itre + \yepET + \yepTO}
+\FPifzero{\Ztretest}
+\begin{align*}
+	\overline{I_{#2}} 	&= \overline{I_{\Nam[1]}} + \overline{I_{\Nam[2]}}\\
+						&= (\Iet \angle \Vet) + (\Ito \angle \Vto)\\
+						&= \Itot A \angle -\Vtot \degree \text
+\end{align*}
+\else
+\FPeval\yepTRE{0}
+\fi
+
+\FPeval\Ztretest{\Ifi + \yepET + \yepTO + \yepTRE}
+\FPifzero{\Ztretest}
+\begin{align*}
+	\overline{I_{#2}} 	&= \overline{I_{\Nam[1]}} + \overline{I_{\Nam[2]}} + \overline{I_{\Nam[3]}}\\
+						&= (\Iet \angle \Vet) + (\Ito \angle \Vto) + (\Itre \angle \Vtre)\\
+						&= \Itot A \angle -\Vtot \degree
+\end{align*}
+\else
+\FPeval\yepFI{0}
+\fi
+
+\FPeval\Ztretest{\Ife + \yepET + \yepTO + \yepTRE + \yepFI}
+\FPifzero{\Ztretest}
+\begin{align*}
+	\overline{I_{#2}} 	&= \overline{I_{\Nam[1]}} + \overline{I_{\Nam[2]}} + \overline{I_{\Nam[3]}} + \overline{I_{\Nam[4]}}\\
+						&= (\Iet \angle \Vet) + (\Ito \angle \Vto) + (\Itre \angle \Vtre) + (\Ifi \angle \Vfi)\\
+						&= \Itot A \angle -\Vtot \degree
+\end{align*}
+\else
+\FPeval\yepFE{0}
+\fi
+
+\FPeval\all{\yepET + \yepTO + \yepTRE + \yepFI + \yepFE}
+\FPifzero{\all}
+\begin{align*}
+	\overline{I_{#2}} 	&= \overline{I_{\Nam[1]}} + \overline{I_{\Nam[2]}} + \overline{I_{\Nam[3]}} + \overline{I_{\Nam[4]}} + \overline{I_{\Nam[5]}}\\
+						&= (\Iet \angle \Vet) + (\Ito \angle \Vto) + (\Itre \angle \Vtre) + (\Ifi \angle \Vfi) + (\Ife \angle \Vfe)\\
+						&= \Itot A \angle - \Vtot \degree
+\end{align*}
+\else
+\fi
+}
+
+
+

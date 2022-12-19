@@ -32,9 +32,9 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 	- [x] Oversigt
 - [x]  Spændingsfald Geometrisk
 	- [x] HV-spændingsfald
-		- [ ] Oversigt
+		- [x] Oversigt
 	- [x] LV-spændingsfald
-		- [ ] Oversigt
+		- [x] Oversigt
 	- [ ] Kapacitive spændingsfald
 
 ### Kortslutningsberegninger
@@ -50,17 +50,17 @@ Tools for inputing electrotechnical formulas and calculating the results in late
 		- [x] Oversigt
 - [x] Ik3f
 	- [x] HV min og max
-		- [ ] Oversigt
+		- [x] Oversigt
 	- [x] LV (Min og Maks)
 		- [x] Oversigt
 - [x] Ik3 til ik2 HV
-	- [ ] Oversigt
+	- [x] Oversigt
 - [x] Ik2f Parallele sikringssæt
 	- [x] Oversigt
 
 ### Tidsberegninger
 - [x]  tLeder og tSkærm HV
-	- [ ] Oversigt
+	- [x] Oversigt
 - [x] tid ved inversrelæ
 	- [x] Oversigt
 

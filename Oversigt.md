@@ -19,7 +19,7 @@
 	5. [2-faset kortslutning Parallelle sikringssæt](#Kortslutning-Parallele-Sikringssæt): LV-Ik2f,parSikr-kA
 	6. [Total maks-impedans](#Ztotal-maks): LV-Ztotal-max
 	7. [KB-kontrol-LV](#LV-KB-kontrol)
-	8. [Spændingsfald](#LV-spændingsfald)
+	8. [Spændingsfald[[#LV-spændingsfald]]](#LV-spændingsfald)
 3. [Forsyning](#Forsyning) (0/5)
 	1. [Spændingsfald](#Spændingsfald) HV: HV-deltaUnet
 	2. [1-faset kortslutning henført](#1f-kortslutning-henført): HV-ZtilIk1-prim
@@ -27,6 +27,7 @@
 	4. [Kabel-tværsnit til jordskinne-trafo](#S-jordskinne-trafo): S-skinnejord-trafo
 	5. [Tid ved inversrelæ](#Tidsberegning-ved-inversrelæ)
 	6. [KB kontrol med strøm](#KB-kontrol-strøm)
+	7. [Lækstrøm per fase](#lækstrøm)
 
 # Common
 ## Impendansberegninger
@@ -66,7 +67,7 @@
 ### Kabel-impedans
 ```latex
 	\begin{Zkabel}
-		{Længde i km}{r}{x}{Un}{kabelNavn}
+		{Længde i km}{r}{x}{Un}{W1}
 		%
 		%{Længde i km}
 		%{r}
@@ -75,7 +76,7 @@
 		%{kabelNavn typisk W1}
 	\end{Zkabel}
 ```
-fjern indeks fra zkabel.
+
 ### Z-total
 ```latex
 \begin{Ztotal}
@@ -101,7 +102,7 @@ fjern indeks fra zkabel.
 	% (spænding bruges tal at bestemme om det er Kd eller Kn} 
 \end{Iz,min}
 ```
-Tilføj enhed
+
 ## Strømværdi-parallele-kabler
 ```latex
 \begin{Iz,min,par}% 8 inputs
@@ -117,21 +118,19 @@ Tilføj enhed
 	%{antal kabler}
 	\end{Iz,min}
 ```
-Tilføj enhed
+
 ## Fuldlaststrøm-fra-Trafo
 ```latex
-\begin{TrafoFuldlast}{315000}{10500}{1.2}{T3.1 | prim}
-%{Sn}{U_trafo}{overlast}{Unavn | I navn}
+\begin{TrafoFuldlast}
+	{315000}{10500}{1.2}{N,T1| 1/1,T1,prim}
+	%{Sn}{U_trafo}{overlast}{Unavn | I navn}
 \end{TrafoFuldlast}
 ```
 
-REPARERES!
-Fjern strømmens navn fra spændingens navn
-Fjern 1/1 fra strømmens navn
-
 ## Strøm-henført
 ```latex
-\begin{I-henført}{I}{10,5}{0,42}{Inavn}{0}
+\begin{I-henført}
+	{I}{10,5}{0,42}{Inavn}{0}
 	%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
 \end{I-henført}
 ```
@@ -239,16 +238,25 @@ Fjern 1/1 fra strømmens navn
 \end{LV-deltaU}
 ```
 
+## Tleder 
+```latex
+\begin{HV-KBtid-leder}{3000}{5000}{0,4}{leder,>> | k3f | k,1s,leder, W1 }
+	%{Ik3,max}{ik1s}{t egen}%{leder,>> | k3f | k,1s,leder, W1 }
+\end{HV-KBtid-leder}
+```
+
+## Tskærm
+```latex
+\begin{HV-KBtid-leder}{3000}{5000}{0,4}{skærm,>> | k3f | k,1s,skærm, W1 }
+	%{Ik3,max}{ik1s}{t egen}%{leder,>> | k3f | k,1s,leder, W1 }
+\end{HV-KBtid-leder}
+```
+
 # Forsyning
 ## Spændingsfald
 ```latex
-\begin{HV-deltaUnet}
-	{}                       %{Ib}
-	{}                       %{R}
-	{}                       %{X}
-	{}                       %{cosPhi}
-	{}                       %{U navn 
-{}                       % | Ib navn}
+\begin{HV-deltaUnet}{130}{0,206}{0,081}{0,9}{W1 | T2}
+	%{Ib}{R}{X}{cosPhi}{U navn | Ib navn}
 \end{HV-deltaUnet}
 ```
 
@@ -259,15 +267,13 @@ Fjern 1/1 fra strømmens navn
 \end{HV-ZtilIk2f}
 ```
 
-fjern prædefineret indeks
-
 ## Ik3f-HV
 ```latex
 \begin{HV-ZtilIk3f}{10000}{ 0,45 | 2,67 | 0,47 | 0,19 | 0 | 0 | 0 | 0 | 0 | 0 }{Ik3f,T0,min | NT,max | kabel,Wtot | Z3 navn | Z4 navn | Z5 navn}
 %{Un}{ R1 | X1 | R2 | X2 | R3 | X3 | R4 | X4 | R5 | X5 }{Ik,navn | Z1 navn | Z2 navn | Z3 navn | Z4 navn | Z5 navn}
 \end{HV-ZtilIk3f}
 ```
-Fjern prædefineret indeks
+
 
 ## 1f-kortslutning-henført
 ```latex
@@ -279,30 +285,24 @@ Fjern prædefineret indeks
 \end{HV-ZtilIk1-prim}
 ```
 
-grimt gangetegn i første linje
+```latex
+\begin{3f-2f}{540}{1}{T1,max}
+	%{Ik strøm}{2f = 0 , 3f = 1}{Inavn uden ikxf, typisk trafonavn og max}
+\end{3f-2f}
+```
+
 ## S-jordskinne-trafo
 ```latex
-<<<<<<< HEAD
-	begin{S-skinnejord-trafo}
-	{}       %{Ik}
-	{}       %{udløsningstid}
-	{}       %{start temp}
-	{}       % {1/2 = relæ/sikring}
-	{}       % {Ik,navn}
-	{}        % {tid navn}
-	{}        %{tværsnit navn}
-	\end{S-skinnejord-trafo}
-=======
 \begin{S-skinnejord-trafo}
-{}       %{Ik}
-{}       %{udløsningstid}
-{}       %{start temp}
-{}       % {1/2 = relæ/sikring}
-{}       % {Ik,navn}
-{}        % {tid navn}
-{}        %{tværsnit navn}
+{5414.35}       %{Ik}
+{0.02}       %{udløsningstid}
+{40}       %{start temp}
+{2}       % {1/2 = relæ/sikring}
+{k2f,T1,min}       % {Ik,navn}
+{smelte}        % {tid navn}
+{BJ}        %{tværsnit navn}
 \end{S-skinnejord-trafo}
->>>>>>> 047f48febaf76bc0a8895c6d864bd7c138c53133
+
 ```
 
 ### Tidsberegning-ved-inversrelæ
@@ -322,6 +322,12 @@ grimt gangetegn i første linje
 \end{KB-kontrol-strøm}
 ```
 
+## Lækstrøm
+```latex
+\begin{HV-lækstrøm-pr-fase}{10000}{20}{0,44}{50}{tot,radial}
+	%{Un}{længde af kabler}{Kapitans pr km}{frekvens}{kabel navn}
+\end{HV-lækstrøm-pr-fase}
+```
 
 # Skabeloner
 ## Kabel dim
