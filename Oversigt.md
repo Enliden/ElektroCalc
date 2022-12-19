@@ -274,6 +274,7 @@ Fjern prædefineret indeks
 grimt gangetegn i første linje
 ## S-jordskinne-trafo
 ```latex
+<<<<<<< HEAD
 	begin{S-skinnejord-trafo}
 	{}       %{Ik}
 	{}       %{udløsningstid}
@@ -283,6 +284,17 @@ grimt gangetegn i første linje
 	{}        % {tid navn}
 	{}        %{tværsnit navn}
 	\end{S-skinnejord-trafo}
+=======
+\begin{S-skinnejord-trafo}
+{}       %{Ik}
+{}       %{udløsningstid}
+{}       %{start temp}
+{}       % {1/2 = relæ/sikring}
+{}       % {Ik,navn}
+{}        % {tid navn}
+{}        %{tværsnit navn}
+\end{S-skinnejord-trafo}
+>>>>>>> 047f48febaf76bc0a8895c6d864bd7c138c53133
 ```
 
 ### Tidsberegning-ved-inversrelæ

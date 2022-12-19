@@ -16,3 +16,11 @@ $$
 	\end{split}
 \end{equation*}
 $$
+
+$$
+\begin{equation*}
+	\begin{split}
+		I_{k2f} = I_{k3f} \cdot \frac{\sqrt{3}}{2} = I_{k3f} \cdot \frac{\sqrt{3}}{2} =
+	\end{split}
+\end{equation*}
+$$
