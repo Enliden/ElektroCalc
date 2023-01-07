@@ -25,15 +25,15 @@
 % Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V, Regner vi med Kd (dybden i jorden). Er den under kan det være at vi regner på overharmoniske strømme
 \FPifgt{\Un}{500}%
 \begin{align*}
-        I_{z,min} 	&= \frac{I_{B} / n}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{d}}\\
+        I_{z,min,par} 	&= \frac{I_{B} / n}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{d}}\\
         			&= \frac{\Ib / \Kab}{\Kt \cdot \Ks \cdot \Ktm \cdot \Kd} \\
-        			&= \Iz\\
+        			&= \Iz A\\
 \end{align*}
 \else
 \begin{align*}
-        I_{z,min} 	&= \frac{I_{B} / n}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{n}} \\
+        I_{z,min,par} 	&= \frac{I_{B} / n}{K_{t} \cdot K_{s} \cdot K_{tm} \cdot K_{n}} \\
         			&= \frac{\Ib / \Kab}{\Kt \cdot \Ks \cdot \Ktm \cdot \Kn} \\
-        			&= \Iz \unit{\enhed{}}\\
+        			&= \Iz A\\
 \end{align*}
 \fi
 }
