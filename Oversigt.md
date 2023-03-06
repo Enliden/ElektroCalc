@@ -36,7 +36,7 @@
 ### Netimpedans
 ```latex
 \begin{FraSkTilZ}
-	{net,min}{max}{Sk}{6}{0,58}{400}
+	{net,min}{max}{120}{6}{0,58}{400}
 	%{Impedansnavn, typisk net,min}
 	%{Sk max el. min}
 	%{Sk}
@@ -158,8 +158,8 @@
 ## Strøm-henført
 ```latex
 \begin{I-henført}
-	{I}{10,5}{0,42}{Inavn}{0}
-	%{I strøm}{Uprim}{Usek}{Inavn}{0 = sek til prim. 1 = prim til sek}
+	{360.96}{10,5}{0,42}{k1,min}{1}
+	%{I strøm}{Uprim}{Usek}{Inavn}{0 = prim til sek. 1 = sek til prim}
 \end{I-henført}
 ```
 

@@ -1,0 +1,44 @@
+%Udarbejdet af Magnus Overby
+% Her definerer jeg min "makro" som laver en udregning for mig
+\newenvironment{KB-kontrol-tid}[6]
+%{aflæst energi}{eksponent}{k-værdi}{tværsnit}{I^2t navn | k navn | tværsnit navn}
+{
+	\setsepchar{ | }
+	\readlist\Nam{#6}
+	%Her udskiftes komma med punktum
+	\StrSubstitute{#1}{,}{.}[\strøm]%
+	\StrSubstitute{#2}{,}{.}[\eksTal]%
+	\StrSubstitute{#3}{,}{.}[\tid]%
+	\StrSubstitute{#4}{,}{.}[\K]%
+	\StrSubstitute{#5}{,}{.}[\S]%
+	%Da kvadratrod 3 bruges ofte defineres den her.
+	\FPeval\sqTre{root(2,3)}
+	
+	%Udregn eksponenten til tal
+
+	%Udregn tilladelig gennemslip. Sørger for de har samme eksponent
+	\FPeval\tilGen{pow(2,\K * \S)}
+	\FPeval\TGSL{round(\tilGen / pow(\eksTal,10) :0)}
+	
+	\FPeval\Energigennemslip{ round((\strøm)^2 * \tid:2) }
+	\FPeval\EGSL{round(\Energigennemslip / pow(\eksTal,10) :0)}
+	
+	\def\truefalse{}
+	
+	\FPifgt{\tilGen}{\Energigennemslip} 
+	\renewcommand\truefalse{OK}
+	\else
+	\renewcommand\truefalse{Ikke \hspace{4pt} OK}
+	\fi
+	
+	\begin{align*}
+		I_{\Nam[1]}^2 \cdot t &\le k^2 \cdot S^2 \\
+	%
+		\strøm^2 \cdot \tid	&\le \K ^2 \cdot \S ^2 \\
+	%
+		\EGSL \cdot 10^{\eksTal}	&\le \TGSL \cdot 10^{\eksTal}   \longrightarrow  \truefalse
+	\end{align*}
+}
+
+
+

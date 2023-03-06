@@ -20,19 +20,26 @@
 \def\enhed{}%
 % Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
 \FPifgt{\Un}{500}%
-\FPeval\Rrounded{clip(round(\R * 1:2))}
-\FPeval\Xrounded{clip(round(\X * 1:2))}
+\FPeval\Rrounded{clip(round(\R * 1:3))}
+\FPeval\Xrounded{clip(round(\X * 1:3))}
 \renewcommand\enhed{\ohm}%
 \else
  %Lav til milli
-\FPeval\Rrounded{clip(round(\R * 1000:2))}
-\FPeval\Xrounded{clip(round(\X * 1000:2))}
+\FPeval\Rrounded{clip(round(\R * 1000:3))}
+\FPeval\Xrounded{clip(round(\X * 1000:3))}
 \renewcommand\enhed{\milli \ohm}%
 \fi
 
+%Z værdi
+\FPeval\Z{round(root(2,pow(2,\Rrounded) + pow(2,\Xrounded)):2)}
+\FPeval\ANGLE{ round(arccot(\X / \R) * 360 / ( 2 * pi ) : 2) }
 
 \begin{align*}
-Z_{#5} = l \cdot (r + jx) = \l \cdot (\r + j\x) = \Rrounded + j\Xrounded \unit{\enhed}
+\bar{Z_{#5}} = l \cdot (r + jx) = \l \cdot (\r + j\x) = 
+        \begin{cases} 
+	  \Rrounded+j\Xrounded \unit{\enhed} \\
+          \Z \angle \ANGLE \degree
+       \end{cases}
 \end{align*}
 }
 

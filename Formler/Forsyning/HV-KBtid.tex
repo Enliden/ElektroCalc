@@ -1,6 +1,6 @@
 %Udarbejdet af Magnus Overby
 % Her definerer jeg min "makro" som laver en udregning for mig
-\newenvironment{HV-KBtid-leder}[4]
+\newenvironment{HV-KBtid}[4]
 %{leder,>> | k3f | k,1s,leder, W1 }
 %{Ik3,max}{ik1s}{t egen}{t navn | ik navn | leder navn}
 {
@@ -14,11 +14,11 @@
 \FPeval\sqTre{root(2,3)}
 
 %Udregn tiden
-\FPeval\tLeder{round(pow(2,(\iks / \ikTref)) - \tEgen:2)}
+\FPeval\tLeder{round(pow(2,(\iks / \ikTref)) - \tEgen:4)}
 
 
 \begin{align*}
-t_{\Nam[1]} &= \left(\frac{I_{\Nam[3]}}{I_{\Nam[2]}}\right)^{2}-t_{eg} \\
+t_{\Nam[1]} &= \left(\frac{I_{\Nam[3]}}{I_{\Nam[2]}}\right)^{2}-t_{e} \\
 			&= \left(\frac{\iks}{\ikTref}\right)^{2}-\tEgen \\
 			&= \tLeder s
 \end{align*}

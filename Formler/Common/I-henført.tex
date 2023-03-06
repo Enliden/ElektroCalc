@@ -14,17 +14,17 @@
 \FPeval\sqTre{root(2,3)}
 
 %Udregn strømmen henført fra primær til sekundær
-\FPeval\ISP{round(\I * \Up / \Us:2)}
+\FPeval\ISP{round(\I * \sqTre * \Up / \Us:2)}
 
 %Udregn strømmen henført fra sekundær til primær
-\FPeval\IPS{round(\I / (\Up / \Us):2)}
+\FPeval\IPS{round(\I / (\sqTre * \Up / \Us):2)}
 
 
 \FPifzero{#5}
 \begin{equation*}
 	\begin{split}
 		I_{#4} 	&= I'_{#4} \cdot \frac{U_{prim}}{U_{sek}}\\
-					&= \I \cdot \frac{\Up}{\Us}\\
+					&= \I \cdot \sqrt{3} \cdot \frac{\Up}{\Us}\\
 					&= \ISP A
 	\end{split}
 \end{equation*}
@@ -32,7 +32,7 @@
 \begin{equation*}
 	\begin{split}
 		I'_{#4} 	&=\frac{I_{#4}}{\frac{U_{prim}}{U_{sek}}}\\
-					&= \frac{\I}{\frac{\Up}{\Us}}\\
+					&= \frac{\I}{\sqrt{3} \cdot \frac{\Up}{\Us}}\\
 					&= \IPS A
 	\end{split}
 \end{equation*}

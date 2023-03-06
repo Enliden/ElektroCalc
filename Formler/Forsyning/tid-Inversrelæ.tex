@@ -9,21 +9,21 @@
 \StrSubstitute{#1}{,}{.}[\K]%
 \StrSubstitute{#2}{,}{.}[\C]%
 \StrSubstitute{#3}{,}{.}[\I]%
-\StrSubstitute{#1}{,}{.}[\Ihak]%
-\StrSubstitute{#2}{,}{.}[\a]%
+\StrSubstitute{#4}{,}{.}[\Ihak]%
+\StrSubstitute{#5}{,}{.}[\a]%
 
 
 %Da kvadratrod 3 bruges ofte defineres den her.
 \FPeval\sqTre{root(2,3)}
 
 %Udregn tiden
-\FPeval\tInvers{\K * \C /( pow(\a,\I / \Ihak) - 1 )}
+\FPeval\tInvers{round(\K * \C /( pow(\a,\I / \Ihak) - 1 ):2)}
 
 
 \begin{align*}
-t_{\Nam[1]} &= K \cdot \frac{C}{ \left( \frac{I}{I_{hak}}\right)^a}   \\
-			&= \K \cdot \frac{\C}{ \left( \frac{\I}{\Ihak}\right)^\a} \\
-			&= \tInvers
+t_{\Nam[1]} &= K \cdot \frac{C}{ \left( \frac{I_{ \Nam[2]} }{I_{>}}\right)^a}   \\
+			&= \K \cdot \frac{\C}{ \left( \frac{\I}{\Ihak} \right)^{\a} - 1} \\
+			&= \tInvers \hspace{0.5 mm} \unit{s}
 \end{align*}
 }
 

@@ -35,6 +35,11 @@
 \FPeval\X{clip(\SinResult*\Z)}
 \FPeval\Xrounded{clip(round(\SinResult*\Z:2))}
 
+% Z
+\FPeval\Zrounded{clip(round(\Z:2))}
+% angle
+\FPeval\ANGLE{clip(round(\InverseCot * 360 / (2* pi):2))}
+
 \def\enhed{}%
 
 % Her laver jeg en if/else hvor jeg kigger på spændingen. Er spændingen over 500 V regner jeg i ohm - ellers milliohm. På den måde kan jeg bruge det i både LV og HV
@@ -52,7 +57,11 @@
 \begin{align*}
         \overline{Z}_{#1} &= \frac{U_n^2 \cdot}{S_{kn,#2}} \angle \text{arccot} \left( \frac{R}{X}\right) [\unit{\enhed}]\\
         &= \frac{#6^2}{#3 \cdot 10^#4} \angle \text{arccot} \left( #5 \right)\\
-        &= \Rrounded+j\Xrounded \unit{\enhed}
+        &= 
+        \begin{cases} 
+	  \Rrounded+j\Xrounded \unit{\enhed} \\
+          \Zrounded \angle \ANGLE \degree
+       \end{cases}       
 \end{align*}
 }
 
